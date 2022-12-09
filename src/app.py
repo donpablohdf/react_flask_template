@@ -12,7 +12,6 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 
-#from models import Person
 
 ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
@@ -49,10 +48,8 @@ def handle_invalid_usage(error):
 
 # generate sitemap with all your endpoints
 @app.route('/')
-def sitemap():
-    if ENV == "development":
-        return generate_sitemap(app)
-    return send_from_directory(static_file_dir, 'index.html')
+def sitemap():   
+    return generate_sitemap(app)
 
 # any other endpoint will try to serve it like a static file
 @app.route('/<path:path>', methods=['GET'])
