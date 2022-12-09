@@ -10,11 +10,10 @@ class Users(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     tipo = db.Column(db.Integer, unique=False, nullable=False) #por defecto 0 (usuario normal) 1 si es guía
+    descripcion = db.Column(db.Text, unique=False, nullable=True) # se rellena si es guía
     nombre = db.Column(db.String(120), unique=False, nullable=True)
     apellidos = db.Column(db.String(120), unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=True)
-    nacionalidad = db.Column(db.String(120), unique=False, nullable=True)
-    calificacion = db.Column(db.Integer, unique=False, nullable=True) # si es guia
     foto = db.Column(db.LargeBinary, unique=False, nullable=True)
 
     def __repr__(self):
@@ -30,15 +29,12 @@ class Actividades(db.Model):
     nombre = db.Column(db.String(120), unique=True, nullable=False)
     descripcion = db.Column(db.Text, unique=False, nullable=False)
     precio = db.Column(db.String(120), unique=False, nullable=False)
-    fecha_inicio = db.Column(db.DateTime, unique=True, nullable=False)
-    fecha_fin = db.Column(db.DateTime, unique=True, nullable=False)
+    fecha = db.Column(db.DateTime, unique=True, nullable=False)
     id_guia = db.Column(db.Integer, ForeignKey('users.id'), unique=False, nullable=False)
     ids_usuarios = db.Column(db.Text, unique=False, nullable=True) # array de ids de usuarios que han hecho la actividad
     ciudad = db.Column(db.String(120), unique=False, nullable=False)
-    nacionalidad = db.Column(db.String(120), unique=False, nullable=False)
     calificacion = db.Column(db.Integer, unique=False, nullable=True)
     foto = db.Column(db.LargeBinary, unique=False, nullable=True)
-    foto2 = db.Column(db.LargeBinary, unique=False, nullable=True)
     rels = relationship(Users)
 
     def __repr__(self):
@@ -66,3 +62,4 @@ class Reservas(db.Model):
             "id": self.id,
         }
 
+# una tabla de comentarios de actividad
