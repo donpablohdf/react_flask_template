@@ -48,8 +48,7 @@ class Reservas(db.Model):
     id = db.Column(db.Integer, Sequence('seq_reservas_id', start=1, increment=1), primary_key=True)
     num_reserva = db.Column(db.String(120), unique=True, nullable=False) #generado con uuid
     fecha_reserva = db.Column(db.DateTime, unique=True, nullable=False)
-    fecha_inicio = db.Column(db.DateTime, unique=True, nullable=False)
-    fecha_fin = db.Column(db.DateTime, unique=True, nullable=False)
+    fecha_realizacion = db.Column(db.DateTime, unique=True, nullable=False)
     id_actividad = db.Column(db.Integer, ForeignKey('actividades.id'), unique=False, nullable=False)
     estado = db.Column(db.Integer, unique=False, nullable=False) #0 contratada 1 terminada 2 cancelada
     rels = relationship(Actividades)
