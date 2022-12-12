@@ -4,9 +4,8 @@ from sqlalchemy.orm import relationship
 
 
 db = SQLAlchemy()
-
 class Users(db.Model):
-    id = db.Column(db.Integer,Sequence('seq_users_id', start=1, increment=1), primary_key=True)
+    id = db.Column(db.Integer,Sequence('users_id_seq', start=1, increment=1), primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     tipo = db.Column(db.Integer, unique=False, nullable=False) #por defecto 0 (usuario normal) 1 si es guía
@@ -15,6 +14,7 @@ class Users(db.Model):
     apellidos = db.Column(db.String(120), unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=True)
     foto = db.Column(db.String(120), unique=False, nullable=True)
+    
 
     def __repr__(self):
         return f'<Users {self.email}>'
@@ -35,8 +35,32 @@ class Users(db.Model):
     @classmethod
     def get_by_id(self, pid):
         return self.query.filter_by(id=pid).first()
+
+    @classmethod
+    def new_user(self, user):
+        new_user = Users(email=user['email'], password= user['password'], tipo =0)
+        db.session.add(new_user)
+        db.session.commit()
+        return True
+
+    @classmethod
+    def delete_by_id(self, pid):
+        user = self.query.get(pid)
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            return "Usuario borrado con exito"
+        return False
+
+    @classmethod
+    def new_user(self, user):        
+        new_user = Users(email=user['email'], password= user['password'], tipo= 0)
+        db.session.add(new_user)
+        db.session.commit()
+        return "Usuario creado con éxito"
+        
 class Actividades(db.Model):
-    id = db.Column(db.Integer, Sequence('seq_actividades_id', start=1, increment=1), primary_key=True)
+    id = db.Column(db.Integer, Sequence('actividades_id_seq', start=1, increment=1), primary_key=True)
     nombre = db.Column(db.String(120), unique=True, nullable=False)
     descripcion = db.Column(db.Text, unique=False, nullable=False)
     precio = db.Column(db.String(120), unique=False, nullable=False)
@@ -78,7 +102,7 @@ class Actividades(db.Model):
         return self.query.filter(self.ids_usuarios.ilike(f'%{pid}%')).all()
 
 class Reservas(db.Model):
-    id = db.Column(db.Integer, Sequence('seq_reservas_id', start=1, increment=1), primary_key=True)
+    id = db.Column(db.Integer, Sequence('reservas_id_seq', start=1, increment=1), primary_key=True)
     num_reserva = db.Column(db.String(120), unique=True, nullable=False) #generado con uuid
     fecha_reserva = db.Column(db.DateTime, unique=True, nullable=False)
     fecha_realizacion = db.Column(db.DateTime, unique=True, nullable=True)
@@ -119,7 +143,7 @@ class Reservas(db.Model):
 # una tabla de comentarios de actividad
 
 class Comentarios(db.Model):
-    id = db.Column(db.Integer, Sequence('seq_comentarios_id', start=1, increment=1), primary_key=True)
+    id = db.Column(db.Integer, Sequence('comentarios_id_seq', start=1, increment=1), primary_key=True)
     id_actividad = db.Column(db.Integer, ForeignKey('actividades.id'), unique=False, nullable=False)
     id_usuario = db.Column(db.Integer, ForeignKey('users.id'), unique=False, nullable=False)
     texto = db.Column(db.Text, unique=True, nullable=False) 

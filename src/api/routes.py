@@ -8,20 +8,23 @@ from api.utils import generate_sitemap, APIException
 api = Blueprint('api', __name__)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
 @api.route('/usuario/<int:usuario_id>', methods=['POST', 'GET'])
 def handle_user(usuario_id):
     user = Users.get_by_id(usuario_id)
     the_user = Users.serialize(user) 
     return jsonify(the_user), 200
+
+@api.route('/del_user/<int:usuario_id>', methods=['POST', 'GET'])
+def handle_del(usuario_id):
+    user = Users.delete_by_id(usuario_id)
+    return jsonify(user), 200
+
+@api.route('/new_user', methods=['POST'])
+def handle_new():
+    user = request.get_json()
+    user_new = Users.new_user(user)
+    return jsonify(user_new), 200
+
 
 @api.route('/actividad/<int:actividad_id>', methods=['POST', 'GET'])
 def handle_acti(actividad_id):
