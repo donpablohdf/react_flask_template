@@ -1,13 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, Sequence, DateTime
 from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash
 
 
 db = SQLAlchemy()
 class Users(db.Model):
     id = db.Column(db.Integer,Sequence('users_id_seq', start=1, increment=1), primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(255), unique=False, nullable=False)
     tipo = db.Column(db.Integer, unique=False, nullable=False) #por defecto 0 (usuario normal) 1 si es guía
     descripcion = db.Column(db.Text, unique=False, nullable=True) # se rellena si es guía
     nombre = db.Column(db.String(120), unique=False, nullable=True)
@@ -37,13 +38,6 @@ class Users(db.Model):
         return self.query.filter_by(id=pid).first()
 
     @classmethod
-    def new_user(self, user):
-        new_user = Users(email=user['email'], password= user['password'], tipo =0)
-        db.session.add(new_user)
-        db.session.commit()
-        return True
-
-    @classmethod
     def delete_by_id(self, pid):
         user = self.query.get(pid)
         if user:
@@ -53,8 +47,12 @@ class Users(db.Model):
         return False
 
     @classmethod
-    def new_user(self, user):        
-        new_user = Users(email=user['email'], password= user['password'], tipo= 0)
+    def new_user(self, user): 
+        comp_email= self.query.filter_by(email=user['email']).first()
+        if comp_email:
+            return 1   
+        hashed_password = generate_password_hash(str(user['password']), method='SHA256')    
+        new_user = Users(email=user['email'], password= hashed_password, tipo= 0)
         db.session.add(new_user)
         db.session.commit()
         return "Usuario creado con éxito"

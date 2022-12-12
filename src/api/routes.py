@@ -1,12 +1,19 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import os
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, Users, Actividades, Reservas, Comentarios
 from api.utils import generate_sitemap, APIException
+import datetime
+from datetime import timedelta
+import jwt
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask_jwt_extended import create_access_token
+
 
 api = Blueprint('api', __name__)
-
+ACCESS_EXPIRES = timedelta(hours=1)
 
 @api.route('/usuario/<int:usuario_id>', methods=['POST', 'GET'])
 def handle_user(usuario_id):
@@ -24,6 +31,25 @@ def handle_new():
     user = request.get_json()
     user_new = Users.new_user(user)
     return jsonify(user_new), 200
+
+@api.route('/login', methods=['POST', 'GET'])
+def login_user():
+    data = request.get_json()
+    SECRET = os.getenv('FLASK_APP_KEY')  # variable ENV
+    # print(data, SECRET, data['email'], data['password'])
+
+    if not data:
+        return jsonify({"error": 'no_data'}), 401
+
+    user = Users.query.filter_by(email=data['email']).first()
+    if user:
+        if check_password_hash(user.password, data['password']):
+            token = jwt.encode({'id': user.id, 'exp': datetime.datetime.utcnow(
+            ) + ACCESS_EXPIRES}, SECRET)
+            access_token = create_access_token(token)
+            return jsonify({"token": access_token}), 200
+        return jsonify({"error": 'no_pass'}), 401
+    return jsonify({"error": 'no_user'}), 401
 
 
 @api.route('/actividad/<int:actividad_id>', methods=['POST', 'GET'])
