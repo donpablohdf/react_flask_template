@@ -14,7 +14,7 @@ class Users(db.Model):
     nombre = db.Column(db.String(120), unique=False, nullable=True)
     apellidos = db.Column(db.String(120), unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=True)
-    foto = db.Column(db.LargeBinary, unique=False, nullable=True)
+    foto = db.Column(db.String(120), unique=False, nullable=True)
 
     def __repr__(self):
         return f'<Users {self.email}>'
@@ -23,7 +23,18 @@ class Users(db.Model):
         return {
             "id": self.id,
             "email": self.email,
+            "tipo": self.tipo,
+            "descripcion": self.descripcion,
+            "nombre": self.nombre,
+            "apellidos": self.apellidos,
+            "ciudad": self.ciudad,
+            "foto": self.foto,
+
+            
         }
+    @classmethod
+    def get_by_id(self, pid):
+        return self.query.filter_by(id=pid).first()
 class Actividades(db.Model):
     id = db.Column(db.Integer, Sequence('seq_actividades_id', start=1, increment=1), primary_key=True)
     nombre = db.Column(db.String(120), unique=True, nullable=False)
@@ -34,7 +45,7 @@ class Actividades(db.Model):
     ids_usuarios = db.Column(db.Text, unique=False, nullable=True) # array de ids de usuarios que han hecho la actividad
     ciudad = db.Column(db.String(120), unique=False, nullable=False)
     calificacion = db.Column(db.Integer, unique=False, nullable=True)
-    foto = db.Column(db.LargeBinary, unique=False, nullable=True)
+    foto = db.Column(db.String(120), unique=False, nullable=True)
     rels = relationship(Users)
 
     def __repr__(self):
@@ -43,22 +54,82 @@ class Actividades(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "nombre": self.nombre,
+            "descripcion": self.descripcion,
+            "precio": self.precio,
+            "fecha": self.fecha,
+            "id_guia": self.id_guia,
+            "ids_usuarios": self.ids_usuarios,
+            "ciudad": self.ciudad,
+            "calificacion": self.calificacion,
+            "foto": self.foto,
+            
         }
+    @classmethod
+    def get_by_id(self, pid):
+        return self.query.filter_by(id=pid).first()
+
+    @classmethod
+    def get_by_guia(self, pid):
+        return self.query.filter_by(id_guia=pid)
+
+    @classmethod
+    def get_by_user(self, pid):
+        return self.query.filter(self.ids_usuarios.ilike(f'%{pid}%')).all()
+
 class Reservas(db.Model):
     id = db.Column(db.Integer, Sequence('seq_reservas_id', start=1, increment=1), primary_key=True)
     num_reserva = db.Column(db.String(120), unique=True, nullable=False) #generado con uuid
     fecha_reserva = db.Column(db.DateTime, unique=True, nullable=False)
-    fecha_realizacion = db.Column(db.DateTime, unique=True, nullable=False)
+    fecha_realizacion = db.Column(db.DateTime, unique=True, nullable=True)
     id_actividad = db.Column(db.Integer, ForeignKey('actividades.id'), unique=False, nullable=False)
+    id_usuario = db.Column(db.Integer, ForeignKey('users.id'), unique=False, nullable=False)
+    id_guia = db.Column(db.Integer, unique=False, nullable=False)
     estado = db.Column(db.Integer, unique=False, nullable=False) #0 contratada 1 terminada 2 cancelada
     rels = relationship(Actividades)
+    rel2 = relationship(Users)
 
     def __repr__(self):
-        return f'<Reservas {self.nombre}>'
+        return f'<Reservas {self.num_reserva}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "num_reserva": self.num_reserva,
+            "fecha_reserva": self.fecha_reserva,
+            "fecha_realizacion": self.fecha_realizacion,
+            "id_actividad": self.id_actividad,
+            "id_usuario": self.id_usuario,
+            "id_guia": self.id_guia,
+            "estado": self.estado,
+            
+        }
+    @classmethod
+    def get_by_id(self, pid):
+        return self.query.filter_by(id=pid).first()
+
+    @classmethod
+    def get_by_guia(self, pid):
+        return self.query.filter_by(id_guia=pid)
+
+    @classmethod
+    def get_by_user(self, pid):
+        return self.query.filter_by(id_usuario=pid)
+        
+# una tabla de comentarios de actividad
+
+class Comentarios(db.Model):
+    id = db.Column(db.Integer, Sequence('seq_comentarios_id', start=1, increment=1), primary_key=True)
+    id_actividad = db.Column(db.Integer, ForeignKey('actividades.id'), unique=False, nullable=False)
+    id_usuario = db.Column(db.Integer, ForeignKey('users.id'), unique=False, nullable=False)
+    texto = db.Column(db.Text, unique=True, nullable=False) 
+    rels = relationship(Actividades)
+    rel2= relationship(Users)
+
+    def __repr__(self):
+        return f'<Comentarios {self.nombre}>'
 
     def serialize(self):
         return {
             "id": self.id,
         }
-
-# una tabla de comentarios de actividad
