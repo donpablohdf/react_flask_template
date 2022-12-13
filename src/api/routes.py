@@ -8,6 +8,7 @@ from api.utils import generate_sitemap, APIException
 import datetime
 from datetime import timedelta
 import jwt
+from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
 
@@ -21,10 +22,28 @@ def handle_user(usuario_id):
     the_user = Users.serialize(user) 
     return jsonify(the_user), 200
 
-@api.route('/del_user/<int:usuario_id>', methods=['POST', 'GET'])
+@api.route('/desactiva_user/<int:usuario_id>', methods=['POST', 'GET'])
 def handle_del(usuario_id):
-    user = Users.delete_by_id(usuario_id)
+    user = Users.desactiva_by_id(usuario_id)
     return jsonify(user), 200
+
+@api.route('/modifica_user/<int:usuario_id>', methods=['POST', 'GET'])
+def handle_mod(usuario_id):
+    data = request.get_json()
+    mod_user = Users.modifica_by_id(usuario_id, data)
+    return jsonify(mod_user), 200
+
+@api.route('/foto_user/<int:usuario_id>', methods=['POST', 'GET'])
+def handle_foto(usuario_id):
+    if request.method == 'POST':
+        f = request.files['archivo']
+        filename = secure_filename(f.filename)
+        # Guardamos el archivo en el directorio
+        f.save(os.path.join("src/imgs/users", filename))
+        foto_user = Users.foto_by_id(usuario_id, "src/imgs/users/"+filename)
+        return jsonify(foto_user), 200
+    else:
+        return jsonify("No POST"), 400
 
 @api.route('/new_user', methods=['POST'])
 def handle_new():
@@ -36,8 +55,6 @@ def handle_new():
 def login_user():
     data = request.get_json()
     SECRET = os.getenv('FLASK_APP_KEY')  # variable ENV
-    # print(data, SECRET, data['email'], data['password'])
-
     if not data:
         return jsonify({"error": 'no_data'}), 401
 
@@ -51,7 +68,7 @@ def login_user():
         return jsonify({"error": 'no_pass'}), 401
     return jsonify({"error": 'no_user'}), 401
 
-
+# --------------------------------------- ACTIVIDADES---------------------
 @api.route('/actividad/<int:actividad_id>', methods=['POST', 'GET'])
 def handle_acti(actividad_id):
     acti = Actividades.get_by_id(actividad_id)
@@ -73,6 +90,8 @@ def handle_acti_user(user_id):
         all_act_user = [Actividades.serialize() for Actividades in act_user]
         return jsonify(all_act_user), 200
     return jsonify({"message":"Error al recuperar datos"}), 400
+
+# -----------------------------------RESERVAS
 
 @api.route('/reserva/<int:reserva_id>', methods=['POST', 'GET'])
 def handle_reser(reserva_id):

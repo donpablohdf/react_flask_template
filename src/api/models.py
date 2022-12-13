@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey, Sequence, DateTime
+from sqlalchemy import ForeignKey, Sequence, DateTime, update
 from sqlalchemy.orm import relationship
-from werkzeug.security import generate_password_hash
+#from werkzeug import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 db = SQLAlchemy()
@@ -15,6 +16,7 @@ class Users(db.Model):
     apellidos = db.Column(db.String(120), unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=True)
     foto = db.Column(db.String(120), unique=False, nullable=True)
+    activo = db.Column(db.Integer, unique=False, nullable=True) # 0 inactivo 1 activo
     
 
     def __repr__(self):
@@ -30,6 +32,7 @@ class Users(db.Model):
             "apellidos": self.apellidos,
             "ciudad": self.ciudad,
             "foto": self.foto,
+            "activo": self.activo,
 
             
         }
@@ -38,12 +41,41 @@ class Users(db.Model):
         return self.query.filter_by(id=pid).first()
 
     @classmethod
-    def delete_by_id(self, pid):
+    def desactiva_by_id(self, pid):
         user = self.query.get(pid)
         if user:
-            db.session.delete(user)
+            user.activo = 0
             db.session.commit()
-            return "Usuario borrado con exito"
+            return "Usuario desactivado con exito"
+        return False
+
+    @classmethod
+    def foto_by_id(self, pid,foto):
+        user = self.query.get(pid)
+        if user:
+            user.foto = foto
+            db.session.commit()
+            return "Foto cambiada con exito"
+        return False
+        
+    @classmethod
+    def modifica_by_id(self, pid, data):
+        if data:
+            print(data)
+            user = self.query.get(pid)
+        if user:
+            if data['password']:
+                if check_password_hash(user.password, data['password']): 
+                    hashed_password = generate_password_hash(str(data['password']), method='SHA256')
+                    user.password=hashed_password   
+            if user.email!=data["email"]: user.email=data["email"]
+            if user.tipo!=data["tipo"]: user.tipo=data["tipo"]
+            if user.descripcion!=data["descripcion"]: user.descripcion=data["descripcion"]
+            if user.nombre!=data["nombre"]: user.nombre=data["nombre"]
+            if user.apellidos!=data["apellidos"]: user.apellidos=data["apellidos"]
+            if user.ciudad!=data["ciudad"]: user.ciudad=data["ciudad"]
+            db.session.commit()
+            return "Usuario modificado con exito"
         return False
 
     @classmethod
@@ -52,7 +84,7 @@ class Users(db.Model):
         if comp_email:
             return 1   
         hashed_password = generate_password_hash(str(user['password']), method='SHA256')    
-        new_user = Users(email=user['email'], password= hashed_password, tipo= 0)
+        new_user = Users(email=user['email'], password= hashed_password, tipo= 0, activo=1)
         db.session.add(new_user)
         db.session.commit()
         return "Usuario creado con éxito"
