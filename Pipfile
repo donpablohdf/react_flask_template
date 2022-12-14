@@ -20,6 +20,13 @@ flask-admin = "*"
 typing-extensions = "*"
 jwt = "*"
 flask-jwt-extended = "*"
+future = "*"
+google = "*"
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
+google-auth = "*"
+requests = "*"
 
 [requires]
 python_version = "3.10"

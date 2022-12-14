@@ -1,8 +1,19 @@
+from __future__ import print_function
+import requests
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey, Sequence, DateTime, update
 from sqlalchemy.orm import relationship
-#from werkzeug import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
+import secrets
+import string
+
+
+import base64
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import smtplib
+
+#from api.Google import Create_Service
 
 
 db = SQLAlchemy()
@@ -39,6 +50,37 @@ class Users(db.Model):
     @classmethod
     def get_by_id(self, pid):
         return self.query.filter_by(id=pid).first()
+
+    @classmethod
+    def pass_by_mail(self, usuario_email):
+        #generar password
+        letters = string.ascii_letters
+        digits = string.digits
+        alphabet = letters + digits 
+        pwd_length = 8
+        pwd = ''
+        for i in range(pwd_length):
+            pwd += ''.join(secrets.choice(alphabet))
+
+        if pwd!='':
+            user_email= self.query.filter_by(email=usuario_email).first()
+            if not user_email:
+                return "El email no es válido"
+            user = self.query.get(user_email.id)
+            new_password = generate_password_hash(pwd, method='SHA256')
+            user.password=new_password
+            db.session.commit()
+            #enviar password      
+            envio = requests.post("https://api.mailgun.net/v3/sandbox97a2f98c3e074c388e1d02fb35ed5ae4.mailgun.org/messages",
+                auth=("api", "0cf0f0943e20bc8e07c6b454da84bb25-48d7d97c-6e9be95a"),
+                data={"from": "OH MY TOWN <ohmytownapp@gmail.com>",
+                "to": [usuario_email],
+                "subject": "Nueva contraseña OH MY TOWN",
+                "text": "Hola, tu nueva contraseña es "+pwd })
+            if "200" in str(envio):
+                return "Enviado password"
+            else:
+                return "Password no enviado"
 
     @classmethod
     def desactiva_by_id(self, pid):
