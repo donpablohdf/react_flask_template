@@ -44,7 +44,6 @@ class Users(db.Model):
             "ciudad": self.ciudad,
             "foto": self.foto,
             "activo": self.activo,
-
             
         }
     @classmethod
@@ -72,7 +71,7 @@ class Users(db.Model):
             db.session.commit()
             #enviar password      
             envio = requests.post("https://api.mailgun.net/v3/sandbox97a2f98c3e074c388e1d02fb35ed5ae4.mailgun.org/messages",
-                auth=("api", "0cf0f0943e20bc8e07c6b454da84bb25-48d7d97c-6e9be95a"),
+                auth=("api", ""),
                 data={"from": "OH MY TOWN <ohmytownapp@gmail.com>",
                 "to": [usuario_email],
                 "subject": "Nueva contraseña OH MY TOWN",
