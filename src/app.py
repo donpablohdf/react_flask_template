@@ -19,7 +19,7 @@ static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
-# database condiguration
+# database configuration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace("postgres://", "postgresql://")
@@ -31,8 +31,10 @@ MIGRATE = Migrate(app, db, compare_type = True)
 db.init_app(app)
 
 # Configura la extensión Flask-JWT-Extended
-app.config["JWT_SECRET_KEY"] = "franpablodonato"
+app.config["JWT_SECRET_KEY"] = "fran pablo donato"
+#app.config['PROPAGATE_EXCEPTIONS'] = True
 jwt = JWTManager(app)
+#jwt_m.init_app(app)
 
 # Allow CORS requests to this API
 CORS(app)
