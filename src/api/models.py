@@ -1,4 +1,5 @@
 import __future__
+from mailjet_rest import Client
 import requests
 import os
 from flask_sqlalchemy import SQLAlchemy
@@ -18,9 +19,9 @@ from datetime import datetime, timedelta
 #import smtplib
 
 
-API_KEY = os.getenv("MAIL_KEY")
-DOM_MAIL = "https://api.mailgun.net/v3/"+os.getenv("MAIL_DOM")+"/messages"
-EMAILPP= "mailgun@"+os.getenv("MAIL_DOM")
+API_KEY = os.getenv("MAILJET_KEY")
+SECRET_MAIL = os.getenv("MAILJET_SECRET")
+mailjet = Client(auth=(API_KEY, SECRET_MAIL), version='v3.1')
 
 db = SQLAlchemy()
 class Users(db.Model):
@@ -75,18 +76,32 @@ class Users(db.Model):
             new_password = generate_password_hash(pwd, method='SHA256')
             user.password=new_password
             db.session.commit()
-            #enviar password      
-            envio = requests.post(
-                DOM_MAIL,
-                auth=("api", API_KEY),
-                data={"from": "OH MY TOWN <"+EMAILPP+">",
-                "to": [usuario_email],
-                "subject": "Nueva contraseña OH MY TOWN",
-                "text": "Hola, tu nueva contraseña es "+pwd })
-            if "200" in str(envio):
+            #enviar password  
+            data = {
+                    'Messages': [
+                        {
+                        "From": {
+                            "Email": "ohmytownapp@gmail.com",
+                            "Name": "OH MY TOWN"
+                        },
+                        "To": [
+                            {
+                            "Email": usuario_email,
+                            "Name": user.nombre
+                            }
+                        ],
+                        "Subject": "Nueva contraseña OH MY TOWN",
+                        "TextPart": "My first Mailjet email",
+                        "HTMLPart": "<h3>Hola, Tu nueva contraseña es"+pwd,
+                        "CustomID": "AppGettingStartedTest"
+                        }
+                    ]
+                    }    
+            result = mailjet.send.create(data=data)
+            if "200" in str(result.status_code):
                 return "Enviado password"
             else:
-                print(str(envio))
+                print(str(result.status_code))
                 return "Password no enviado"
 
     @classmethod
@@ -256,15 +271,27 @@ class Actividades(db.Model):
                         fecha_str= datetime.strftime(fecha_c,'%d-%m-%Y a las %H:%M')
                         txt_mail= "Hola, tu reserva "+reserva_cancelada.num_reserva+" con fecha "+fecha_str+" ha sido cancelada"
                         #print(txt_mail)
-                        envio = requests.post(
-                                DOM_MAIL,
-                                auth=("api", API_KEY),
-                                data={"from": "OH MY TOWN <"+EMAILPP+">",
-                                "to": [user.email],
-                                "subject": "Cancelación de reserva "+reserva_cancelada.num_reserva,
-                                "text": txt_mail })
-                        print(str(envio))
-
+                        data = {
+                                'Messages': [
+                                    {
+                                    "From": {
+                                        "Email": "ohmytownapp@gmail.com",
+                                        "Name": "OH MY TOWN"
+                                    },
+                                    "To": [
+                                        {
+                                        "Email": user.email,
+                                        "Name": user.nombre
+                                        }
+                                    ],
+                                    "Subject": "Cancelación de reserva "+reserva_cancelada.num_reserva,
+                                    "TextPart": "My first Mailjet email",
+                                    "HTMLPart": txt_mail,
+                                    "CustomID": "AppGettingStartedTest"
+                                    }
+                                ]
+                                }    
+                        result = mailjet.send.create(data=data)
                     act.activo = 0 
                     db.session.commit()
                 else: #si no hay nada en el campo ids_usuarios
@@ -281,7 +308,6 @@ class Actividades(db.Model):
     def search(self):
         return self.query.filter_by(activo=1)
 
-        #self.query.order_by(Actividades.calificacion.desc()).limit(6)
 
 class Reservas(db.Model):
     id = db.Column(db.Integer, Sequence('reservas_id_seq', start=1, increment=1), primary_key=True)
@@ -321,14 +347,116 @@ class Reservas(db.Model):
     @classmethod
     def get_by_user(self, pid):
         return self.query.filter_by(id_usuario=pid)
-        
+
+    @classmethod
+    def res_estado(self, est):
+        return self.query.filter_by(estado=est)
+
+    @classmethod
+    def desactiva_by_id(self, pid):
+        res = self.query.get(pid)
+        if res:
+            fecha_res = datetime.strptime(str(res.fecha_realizacion), "%Y-%m-%d %H:%M:%S")
+            fecha_str= datetime.strftime(fecha_res,'%d-%m-%Y a las %H:%M')
+            guia = Users.query.get(res.id_guia)
+            usuario = Users.query.get(res.id_usuario)
+            actividad= Actividades.query.get(res.id_actividad)
+            lista_ids_usuarios = actividad.ids_usuarios.split(sep=',')
+            #print(lista_ids_usuarios)
+            lista_ids_usuarios.remove(str(res.id_usuario))
+            if len(lista_ids_usuarios)<=1:
+                actividad.ids_usuarios="".join(map(str, lista_ids_usuarios)) 
+            else:
+                actividad.ids_usuarios =",".join(map(str, lista_ids_usuarios))
+            db.session.commit()
+            txt_mail= "Hola, la reserva "+res.num_reserva+" de la actividad "+actividad.nombre+" con fecha "+fecha_str+" ha sido cancelada por el usuario " +usuario.nombre
+            #print(txt_mail)
+            data = {
+                                'Messages': [
+                                    {
+                                    "From": {
+                                        "Email": "ohmytownapp@gmail.com",
+                                        "Name": "OH MY TOWN"
+                                    },
+                                    "To": [
+                                        {
+                                        "Email": guia.email,
+                                        "Name": guia.nombre
+                                        }
+                                    ],
+                                    "Subject": "Cancelación de reserva "+res.num_reserva,
+                                    "TextPart": "My first Mailjet email",
+                                    "HTMLPart": txt_mail,
+                                    "CustomID": "AppGettingStartedTest"
+                                    }
+                                ]
+                                }    
+            result = mailjet.send.create(data=data)
+            res.estado = 2 
+            db.session.commit()
+            return "Reserva cancelada con exito"
+        return "Reserva no encontrada"
+    @classmethod
+    def res_nueva(self, datos):
+        letters = string.ascii_letters
+        digits = string.digits
+        alphabet = letters + digits 
+        pwd_length = 6
+        pwd = ''
+        for i in range(pwd_length):
+            pwd += ''.join(secrets.choice(alphabet))
+        num_reserva_g = str(datos["id_usuario"])+"_"+str(datos["id_guia"])+"_"+str(datos["id_actividad"])+"_"+str(pwd)
+        actividad= Actividades.query.get(datos['id_actividad'])
+        actividad.ids_usuarios = actividad.ids_usuarios +","+str(datos['id_usuario'])
+        db.session.commit()
+        usuario = Users.query.get(datos['id_usuario'])
+        guia = Users.query.get(datos['id_guia'])
+        new_res = Reservas(
+            num_reserva=num_reserva_g,
+            fecha_reserva=datetime.now(), 
+            id_actividad=datos['id_actividad'], 
+            estado=0, 
+            fecha_realizacion=actividad.fecha, 
+            id_usuario=datos['id_usuario'], 
+            id_guia=datos['id_guia']
+        )
+
+        db.session.add(new_res)
+        db.session.commit()
+        if guia:
+            txt_mail= "Hola, El usuario "+usuario.nombre+" ha hecho una reserva de la actividad "+actividad.nombre+" con número de reserva "+ num_reserva_g
+            #print(txt_mail)
+            data = {
+                                'Messages': [
+                                    {
+                                    "From": {
+                                        "Email": "ohmytownapp@gmail.com",
+                                        "Name": "OH MY TOWN"
+                                    },
+                                    "To": [
+                                        {
+                                        "Email": guia.email,
+                                        "Name": guia.nombre
+                                        }
+                                    ],
+                                    "Subject": "Nueva reserva de la actividad "+actividad.nombre,
+                                    "TextPart": "My first Mailjet email",
+                                    "HTMLPart": txt_mail,
+                                    "CustomID": "AppGettingStartedTest"
+                                    }
+                                ]
+                                }    
+            result = mailjet.send.create(data=data)
+            return "Reserva creada con exito"
+        return "Guia no encontrado"
 # una tabla de comentarios de actividad
 
 class Comentarios(db.Model):
     id = db.Column(db.Integer, Sequence('comentarios_id_seq', start=1, increment=1), primary_key=True)
     id_actividad = db.Column(db.Integer, ForeignKey('actividades.id'), unique=False, nullable=False)
     id_usuario = db.Column(db.Integer, ForeignKey('users.id'), unique=False, nullable=False)
-    texto = db.Column(db.Text, unique=True, nullable=False) 
+    texto = db.Column(db.Text, unique=True, nullable=False)
+    activo = db.Column(db.Integer, unique=False, nullable=True) # 0 inactivo 1 activo
     rels = relationship(Actividades)
     rel2= relationship(Users)
 
@@ -338,4 +466,37 @@ class Comentarios(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "id_actividad": self.id_actividad,
+            "id_usuario": self.id_usuario,
+            "texto": self.texto,
+            "activo": self.activo
+            
         }
+    @classmethod
+    def get_by_id(self, pid):
+        return self.query.filter_by(id=pid).first()
+
+    @classmethod
+    def get_by_act(self, pid):
+        return self.query.filter_by(id_actividad=pid, activo=1)
+
+    @classmethod
+    def com_nuevo(self, id_act, id_usr, data): 
+        new_comn_act = Comentarios(
+            id_actividad=id_act,
+            id_usuario=id_usr, 
+            texto=data['texto'], 
+            activo=1
+        )
+        db.session.add(new_comn_act)
+        db.session.commit()
+        return "Comentario creado con éxito"
+
+    @classmethod
+    def desactiva_by_id(self, pid):
+        com = self.query.get(pid)
+        if com:
+            com.activo = 0
+            db.session.commit()
+            return "Comentario desactivado con exito"
+        return False

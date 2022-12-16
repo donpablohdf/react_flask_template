@@ -178,9 +178,7 @@ def search_act():
     group_act = [Actividades.serialize() for Actividades in search]
     return jsonify(group_act), 200
 
-
-
-# -----------------------------------RESERVAS
+# -----------------------------------RESERVAS-----------------------------------------------------------
 
 
 @api.route('/reserva/<int:reserva_id>', methods=['POST', 'GET'])
@@ -206,3 +204,49 @@ def handle_reser_user(user_id):
         all_reser_user = [Reservas.serialize() for Reservas in reser_user]
         return jsonify(all_reser_user), 200
     return jsonify({"message": "Error al recuperar datos"}), 400
+
+@api.route('/reserva_est/<int:estado>', methods=['POST', 'GET'])
+def reser_estado(estado):
+    reser_est = Reservas.res_estado(estado)
+    if reser_est:
+        all_reser_est= [Reservas.serialize() for Reservas in reser_est]
+        return jsonify(all_reser_est), 200
+    return jsonify({"message": "Error al recuperar datos"}), 400
+
+@api.route('/reserva_canc/<int:id_reserva>', methods=['POST', 'GET'])
+def reser_canc(id_reserva):
+    reser_c = Reservas.desactiva_by_id(id_reserva)
+    return jsonify(reser_c), 200
+
+@api.route('/reserva_new', methods=['POST', 'GET'])
+def res_nw():
+    data = request.get_json()
+    nw_res = Reservas.res_nueva(data)
+    return jsonify(nw_res), 200
+
+#-------------------COMENTARIOS------------------
+
+@api.route('/comentarios/<int:comen_id>', methods=['POST', 'GET'])
+def handle_comen(comen_id):
+    comentario = Comentarios.get_by_id(comen_id)
+    the_comen = Comentarios.serialize(comentario)
+    return jsonify(the_comen), 200
+
+@api.route('/comentarios_act/<int:id_actividad>', methods=['POST', 'GET'])
+def comen_act(id_actividad):
+    com_act = Comentarios.get_by_act(id_actividad)
+    if com_act:
+        all_com_act = [Comentarios.serialize() for Comentarios in com_act]
+        return jsonify(all_com_act), 200
+    return jsonify({"message": "Error al recuperar datos"}), 400
+
+@api.route('/comen_new/<int:id_actividad>/<int:id_usuario>', methods=['POST', 'GET'])
+def comen_nw(id_actividad, id_usuario):
+    data = request.get_json()
+    nw_comen = Comentarios.com_nuevo(id_actividad, id_usuario, data)
+    return jsonify(nw_comen), 200
+
+@api.route('/desactiva_com/<int:comen_id>', methods=['POST', 'GET'])
+def comen_del(comen_id):
+    com = Comentarios.desactiva_by_id(comen_id)
+    return jsonify(com), 200
