@@ -12,6 +12,7 @@ import jwt
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
+import uuid
 
 
 api = Blueprint('api', __name__)
@@ -43,8 +44,10 @@ def handle_foto(usuario_id):
     if request.method == 'POST':
         f = request.files['archivo']
         filename = secure_filename(f.filename)
-        f.save(os.path.join("src/imgs/users", str(usuario_id)+"_"+filename))
-        foto_user = Users.foto_by_id(usuario_id, "src/imgs/users/"+str(usuario_id)+"_"+filename)
+        renom = uuid.uuid4()
+        archivo= "src/imgs/users/"+str(usuario_id)+"_"+str(renom)+"_"+filename
+        f.save(os.path.join(archivo))
+        foto_user = Users.foto_by_id(usuario_id, archivo)
         return jsonify(foto_user), 200
     else:
         return jsonify("No POST"), 400
@@ -109,6 +112,73 @@ def handle_acti_user(user_id):
         all_act_user = [Actividades.serialize() for Actividades in act_user]
         return jsonify(all_act_user), 200
     return jsonify({"message": "Error al recuperar datos"}), 400
+
+@api.route('/actividades_index', methods=['POST', 'GET'])
+def handle_acti_index():
+    act_ind = Actividades.act_index()
+    if act_ind:
+        all_act_index = [Actividades.serialize() for Actividades in act_ind]
+        return jsonify(all_act_index), 200
+    return jsonify({"message": "Error al recuperar datos"}), 400
+
+@api.route('/new_act/<int:guia_id>', methods=['POST', 'GET'])
+def new_act(guia_id):
+    if request.method == 'POST':
+        f = request.files['archivo']
+        filename = secure_filename(f.filename)
+        renom = uuid.uuid4()
+        archivo= "src/imgs/actividades/"+str(guia_id)+"_"+str(renom)+"_"+filename
+        f.save(os.path.join(archivo))
+        
+       
+        data={
+            "nombre": request.form["nombre"],
+            "descripcion": request.form["descripcion"],
+            "precio": request.form["precio"],
+            "fecha": request.form["fecha"],
+            "id_guia": guia_id,
+            "ciudad": request.form["ciudad"],
+            "foto": archivo,
+            
+        }
+        new_act_guia = Actividades.new_act(guia_id, data)
+        
+        return jsonify(new_act_guia), 200
+    else:
+        return jsonify("No POST"), 400
+
+@api.route('/modifica_act/<int:act_id>', methods=['POST', 'GET'])
+def act_mod(act_id):
+    data = request.get_json()
+    mod_act = Actividades.modifica_by_id(act_id, data)
+    return jsonify(mod_act), 200
+
+
+@api.route('/foto_act/<int:act_id>/<int:guia_id>', methods=['POST', 'GET'])
+def act_foto(act_id, guia_id):
+    if request.method == 'POST':
+        f = request.files['archivo']
+        filename = secure_filename(f.filename)
+        renom = uuid.uuid4()
+        archivo= "src/imgs/actividades/"+str(guia_id)+"_"+str(renom)+"_"+filename
+        f.save(os.path.join(archivo))
+        foto_act = Actividades.foto_by_id(act_id, archivo)
+        return jsonify(foto_act), 200
+    else:
+        return jsonify("No POST"), 400
+
+@api.route('/desactiva_act/<int:act_id>', methods=['POST', 'GET'])
+def act_del(act_id):
+    user = Actividades.desactiva_by_id(act_id)
+    return jsonify(user), 200
+
+@api.route('/search', methods=['POST', 'GET'])
+def search_act():
+    search = Actividades.search()
+    group_act = [Actividades.serialize() for Actividades in search]
+    return jsonify(group_act), 200
+
+
 
 # -----------------------------------RESERVAS
 
