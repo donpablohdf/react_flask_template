@@ -67,25 +67,31 @@ It is recomended to install the backend first, make sure you have Python 3.8, Pi
 
 ### Backend Populate Table Users
 
-To insert test users in the database execute the following command:
+To insert test data in the database execute the following command if pipenv run start:
+In another terminal:
 
 ```sh
-$ flask insert-test-users 5
+$ pipenv shell
+```
+
+```sh
+$ flask insert-test-data
 ```
 
 And you will see the following message:
 
 ```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
+Creating test users
+All test user created
+Creating test actividades
+All test actividades created
+Creating test reservas
+All test reservas created
+Creating test comentarios
+All test actividades created
+Test mail conf
 ```
 
-To update with all yours tables you can edit the file app.py and go to the line 80 to insert the code to populate others tables
 
 ### Front-End Manual Installation:
 
