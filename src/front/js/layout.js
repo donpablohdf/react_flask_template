@@ -4,7 +4,15 @@ import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
+import { Help } from "./pages/help"
+import { Guia } from "./pages/guia";
+import { Login } from "./pages/login";
+import { Search } from "./pages/search";
+import { Actividades } from "./pages/actividades";
+import { SignUp } from "./pages/signup";
+import { UserHome } from "./pages/userhome";
+import { Cart } from "./pages/cart"
+import { Reservas } from "./pages/reservas"
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -22,10 +30,18 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<h1>Not found!</h1>} />
+                        <Route element = {<Home />} path="/" />
+                        <Route element = {<Search/>} path = "/search"/>
+                        <Route element = {<Demo />} path="/demo" />
+                        <Route element = {<Help />} path="/help" />
+                        <Route element = {<Guia />} path="/guia/:theid" />
+                        <Route element = {<Actividades />} path="/actividades/:theid" />
+                        <Route element = {<Login/>} path = "/login"/>
+                        <Route element = {<SignUp/>} path = "/signup"/>
+                        <Route element = {<UserHome />} path="/userhome"/>
+                        <Route element = {<Cart />} path="/cart" />
+                        <Route element = {<Reservas />} path="/reservas/:theid" />
+                        <Route element = {<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
                 </ScrollToTop>

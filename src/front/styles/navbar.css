@@ -1,0 +1,26 @@
+.header_area {
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    -webkit-transition-duration: 700ms;
+    transition-duration: 700ms;
+    border-bottom: 1px solid rgba(255, 208, 1, 0.938);
+    padding: 0 30px;
+}
+
+.stickyheader {
+    background-color: rgba(253, 132, 31, 0.7);
+    z-index: 9999;
+    border-bottom: 1px solid transparent;
+}
+
+.changeColor {
+    color: #9C2C77;
+}
+
+.changeColor:hover {
+    color:#E14D2A;
+}

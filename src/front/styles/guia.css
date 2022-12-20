@@ -1,0 +1,22 @@
+
+.guia-body{
+    background-color: lightsalmon;
+    padding-top: 200px;
+}
+.cuerpo-guia-carta{
+    background-color: lightyellow;
+}
+.nombre-guia{
+    font-size: 60px;
+    font-weight: 900;
+}
+.descripcion-guia{
+    font-size: 20px;
+}
+.valoracion-guia{
+    font-size: 40px;
+    position: absolute;
+    bottom: 5px;
+    color:yellow
+
+}

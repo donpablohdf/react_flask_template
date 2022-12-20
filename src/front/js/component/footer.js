@@ -1,10 +1,20 @@
 import React, { Component } from "react";
+import {BsFillHeartFill} from "react-icons/bs";
+import "../../styles/footer.css";
 
-export const Footer = () => (
-	<footer className="footer mt-auto py-3 text-center">
-		<p>
-			Made with <i className="fa fa-heart text-danger" /> by{" "}
-			<a href="http://www.4geeksacademy.com">4Geeks Academy</a>
-		</p>
-	</footer>
-);
+export const Footer = () => {
+
+	const anio = () =>{
+		let fecha = new Date().getFullYear();
+		return fecha;
+	}
+	return(
+		<footer className="footer mt-auto py-4 text-center">
+				<div className="row">
+					<div className="col">&copy;{anio()} OhMyTOWN.com</div>
+					<div className="col">Creado con <BsFillHeartFill/></div>
+				</div>
+			
+		</footer>
+	)
+};

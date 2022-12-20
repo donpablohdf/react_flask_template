@@ -5,3 +5,364 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+/*TEXTO OH MY TOWN*/
+
+
+/*FIN TEXTO OH MY TOWN*/
+
+/*CARRUSEL GUIAS*/
+.carrusel{
+    padding-top: 15%;
+    margin-bottom: 150px;
+}
+.carta{
+  height:400px
+}
+.imagen_carta{
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.cuerpo_carta{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+}
+
+.carta:hover .imagen_carta{
+    opacity: 0.3;
+}
+.carta:hover .cuerpo_carta{
+    opacity:1;
+}
+
+.nombre_carta{
+color: Black;
+  font-size: 60px;
+  position: absolute;
+  top: 70%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.ciudad_carta{
+    color: Black;
+    font-size: 35px;
+    position: absolute;
+    top: 95%;
+    left:9%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.valoracion_carta{
+    color: yellow;
+    font-size: 35px;
+    font-weight: 900;
+    position: absolute;
+    top: 95%;
+    left:80%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.lineUp {
+    animation: 3s anim-lineUp ease-out 1;
+  }
+  @keyframes anim-lineUp {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+    20% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .cuerpo_cartab{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+}
+.carta:hover .cuerpo_cartab{
+    opacity:1;
+}
+.nombre_cartab{
+color: Black;
+  font-size: 60px;
+  position: absolute;
+  top: 70%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.ciudad_cartab{
+    color: Black;
+    font-size: 35px;
+    position: absolute;
+    top: 95%;
+    left:15%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.valoracion_cartab{
+    color: yellow;
+    font-size: 35px;
+    font-weight: 900;
+    position: absolute;
+    top: 95%;
+    left:75%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.lineUpb {
+    animation: 3s anim-lineUp ease-out 3;
+  }
+  @keyframes anim-lineUp {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+    20% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .cuerpo_cartac{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+}
+.carta:hover .cuerpo_cartac{
+    opacity:1;
+}
+.nombre_cartac{
+color: Black;
+  font-size: 60px;
+  position: absolute;
+  top: 70%;
+  left: 13%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+.ciudad_cartac{
+    color: Black;
+    font-size: 35px;
+    position: absolute;
+    top: 95%;
+    left:13%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.valoracion_cartac{
+    color: yellow;
+    font-size: 35px;
+    font-weight: 900;
+    position: absolute;
+    top: 95%;
+    left:75%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.lineUpc {
+    animation: 3s anim-lineUp ease-out 1;
+  }
+  @keyframes anim-lineUp {
+    0% {
+      opacity: 0;
+      transform: translateY(80%);
+    }
+    20% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  /*FIN CARRUSEL GUIAS*/
+
+  /*ACTIVIDADES DESTACADAS*/
+.ultimas-actividades{
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ultimas-actividades h4{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-weight: 900;
+  font-size: 50px;
+  color: #FD841F;
+}
+.contenedor-actividades{
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
+.imagen-actividad{
+  width: 100%;
+  height: 100%;
+}
+
+.eventos-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
+}
+
+.eventos-area > span {
+  padding: 8px 15px;
+  font-size: 12px;
+  width: 65px;
+  font-weight: 800;
+  color: #fff;
+  height: 50px;
+  background-color: #9C2C77;
+  text-align: center;
+}
+
+.eventos-area > span:last-child {
+  background-color: #FD841F;
+  display: flex;
+}
+
+.icono-actividad {
+  font-size: 30px;
+}
+
+.actividades h5 {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.actividades {
+  height: 100%;
+}
+.actividades h5 {
+  color: #FD841F
+}
+.actividades h6 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #9C2C77;
+  margin-bottom: 15px;
+}
+
+.actividades p {
+  font-size: 14px;
+  margin-bottom: 0 px;
+}
+
+.actividades:hover {
+  background-color: #FD841F;
+  transition: all 0.6s
+}
+.actividades:hover.actividades h5 {
+  color: #fff;
+}
+
+/*FIN ACTIVIDADES DESTACADAS*/
+
+/*COMIENZO COMENTARIOS*/
+.opiniones{
+  padding-bottom: 150px;
+}
+.texto-opiniones{
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.texto-opiniones h4{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-weight: 900;
+  font-size: 50px;
+  color: #9C2C77;
+}
+.opiniones-area {
+	width: 100%;
+}
+.comillas{
+  font-size: 35px;
+	opacity: 0.7;
+  color:#FD841F;
+	margin-bottom: 25px;
+}
+.carrusel-testimonios{
+  display: inline;
+	float: left;
+	margin-top: 60px;
+	width: 100%;
+}
+.carrusel-slide{
+	text-align: center;
+}
+.carrusel-slide p{
+  color:#fff;
+}
+.opinion-imagen{
+  border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	margin-top: 15px;
+	display: inline-block;
+}
+.opinion-nombre{
+  margin-bottom: 5px;
+	color: #fff;
+	line-height: 1;
+	margin-top: 25px;
+	letter-spacing: 1px;
+}
+.opinion-ciudad{
+  color: #fff;
+	font-size: 14px;
+}
+
+
+/*FINAL COMENTARIOS*/
