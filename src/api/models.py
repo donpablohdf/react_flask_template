@@ -407,7 +407,10 @@ class Reservas(db.Model):
             pwd += ''.join(secrets.choice(alphabet))
         num_reserva_g = str(datos["id_usuario"])+"_"+str(datos["id_guia"])+"_"+str(datos["id_actividad"])+"_"+str(pwd)
         actividad= Actividades.query.get(datos['id_actividad'])
-        actividad.ids_usuarios = actividad.ids_usuarios +","+str(datos['id_usuario'])
+        if actividad.ids_usuarios=='':
+                actividad.ids_usuarios = str(datos['id_usuario'])
+        else:
+            actividad.ids_usuarios = actividad.ids_usuarios +","+str(datos['id_usuario'])
         db.session.commit()
         usuario = Users.query.get(datos['id_usuario'])
         guia = Users.query.get(datos['id_guia'])
