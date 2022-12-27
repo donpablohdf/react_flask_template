@@ -19,6 +19,9 @@ import {FaQuoteLeft} from 'react-icons/fa';
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
+	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading2, setIsLoading2] = useState(true);
+
 	const [listaUsuarios, setListaUsuarios] = useState([])
 
 	const [listaTareas, setListaTareas] =useState([])
@@ -31,6 +34,7 @@ export const Home = () => {
 		}
 		promesaGuias().then((datos) => { 
 			setListaUsuarios(datos)
+			setIsLoading(false)
 
 		}
 		)
@@ -42,12 +46,19 @@ export const Home = () => {
 		}
 		promesaActividades().then((datos) => { 
 			setListaTareas(datos)
+			setIsLoading2(false)
 
 		}
 		)
 	},[])
 
-	
+		if (isLoading || isLoading2) {
+			return (
+			<div className="tbody">
+				<h1>Cargando...</h1>
+			</div>
+		)
+	  	}
 		return (
 			<div className="tbody">
 				{/**COMIENZO CARRUSEL PRINCIPAL */}
@@ -95,80 +106,92 @@ export const Home = () => {
 									<div className="carousel-item active">
 										<div className="row">
 											<div className="col-lg-4 mx-auto">
-												<Link to = {"/guia/"+ listaUsuarios.id}>
-													<div className="card carta">
-														<img src={playa} className="card-img-top imagen_carta" alt="..."/>
-														<div className="card-body cuerpo_carta">
-															<h2 className="nombre_carta lineUp">{listaUsuarios.nombre}</h2>
-															<p className="ciudad_carta lineUp">{listaUsuarios.ciudad}</p>
-															<p className="valoracion_carta lineUp">{listaUsuarios.descripcion}</p>
-														</div>
+											
+												<Link to = {"/guia/"+ listaUsuarios[0].id}>
+												<div className="card carta">
+													
+													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<div className="card-body cuerpo_carta">
+														<h2 className="nombre_carta lineUp">{listaUsuarios[0].nombre}</h2>
+														<p className="ciudad_carta lineUp">{listaUsuarios[0].ciudad}</p>
+														<p className="valoracion_carta lineUp">{listaUsuarios[0].descripcion}</p>
 													</div>
-												</Link>
+												</div>
+											</Link>
+
+											
 											</div>
 											<div className="col-lg-4 mx-auto">
-												<Link to = "/guia/1">
-													<div className="card carta">
-														<img src={playa} className="card-img-top imagen_carta" alt="..."/>
-														<div className="card-body cuerpo_cartab">
-															<h2 className="nombre_cartab lineUpb">{store.guia[1].nombre}</h2>
-															<p className="ciudad_cartab lineUpb">{store.guia[1].ciudad}</p>
-															<p className="valoracion_cartab lineUpb">{store.guia[1].valoracion}</p>
-														</div>
+											
+												<Link to = {"/guia/"+ listaUsuarios[1].id}>
+												<div className="card carta">
+													
+													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<div className="card-body cuerpo_carta">
+														<h2 className="nombre_carta lineUp">{listaUsuarios[1].nombre}</h2>
+														<p className="ciudad_carta lineUp">{listaUsuarios[1].ciudad}</p>
+														<p className="valoracion_carta lineUp">{listaUsuarios[1].descripcion}</p>
 													</div>
-												</Link>
+												</div>
+											</Link>
+
+											
 											</div>
 											<div className="col-lg-4 mx-auto">
-												<Link to = "/guia/2">
-													<div className="card carta">
-														<img src={playa} className="card-img-top imagen_carta" alt="..."/>
-														<div className="card-body cuerpo_cartac">
-															<h2 className="nombre_cartac lineUpc">{store.guia[2].nombre}</h2>
-															<p className="ciudad_cartac lineUpc">{store.guia[2].ciudad}</p>
-															<p className="valoracion_cartac lineUpc">{store.guia[2].valoracion}</p>
-														</div>
+											<Link to = {"/guia/"+ listaUsuarios[2].id}>
+												<div className="card carta">
+													
+													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<div className="card-body cuerpo_carta">
+														<h2 className="nombre_carta lineUp">{listaUsuarios[2].nombre}</h2>
+														<p className="ciudad_carta lineUp">{listaUsuarios[2].ciudad}</p>
+														<p className="valoracion_carta lineUp">{listaUsuarios[2].descripcion}</p>
 													</div>
-												</Link>
+												</div>
+											</Link>
 											</div>
 										</div>
 									</div>
 									<div className="carousel-item">
 										<div className="row">
 											<div className="col-lg-4 mx-auto">
-												<Link to = "/guia/0">
-													<div className="card carta">
-														<img src={playa} className="card-img-top imagen_carta" alt="..."/>
-														<div className="card-body cuerpo_carta">
-															<h2 className="nombre_carta lineUp">{store.guia[0].nombre}</h2>
-															<p className="ciudad_carta lineUp">{store.guia[0].ciudad}</p>
-															<p className="valoracion_carta lineUp">{store.guia[0].valoracion}</p>
-														</div>
+											<Link to = {"/guia/"+ listaUsuarios[3].id}>
+												<div className="card carta">
+													
+													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<div className="card-body cuerpo_carta">
+														<h2 className="nombre_carta lineUp">{listaUsuarios[3].nombre}</h2>
+														<p className="ciudad_carta lineUp">{listaUsuarios[3].ciudad}</p>
+														<p className="valoracion_carta lineUp">{listaUsuarios[3].descripcion}</p>
 													</div>
-												</Link>
+												</div>
+											</Link>
 											</div>
 											<div className="col-lg-4 mx-auto">
-												<Link to = "/guia/0">
-													<div className="card carta">
-														<img src={playa} className="card-img-top imagen_carta" alt="..."/>
-														<div className="card-body cuerpo_carta">
-															<h2 className="nombre_carta lineUp">{store.guia[0].nombre}</h2>
-															<p className="ciudad_carta lineUp">{store.guia[0].ciudad}</p>
-															<p className="valoracion_carta lineUp">{store.guia[0].valoracion}</p>
-														</div>
+											<Link to = {"/guia/"+ listaUsuarios[4].id}>
+												<div className="card carta">
+													
+													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<div className="card-body cuerpo_carta">
+														<h2 className="nombre_carta lineUp">{listaUsuarios[4].nombre}</h2>
+														<p className="ciudad_carta lineUp">{listaUsuarios[4].ciudad}</p>
+														<p className="valoracion_carta lineUp">{listaUsuarios[4].descripcion}</p>
 													</div>
-												</Link>
+												</div>
+											</Link>
 											</div>
 											<div className="col-lg-4 mx-auto">
-												<Link to = "/guia/0">
-													<div className="card carta">
-														<img src={playa} className="card-img-top imagen_carta" alt="..."/>
-														<div className="card-body cuerpo_carta">
-															<h2 className="nombre_carta lineUp">{store.guia[0].nombre}</h2>
-															<p className="ciudad_carta lineUp">{store.guia[0].ciudad}</p>
-															<p className="valoracion_carta lineUp">{store.guia[0].valoracion}</p>
-														</div>
+											<Link to = {"/guia/"+ listaUsuarios[5].id}>
+												<div className="card carta">
+													
+													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<div className="card-body cuerpo_carta">
+														<h2 className="nombre_carta lineUp">{listaUsuarios[5].nombre}</h2>
+														<p className="ciudad_carta lineUp">{listaUsuarios[5].ciudad}</p>
+														<p className="valoracion_carta lineUp">{listaUsuarios[5].descripcion}</p>
 													</div>
-												</Link>
+												</div>
+											</Link>
 											</div>
 										</div>
 									</div>
@@ -207,7 +230,7 @@ export const Home = () => {
 										</div>
 										</div>
 										<div className="col-md-7">
-											<Link to = "/actividades/0">{console.log(listaTareas[0])}
+											<Link to = "/actividades/0">
 												<div id ="actividadesSugeridas"className="card-body actividades">
 													<h5 className="card-title">{listaTareas[0,"nombre"]}</h5>
 														<h6 className="card-text">{store.actividades[0].ciudad}</h6>
