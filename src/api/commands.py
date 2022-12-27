@@ -34,19 +34,20 @@ def setup_commands(app):
         user.activo=1
         db.session.add(user)
         db.session.commit()
-        user=''
-        user = Users()
-        user.email = "pabloalegrejuan@gmail.com"
-        user.password = generate_password_hash("12345", method='SHA256')
-        user.tipo = 1 #usuario GUIA
-        user.descripcion= "Texto descripción guia"
-        user.nombre="Usuario Guia"
-        user.apellidos="Apellidos Guia"
-        user.ciudad="Localidad Guia"
-        user.foto="imgs/users/foto_guia.jpg"
-        user.activo=1
-        db.session.add(user)
-        db.session.commit()
+        for i in range(6):
+            user=''
+            user = Users()
+            user.email = "mail"+str(i)+"@gmail.com"
+            user.password = generate_password_hash("12345", method='SHA256')
+            user.tipo = 1 #usuario GUIA
+            user.descripcion= "Texto descripción guia"+str(i)
+            user.nombre="Usuario Guia"+str(i)
+            user.apellidos="Apellidos Guia"+str(i)
+            user.ciudad="Localidad Guia"+str(i)
+            user.foto="imgs/users/foto_guia.jpg"
+            user.activo=1
+            db.session.add(user)
+            db.session.commit()
         print("All test user created")
         print("Creating test actividades")
 
