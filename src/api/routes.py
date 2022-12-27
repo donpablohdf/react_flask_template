@@ -18,6 +18,14 @@ import uuid
 api = Blueprint('api', __name__)
 ACCESS_EXPIRES = timedelta(hours=1)
 
+@api.route('/usuarios_index', methods=['POST', 'GET'])
+def handle_usu_index():
+    usu_ind = Users.get_guias_index()
+    if usu_ind:
+        all_usu_ind = [Users.serialize() for Users in usu_ind]
+        return jsonify(all_usu_ind), 200
+    return jsonify({"message": "Error al recuperar datos"}), 400
+
 
 @api.route('/usuario/<int:usuario_id>', methods=['POST', 'GET'])
 def handle_user(usuario_id):

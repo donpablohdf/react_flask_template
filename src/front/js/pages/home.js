@@ -24,23 +24,26 @@ export const Home = () => {
 	const [listaTareas, setListaTareas] =useState([])
 
 	useEffect(() => {
-		fetch("https://3001-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/usuario/1").then(
-			res => res.json()
-		).then(
-			data =>{
-				setListaUsuarios(data)
-				console.log(data)
-			}
+		const promesaGuias = () => {
+			return new Promise((resolve, reject) => {
+				resolve(actions.dataFromAPI('/api/usuarios_index')) 
+			})
+		}
+		promesaGuias().then((datos) => { 
+			setListaUsuarios(datos)
+
+		}
 		)
-	},[])
-	useEffect(() => {
-		fetch("https://3001-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/actividades_index").then(
-			res => res.json()
-		).then(
-			data =>{
-				setListaTareas(data)
-				console.log(data)
-			}
+		
+		const promesaActividades = () => {
+			return new Promise((resolve, reject) => {
+				resolve(actions.dataFromAPI('/api/actividades_index')) 
+			})
+		}
+		promesaActividades().then((datos) => { 
+			setListaTareas(datos)
+
+		}
 		)
 	},[])
 
@@ -169,6 +172,7 @@ export const Home = () => {
 											</div>
 										</div>
 									</div>
+
 									<button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
 										<span className="carousel-control-prev-icon" aria-hidden="true"></span>
 										<span className="visually-hidden">Previous</span>
@@ -179,7 +183,7 @@ export const Home = () => {
 									</button>
 								</div>
 							
-						</div>
+							</div>
 					</div>
 				{/*)}*/}
 				{/**FIN CARRUSEL GUIAS */}
