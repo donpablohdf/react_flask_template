@@ -21,38 +21,30 @@ export const Home = () => {
 
 	const [listaUsuarios, setListaUsuarios] = useState([])
 
-	{/**useEffect(() =>{
-		fetch(actions.getUsuarios(1))
-		.then(response =>{
-			response.json()
-			.then(response => {
-				console.log(actions.getUsuarios(1))
-				console.log(response)
-				setListaUsuarios(response.results)
-			})
-		})
-		.catch(function(error){
-			console.log(error)
-		})
-	},[])*/}
+	const [listaTareas, setListaTareas] =useState([])
 
-	{/**useEffect(() => {
-		const myId = "1"
-		const url = "/api/usuario/"
-		fetch(process.env.BACKEND_URL + url + myId)
-		.then(response =>{
-			response.json()
-			.then(response =>{
-				setListaUsuarios(response.results)
-				console.log(listaUsuarios)
-				console.log(process.env.BACKEND_URL + url + myId)
-			})
-		})
-	})*/}
+	useEffect(() => {
+		fetch("https://3001-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/usuario/1").then(
+			res => res.json()
+		).then(
+			data =>{
+				setListaUsuarios(data)
+				console.log(data)
+			}
+		)
+	},[])
+	useEffect(() => {
+		fetch("https://3001-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/actividades_index").then(
+			res => res.json()
+		).then(
+			data =>{
+				setListaTareas(data)
+				console.log(data)
+			}
+		)
+	},[])
+
 	
-	const url = "/api/usuario/1"
-	const resp = fetch(process.env.BACKEND_URL + url)
-	console.log(resp)
 		return (
 			<div className="tbody">
 				{/**COMIENZO CARRUSEL PRINCIPAL */}
@@ -100,13 +92,13 @@ export const Home = () => {
 									<div className="carousel-item active">
 										<div className="row">
 											<div className="col-lg-4 mx-auto">
-												<Link to = {"/guia/"+ store.guia[0].id}>
+												<Link to = {"/guia/"+ listaUsuarios.id}>
 													<div className="card carta">
 														<img src={playa} className="card-img-top imagen_carta" alt="..."/>
 														<div className="card-body cuerpo_carta">
-															<h2 className="nombre_carta lineUp">{store.usuario[0].nombre}</h2>
-															<p className="ciudad_carta lineUp">{store.guia[0].ciudad}</p>
-															<p className="valoracion_carta lineUp">{store.guia[0].valoracion}</p>
+															<h2 className="nombre_carta lineUp">{listaUsuarios.nombre}</h2>
+															<p className="ciudad_carta lineUp">{listaUsuarios.ciudad}</p>
+															<p className="valoracion_carta lineUp">{listaUsuarios.descripcion}</p>
 														</div>
 													</div>
 												</Link>
@@ -211,9 +203,9 @@ export const Home = () => {
 										</div>
 										</div>
 										<div className="col-md-7">
-											<Link to = "/actividades/0">
+											<Link to = "/actividades/0">{console.log(listaTareas[0])}
 												<div id ="actividadesSugeridas"className="card-body actividades">
-													<h5 className="card-title">{store.actividades[0].nombre}</h5>
+													<h5 className="card-title">{listaTareas[0,"nombre"]}</h5>
 														<h6 className="card-text">{store.actividades[0].ciudad}</h6>
 														<p className="card-text">{store.actividades[0].precio}</p>
 												</div>

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/home.css";
+import "../../styles/login.css";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export const Login = () => {
 	const { store, actions } = useContext(Context);
 
-	const [username, setUsername] = useState("")
+	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [errorLogin, setErrorLogin] = useState("")
 
@@ -18,10 +18,10 @@ export const Login = () => {
 		var myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
 
-		console.log(username, password)
+		console.log(email, password)
 
 		var raw = JSON.stringify({
-		"username": username,
+		"email": email,
 		"password": password
 		});
 
@@ -32,7 +32,7 @@ export const Login = () => {
 		redirect: 'follow'
 		};
 
-		fetch("https://3001-4geeksacade-reactflaskh-u5ios1wi99r.ws-eu77.gitpod.io/api/login", requestOptions)
+		fetch("https://3000-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/login", requestOptions)
 		.then(response => response.json())
 		//Aqui esta el token, en result
 		.then(result => {
@@ -48,12 +48,12 @@ export const Login = () => {
 			}
 
 	return (
-		<div className="body container text-center">
-			<h1>Hello User!!</h1>
+		<div className="login-body">
+			<h1>Hola Viajero!!</h1>
 			<div>
-				<label>Username: </label>
+				<label>Email: </label>
 				<br></br>
-				<input onChange = {(event) => setUsername(event.target.value)}></input>
+				<input onChange = {(event) => setEmail(event.target.value)}></input>
 			</div>
 			<p></p>
 			<div>

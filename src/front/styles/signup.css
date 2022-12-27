@@ -1,0 +1,32 @@
+.signup-body{
+    background-color: lightsalmon;
+    padding-top: 200px;
+    text-align: center;
+}
+
+input, textarea, select, button {
+    width : 250px;
+    padding: 5px;
+    margin: 5px;
+    box-sizing: border-box;
+  }
+
+  .button-submit {
+    padding      : 10px;
+    font         : bold 25px sans-serif;
+    border       : 2px solid #333;
+    border-radius: 5px;
+    background   : none;
+    cursor       : pointer;
+  }
+  
+  .button-submit:after {
+    content      : "REGISTRARSE";
+  }
+  
+  .button-submit:hover,
+  .button-submit:focus {
+    outline     : none;
+    background  : #000;
+    color       : #FFF;
+  }

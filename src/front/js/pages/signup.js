@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
-import "../../styles/home.css";
+import "../../styles/signup.css";
 
 export const SignUp = () => {
 	const { store, actions } = useContext(Context);
@@ -24,7 +24,7 @@ export const SignUp = () => {
 		const { name, value } = e.target;
 			setInput(prev => ({
 		  	...prev,
-		  	[name]: value
+		  	[name]: value,
 		}));
 		validateInput(e);
 	}
@@ -66,15 +66,46 @@ export const SignUp = () => {
 		});
 	  }
 
+	  /*const [nombre, setNombre] = useState("");
+	  const [apellidos, setApellidos] = useState("");
+	  const [email, setEmail] = useState("");
+	  const [password, setPassword] = useState("");
+	  const [tipo,setTipo] = useState("");*/
+	  let handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+		  let res = await fetch("", {
+			method: "POST",
+			body: JSON.stringify({
+			  nombre: nombre,
+			  email: email,
+			  apellidos: apellidos,
+			  password: password,
+			}),
+		  });
+		  let resJson = await res.json();
+		  if (res.status === 200) {
+			setNombre("");
+			setEmail("");
+			setPassword("");
+			setMessage("Usuario creado");
+		  } else {
+			setMessage("Ha ocurrido un error");
+		  }
+		} catch (err) {
+		  console.log(err);
+		}
+	  };
+
+
 	return (
-		<div className="container body">
-			<h1>Esta es la pagina de registro</h1>
-			<form action ="" method="post" autoComplete="on">
+		<div className="signup-body">
+			<h1>Registro de Usuario: </h1>
+			<form onSubmit={handleSubmit} action ="" method="post" autoComplete="on">
 				<fieldset>
-					<legend>Registro de Usuario: </legend>
 					<ul>
 						<li>
-							<label>Nombre: </label>
+							<label>Nombre: </label><br></br>
 							<input
           						type="text"
 								id="nombre"
@@ -88,11 +119,11 @@ export const SignUp = () => {
 							{error.nombre && <span className='err'>{error.nombre}</span>}
 						</li>
 						<li>
-							<label>Correo electrónico: </label>
+							<label>Correo electrónico: </label><br></br>
 							<input type="email" id="email" name="email" required/>
 						</li>
 						<li>
-							<label>Password: </label>
+							<label>Password: </label><br></br>
 							<input
           						type="password"
 								id="password"
@@ -106,7 +137,7 @@ export const SignUp = () => {
 							{error.password && <span className='err'>{error.password}</span>}
 						</li>
 						<li>
-							<label>Confirma el Password: </label>
+							<label>Confirma el Password: </label><br></br>
 							<input
           						type="password"
          						name="confirmPassword"
@@ -125,7 +156,7 @@ export const SignUp = () => {
 							<label>Guia</label>
 							<input type="radio" id="guia" name="persona" value="guia"/>
 						</li>
-						<input type="submit" value="Submit"></input>
+						<button className="button-submit" type="submit" value="Submit" onSubmit={handleSubmit}></button>
 					</ul>
 				</fieldset>
 			</form>

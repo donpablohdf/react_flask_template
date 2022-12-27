@@ -12,6 +12,30 @@ export const Guia = props => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
 
+	const[guia, setGuia] = useState([])
+	const[actividades,setActividades] = useState([])
+
+	useEffect(() => {
+		fetch("https://3001-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/usuario/"+params.theid).then(
+			res => res.json()
+		).then(
+			data =>{
+				setGuia(data)
+				console.log(data)
+			}
+		)
+	},[])
+
+	useEffect(() => {
+		fetch("https://3001-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/actividad_guia/"+params.theid).then(
+			res => res.json()
+		).then(
+			data =>{
+				setActividades(data)
+				console.log(data)
+			}
+		)
+	},[])
 	return (
 		<div className = "guia-body">
 			<div className="container">
@@ -22,8 +46,8 @@ export const Guia = props => {
 						</div>
 						<div className="col-md-10 cuerpo-guia-carta">
 							<div className="card-body">
-								<h1 className="card-title nombre-guia">{store.guia[params.theid].nombre}</h1>
-								<p className="card-text descripcion-guia">{store.guia[params.theid].descripcion}</p>
+								<h1 className="card-title nombre-guia">{guia.nombre}</h1>
+								<p className="card-text descripcion-guia">{guia.descripcion}</p>
 								<p className="card-text valoracion-guia"><BsFillStarFill/><BsFillStarFill/><BsFillStarFill/><BsFillStarFill/><BsFillStarFill/></p>
 							</div>
 						</div>
