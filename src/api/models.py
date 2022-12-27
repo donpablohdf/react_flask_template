@@ -55,7 +55,7 @@ class Users(db.Model):
         }
     @classmethod
     def get_guias_index(self):
-        return self.query.filter_by(tipo=1).limit(6).all()
+        return self.query.filter_by(tipo=1, activo=1).limit(6).all()
 
     @classmethod
     def get_by_id(self, pid):
