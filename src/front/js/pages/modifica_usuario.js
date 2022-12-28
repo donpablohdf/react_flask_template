@@ -69,7 +69,15 @@ export const ModificaUsuario = () => {
                 {...register("email")} //crear el name del input y requerido react-hook-form
               />
             </div>
-
+            <p></p>
+            <div>
+              <input
+                type="text"
+                placeholder="Password"
+                
+                {...register("password")} //crear el name del input y requerido react-hook-form
+              />
+            </div>
             <p></p>
             <div>
               <input
@@ -111,9 +119,7 @@ export const ModificaUsuario = () => {
                   {...register("descripcion")} //crear el name del input y requerido react-hook-form
                 />
               </div>
-            ) : (
-              <input {...register("descripcion")} type="hidden" value="" />
-            )}
+            ) : ''}
             <p></p>
             {listaUsuarios.tipo == 0 ? (
               <div>
@@ -128,7 +134,6 @@ export const ModificaUsuario = () => {
               />
             )}
             <p></p>
-            <input {...register("password")} type="hidden" value="" />
             <button type="submit">Modificar</button>
           </form>
         </div>
