@@ -13,10 +13,10 @@ from os import remove
 from datetime import datetime, timedelta
 
 
-#import base64
-#from email.mime.multipart import MIMEMultipart
-#from email.mime.text import MIMEText
-#import smtplib
+# import base64
+# from email.mime.multipart import MIMEMultipart
+# from email.mime.text import MIMEText
+# import smtplib
 
 
 API_KEY = os.getenv("MAILJET_KEY")
@@ -24,18 +24,23 @@ SECRET_MAIL = os.getenv("MAILJET_SECRET")
 mailjet = Client(auth=(API_KEY, SECRET_MAIL), version='v3.1')
 
 db = SQLAlchemy()
+
+
 class Users(db.Model):
-    id = db.Column(db.Integer,Sequence('users_id_seq', start=1, increment=1), primary_key=True)
+    id = db.Column(db.Integer, Sequence(
+        'users_id_seq', start=1, increment=1), primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), unique=False, nullable=False)
-    tipo = db.Column(db.Integer, unique=False, nullable=False) #por defecto 0 (usuario normal) 1 si es guía
-    descripcion = db.Column(db.Text, unique=False, nullable=True) # se rellena si es guía
+    # por defecto 0 (usuario normal) 1 si es guía
+    tipo = db.Column(db.Integer, unique=False, nullable=False)
+    descripcion = db.Column(db.Text, unique=False,
+                            nullable=True)  # se rellena si es guía
     nombre = db.Column(db.String(120), unique=False, nullable=True)
     apellidos = db.Column(db.String(120), unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=True)
     foto = db.Column(db.String(120), unique=False, nullable=True)
-    activo = db.Column(db.Integer, unique=False, nullable=True) # 0 inactivo 1 activo
-    
+    activo = db.Column(db.Integer, unique=False,
+                       nullable=True)  # 0 inactivo 1 activo
 
     def __repr__(self):
         return f'<Users {self.email}>'
@@ -51,8 +56,9 @@ class Users(db.Model):
             "ciudad": self.ciudad,
             "foto": self.foto,
             "activo": self.activo,
-            
+
         }
+
     @classmethod
     def get_guias_index(self):
         return self.query.filter_by(tipo=1, activo=1).limit(6).all()
@@ -63,44 +69,44 @@ class Users(db.Model):
 
     @classmethod
     def pass_by_mail(self, usuario_email):
-        #generar password
+        # generar password
         letters = string.ascii_letters
         digits = string.digits
-        alphabet = letters + digits 
+        alphabet = letters + digits
         pwd_length = 8
         pwd = ''
         for i in range(pwd_length):
             pwd += ''.join(secrets.choice(alphabet))
 
-        if pwd!='':
-            user_email= self.query.filter_by(email=usuario_email).first()
+        if pwd != '':
+            user_email = self.query.filter_by(email=usuario_email).first()
             if not user_email:
                 return "El email no es válido"
             user = self.query.get(user_email.id)
             new_password = generate_password_hash(pwd, method='SHA256')
-            user.password=new_password
+            user.password = new_password
             db.session.commit()
-            #enviar password  
+            # enviar password
             data = {
-                    'Messages': [
-                        {
+                'Messages': [
+                    {
                         "From": {
                             "Email": "ohmytownapp@gmail.com",
                             "Name": "OH MY TOWN"
                         },
                         "To": [
                             {
-                            "Email": usuario_email,
-                            "Name": user.nombre
+                                "Email": usuario_email,
+                                "Name": user.nombre
                             }
                         ],
                         "Subject": "Nueva contraseña OH MY TOWN",
                         "TextPart": "My first Mailjet email",
                         "HTMLPart": "<h3>Hola, Tu nueva contraseña es"+pwd,
                         "CustomID": "AppGettingStartedTest"
-                        }
-                    ]
-                    }    
+                    }
+                ]
+            }
             result = mailjet.send.create(data=data)
             if "200" in str(result.status_code):
                 return "Enviado password"
@@ -118,7 +124,7 @@ class Users(db.Model):
         return False
 
     @classmethod
-    def foto_by_id(self, pid,foto):
+    def foto_by_id(self, pid, foto):
         user = self.query.get(pid)
         if user:
             remove(user.foto)
@@ -126,50 +132,77 @@ class Users(db.Model):
             db.session.commit()
             return "Foto cambiada con exito"
         return False
-        
+
     @classmethod
     def modifica_by_id(self, pid, data):
         if data:
-            #print(data)
+            # print(data)
             user = self.query.get(pid)
         if user:
             if data['password']:
-                if check_password_hash(user.password, data['password']): 
-                    hashed_password = generate_password_hash(str(data['password']), method='SHA256')
-                    user.password=hashed_password   
-            if user.email!=data["email"]: user.email=data["email"]
-            if user.tipo!=data["tipo"]: user.tipo=data["tipo"]
-            if user.descripcion!=data["descripcion"]: user.descripcion=data["descripcion"]
-            if user.nombre!=data["nombre"]: user.nombre=data["nombre"]
-            if user.apellidos!=data["apellidos"]: user.apellidos=data["apellidos"]
-            if user.ciudad!=data["ciudad"]: user.ciudad=data["ciudad"]
+                if check_password_hash(user.password, data['password']):
+                    hashed_password = generate_password_hash(
+                        str(data['password']), method='SHA256')
+                    user.password = hashed_password
+            if data['email'] and user.email != data["email"]:
+                user.email = data["email"]
+            else:
+                user.email = user.email
+            if data["tipo"] and user.tipo != data["tipo"]:
+                user.tipo = data["tipo"]
+            else:
+                user.tipo = user.tipo
+            if data["descripcion"] and user.descripcion != data["descripcion"]:
+                user.descripcion = data["descripcion"]
+            else:
+                user.descripcion = user.descripcion
+            if data["nombre"] and user.nombre != data["nombre"]:
+                user.nombre = data["nombre"]
+            else:
+                user.nombre = user.nombre
+            if data["apellidos"] and user.apellidos != data["apellidos"]:
+                user.apellidos = data["apellidos"]
+            else:
+                user.apellidos = user.apellidos
+            if data["ciudad"] and user.ciudad != data["ciudad"]:
+                user.ciudad = data["ciudad"]
+            else:
+                user.ciudad = user.ciudad
             db.session.commit()
             return "Usuario modificado con exito"
         return False
 
     @classmethod
-    def new_user(self, user): 
-        comp_email= self.query.filter_by(email=user['email']).first()
+    def new_user(self, user):
+        comp_email = self.query.filter_by(email=user['email']).first()
         if comp_email:
-            return 1   
-        hashed_password = generate_password_hash(str(user['password']), method='SHA256')    
-        new_user = Users(email=user['email'], password= hashed_password, tipo= 0, activo=1)
+            return 1
+        hashed_password = generate_password_hash(
+            str(user['password']), method='SHA256')
+        new_user = Users(email=user['email'],
+                         password=hashed_password, tipo=0, activo=1)
         db.session.add(new_user)
         db.session.commit()
-        return "Usuario creado con éxito"
-# --------------------------------------------Actividades-------------------        
+        return 2
+# --------------------------------------------Actividades-------------------
+
+
 class Actividades(db.Model):
-    id = db.Column(db.Integer, Sequence('actividades_id_seq', start=1, increment=1), primary_key=True)
+    id = db.Column(db.Integer, Sequence('actividades_id_seq',
+                   start=1, increment=1), primary_key=True)
     nombre = db.Column(db.String(120), unique=False, nullable=False)
     descripcion = db.Column(db.Text, unique=False, nullable=False)
     precio = db.Column(db.String(120), unique=False, nullable=False)
     fecha = db.Column(db.DateTime, unique=False, nullable=False)
-    id_guia = db.Column(db.Integer, ForeignKey('users.id'), unique=False, nullable=False)
-    ids_usuarios = db.Column(db.Text, unique=False, nullable=True) # array de ids de usuarios que han hecho la actividad
+    id_guia = db.Column(db.Integer, ForeignKey(
+        'users.id'), unique=False, nullable=False)
+    # array de ids de usuarios que han hecho la actividad
+    ids_usuarios = db.Column(db.Text, unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=False)
     calificacion = db.Column(db.Integer, unique=False, nullable=True)
     foto = db.Column(db.String(120), unique=False, nullable=True)
-    activo = db.Column(db.Integer, unique=False, nullable=True) # 0 inactivo 1 activo
+    activo = db.Column(db.Integer, unique=False,
+                       nullable=True)  # 0 inactivo 1 activo
     rels = relationship(Users)
 
     def __repr__(self):
@@ -188,15 +221,16 @@ class Actividades(db.Model):
             "calificacion": self.calificacion,
             "activo": self.activo,
             "foto": self.foto,
-            
+
         }
+
     @classmethod
     def get_by_id(self, pid):
         return self.query.filter_by(id=pid).first()
 
     @classmethod
     def get_by_guia(self, pid):
-       
+
         return self.query.filter_by(id_guia=pid)
 
     @classmethod
@@ -208,24 +242,24 @@ class Actividades(db.Model):
         return self.query.order_by(Actividades.calificacion.desc()).limit(6)
 
     @classmethod
-    def new_act(self, guia, data): 
+    def new_act(self, guia, data):
         new_act_guia = Actividades(nombre=data['nombre'],
-         descripcion=data['descripcion'], 
-         precio=data['precio'], 
-         fecha=data['fecha'], 
-         id_guia=data['id_guia'], 
-         ciudad=data['ciudad'], 
-         calificacion=0, 
-         ids_usuarios='',
-         activo=1,
-         foto=data['foto'])
+                                   descripcion=data['descripcion'],
+                                   precio=data['precio'],
+                                   fecha=data['fecha'],
+                                   id_guia=data['id_guia'],
+                                   ciudad=data['ciudad'],
+                                   calificacion=0,
+                                   ids_usuarios='',
+                                   activo=1,
+                                   foto=data['foto'])
 
         db.session.add(new_act_guia)
         db.session.commit()
         return "Actividad creada con éxito"
 
     @classmethod
-    def foto_by_id(self, pid,foto):
+    def foto_by_id(self, pid, foto):
         user = self.query.get(pid)
         if user:
             remove(user.foto)
@@ -233,76 +267,89 @@ class Actividades(db.Model):
             db.session.commit()
             return "Foto cambiada con exito"
         return False
-        
+
     @classmethod
     def modifica_by_id(self, pid, data):
         if data:
-            #print(data)
+            # print(data)
             user = self.query.get(pid)
-        if user:     
-            if user.ids_usuarios is None:         
-                if user.nombre!=data["nombre"]: user.nombre=data["nombre"]
-                if user.descripcion!=data["descripcion"]: user.descripcion=data["descripcion"]
-                if user.precio!=data["precio"]: user.precio=data["precio"]
-                if user.fecha!=data["fecha"]: user.fecha=data["fecha"]
-                if user.ciudad!=data["ciudad"]: user.ciudad=data["ciudad"]
+        if user:
+            if user.ids_usuarios is None:
+                if user.nombre != data["nombre"]:
+                    user.nombre = data["nombre"]
+                if user.descripcion != data["descripcion"]:
+                    user.descripcion = data["descripcion"]
+                if user.precio != data["precio"]:
+                    user.precio = data["precio"]
+                if user.fecha != data["fecha"]:
+                    user.fecha = data["fecha"]
+                if user.ciudad != data["ciudad"]:
+                    user.ciudad = data["ciudad"]
             else:
-                #si ya hay usuarios apuntados a la actividad
-                if user.nombre!=data["nombre"]: user.nombre=data["nombre"]
-                if user.descripcion!=data["descripcion"]: user.descripcion=data["descripcion"]
+                # si ya hay usuarios apuntados a la actividad
+                if user.nombre != data["nombre"]:
+                    user.nombre = data["nombre"]
+                if user.descripcion != data["descripcion"]:
+                    user.descripcion = data["descripcion"]
             db.session.commit()
             return "Actividad modificada con exito"
         return False
+
     @classmethod
     def desactiva_by_id(self, pid):
         act = self.query.get(pid)
         if act:
             fecha_act = datetime.strptime(str(act.fecha), "%Y-%m-%d %H:%M:%S")
-            hoy= datetime.now()
+            hoy = datetime.now()
             if fecha_act > hoy:
-                if act.ids_usuarios is not None: #si la actividad está en fecha y existe algo en el campo ids_usuarios enviar mail y cancelar reservas
+                if act.ids_usuarios is not None:  # si la actividad está en fecha y existe algo en el campo ids_usuarios enviar mail y cancelar reservas
                     lista_ids_usuarios = act.ids_usuarios.split(sep=',')
-                    reserva = Reservas.query.filter_by(id_actividad=pid, estado=0)
-                    for i in reserva: #cancelar reservas
-                        i.estado=2
+                    reserva = Reservas.query.filter_by(
+                        id_actividad=pid, estado=0)
+                    for i in reserva:  # cancelar reservas
+                        i.estado = 2
                         db.session.commit()
-                    for x in lista_ids_usuarios: #enviar mail
+                    for x in lista_ids_usuarios:  # enviar mail
                         user = ''
-                        reserva_cancelada =''
+                        reserva_cancelada = ''
                         user = Users.query.get(x)
-                        reserva_cancelada = Reservas.query.filter_by(id_actividad=pid, id_usuario=x).first()
-                        fecha_c = datetime.strptime(str(reserva_cancelada.fecha_realizacion), "%Y-%m-%d %H:%M:%S")
-                        fecha_str= datetime.strftime(fecha_c,'%d-%m-%Y a las %H:%M')
-                        txt_mail= "Hola, tu reserva "+reserva_cancelada.num_reserva+" con fecha "+fecha_str+" ha sido cancelada"
-                        #print(txt_mail)
+                        reserva_cancelada = Reservas.query.filter_by(
+                            id_actividad=pid, id_usuario=x).first()
+                        fecha_c = datetime.strptime(
+                            str(reserva_cancelada.fecha_realizacion), "%Y-%m-%d %H:%M:%S")
+                        fecha_str = datetime.strftime(
+                            fecha_c, '%d-%m-%Y a las %H:%M')
+                        txt_mail = "Hola, tu reserva "+reserva_cancelada.num_reserva + \
+                            " con fecha "+fecha_str+" ha sido cancelada"
+                        # print(txt_mail)
                         data = {
-                                'Messages': [
-                                    {
+                            'Messages': [
+                                {
                                     "From": {
                                         "Email": "ohmytownapp@gmail.com",
                                         "Name": "OH MY TOWN"
                                     },
                                     "To": [
                                         {
-                                        "Email": user.email,
-                                        "Name": user.nombre
+                                            "Email": user.email,
+                                            "Name": user.nombre
                                         }
                                     ],
                                     "Subject": "Cancelación de reserva "+reserva_cancelada.num_reserva,
                                     "TextPart": "My first Mailjet email",
                                     "HTMLPart": txt_mail,
                                     "CustomID": "AppGettingStartedTest"
-                                    }
-                                ]
-                                }    
+                                }
+                            ]
+                        }
                         result = mailjet.send.create(data=data)
-                    act.activo = 0 
+                    act.activo = 0
                     db.session.commit()
-                else: #si no hay nada en el campo ids_usuarios
-                    act.activo=0
+                else:  # si no hay nada en el campo ids_usuarios
+                    act.activo = 0
                     db.session.commit()
-            else: #si la fecha es anterior a la actual
-                act.activo=0
+            else:  # si la fecha es anterior a la actual
+                act.activo = 0
                 db.session.commit()
 
             return "Actividad desactivada con exito"
@@ -314,14 +361,19 @@ class Actividades(db.Model):
 
 
 class Reservas(db.Model):
-    id = db.Column(db.Integer, Sequence('reservas_id_seq', start=1, increment=1), primary_key=True)
-    num_reserva = db.Column(db.String(120), unique=True, nullable=False) #generado con uuid
+    id = db.Column(db.Integer, Sequence('reservas_id_seq',
+                   start=1, increment=1), primary_key=True)
+    num_reserva = db.Column(db.String(120), unique=True,
+                            nullable=False)  # generado con uuid
     fecha_reserva = db.Column(db.DateTime, unique=False, nullable=False)
     fecha_realizacion = db.Column(db.DateTime, unique=False, nullable=True)
-    id_actividad = db.Column(db.Integer, ForeignKey('actividades.id'), unique=False, nullable=False)
-    id_usuario = db.Column(db.Integer, ForeignKey('users.id'), unique=False, nullable=False)
+    id_actividad = db.Column(db.Integer, ForeignKey(
+        'actividades.id'), unique=False, nullable=False)
+    id_usuario = db.Column(db.Integer, ForeignKey(
+        'users.id'), unique=False, nullable=False)
     id_guia = db.Column(db.Integer, unique=False, nullable=False)
-    estado = db.Column(db.Integer, unique=False, nullable=True) #0 contratada 1 terminada 2 cancelada
+    # 0 contratada 1 terminada 2 cancelada
+    estado = db.Column(db.Integer, unique=False, nullable=True)
     rels = relationship(Actividades)
     rel2 = relationship(Users)
 
@@ -338,8 +390,9 @@ class Reservas(db.Model):
             "id_usuario": self.id_usuario,
             "id_guia": self.id_guia,
             "estado": self.estado,
-            
+
         }
+
     @classmethod
     def get_by_id(self, pid):
         return self.query.filter_by(id=pid).first()
@@ -360,112 +413,123 @@ class Reservas(db.Model):
     def desactiva_by_id(self, pid):
         res = self.query.get(pid)
         if res:
-            fecha_res = datetime.strptime(str(res.fecha_realizacion), "%Y-%m-%d %H:%M:%S")
-            fecha_str= datetime.strftime(fecha_res,'%d-%m-%Y a las %H:%M')
+            fecha_res = datetime.strptime(
+                str(res.fecha_realizacion), "%Y-%m-%d %H:%M:%S")
+            fecha_str = datetime.strftime(fecha_res, '%d-%m-%Y a las %H:%M')
             guia = Users.query.get(res.id_guia)
             usuario = Users.query.get(res.id_usuario)
-            actividad= Actividades.query.get(res.id_actividad)
+            actividad = Actividades.query.get(res.id_actividad)
             lista_ids_usuarios = actividad.ids_usuarios.split(sep=',')
-            #print(lista_ids_usuarios)
+            # print(lista_ids_usuarios)
             lista_ids_usuarios.remove(str(res.id_usuario))
-            if len(lista_ids_usuarios)<=1:
-                actividad.ids_usuarios="".join(map(str, lista_ids_usuarios)) 
+            if len(lista_ids_usuarios) <= 1:
+                actividad.ids_usuarios = "".join(map(str, lista_ids_usuarios))
             else:
-                actividad.ids_usuarios =",".join(map(str, lista_ids_usuarios))
+                actividad.ids_usuarios = ",".join(map(str, lista_ids_usuarios))
             db.session.commit()
-            txt_mail= "Hola, la reserva "+res.num_reserva+" de la actividad "+actividad.nombre+" con fecha "+fecha_str+" ha sido cancelada por el usuario " +usuario.nombre
-            #print(txt_mail)
+            txt_mail = "Hola, la reserva "+res.num_reserva+" de la actividad "+actividad.nombre + \
+                " con fecha "+fecha_str+" ha sido cancelada por el usuario " + usuario.nombre
+            # print(txt_mail)
             data = {
-                                'Messages': [
-                                    {
-                                    "From": {
-                                        "Email": "ohmytownapp@gmail.com",
-                                        "Name": "OH MY TOWN"
-                                    },
-                                    "To": [
-                                        {
-                                        "Email": guia.email,
-                                        "Name": guia.nombre
-                                        }
-                                    ],
-                                    "Subject": "Cancelación de reserva "+res.num_reserva,
-                                    "TextPart": "My first Mailjet email",
-                                    "HTMLPart": txt_mail,
-                                    "CustomID": "AppGettingStartedTest"
-                                    }
-                                ]
-                                }    
+                'Messages': [
+                    {
+                        "From": {
+                            "Email": "ohmytownapp@gmail.com",
+                            "Name": "OH MY TOWN"
+                        },
+                        "To": [
+                            {
+                                "Email": guia.email,
+                                "Name": guia.nombre
+                            }
+                        ],
+                        "Subject": "Cancelación de reserva "+res.num_reserva,
+                        "TextPart": "My first Mailjet email",
+                        "HTMLPart": txt_mail,
+                        "CustomID": "AppGettingStartedTest"
+                    }
+                ]
+            }
             result = mailjet.send.create(data=data)
-            res.estado = 2 
+            res.estado = 2
             db.session.commit()
             return "Reserva cancelada con exito"
         return "Reserva no encontrada"
+
     @classmethod
     def res_nueva(self, datos):
         letters = string.ascii_letters
         digits = string.digits
-        alphabet = letters + digits 
+        alphabet = letters + digits
         pwd_length = 6
         pwd = ''
         for i in range(pwd_length):
             pwd += ''.join(secrets.choice(alphabet))
-        num_reserva_g = str(datos["id_usuario"])+"_"+str(datos["id_guia"])+"_"+str(datos["id_actividad"])+"_"+str(pwd)
-        actividad= Actividades.query.get(datos['id_actividad'])
-        if actividad.ids_usuarios=='':
-                actividad.ids_usuarios = str(datos['id_usuario'])
+        num_reserva_g = str(datos["id_usuario"])+"_"+str(datos["id_guia"]
+                                                         )+"_"+str(datos["id_actividad"])+"_"+str(pwd)
+        actividad = Actividades.query.get(datos['id_actividad'])
+        if actividad.ids_usuarios == '':
+            actividad.ids_usuarios = str(datos['id_usuario'])
         else:
-            actividad.ids_usuarios = actividad.ids_usuarios +","+str(datos['id_usuario'])
+            actividad.ids_usuarios = actividad.ids_usuarios + \
+                ","+str(datos['id_usuario'])
         db.session.commit()
         usuario = Users.query.get(datos['id_usuario'])
         guia = Users.query.get(datos['id_guia'])
         new_res = Reservas(
             num_reserva=num_reserva_g,
-            fecha_reserva=datetime.now(), 
-            id_actividad=datos['id_actividad'], 
-            estado=0, 
-            fecha_realizacion=actividad.fecha, 
-            id_usuario=datos['id_usuario'], 
+            fecha_reserva=datetime.now(),
+            id_actividad=datos['id_actividad'],
+            estado=0,
+            fecha_realizacion=actividad.fecha,
+            id_usuario=datos['id_usuario'],
             id_guia=datos['id_guia']
         )
 
         db.session.add(new_res)
         db.session.commit()
         if guia:
-            txt_mail= "Hola, El usuario "+usuario.nombre+" ha hecho una reserva de la actividad "+actividad.nombre+" con número de reserva "+ num_reserva_g
-            #print(txt_mail)
+            txt_mail = "Hola, El usuario "+usuario.nombre+" ha hecho una reserva de la actividad " + \
+                actividad.nombre+" con número de reserva " + num_reserva_g
+            # print(txt_mail)
             data = {
-                                'Messages': [
-                                    {
-                                    "From": {
-                                        "Email": "ohmytownapp@gmail.com",
-                                        "Name": "OH MY TOWN"
-                                    },
-                                    "To": [
-                                        {
-                                        "Email": guia.email,
-                                        "Name": guia.nombre
-                                        }
-                                    ],
-                                    "Subject": "Nueva reserva de la actividad "+actividad.nombre,
-                                    "TextPart": "My first Mailjet email",
-                                    "HTMLPart": txt_mail,
-                                    "CustomID": "AppGettingStartedTest"
-                                    }
-                                ]
-                                }    
+                'Messages': [
+                    {
+                        "From": {
+                            "Email": "ohmytownapp@gmail.com",
+                            "Name": "OH MY TOWN"
+                        },
+                        "To": [
+                            {
+                                "Email": guia.email,
+                                "Name": guia.nombre
+                            }
+                        ],
+                        "Subject": "Nueva reserva de la actividad "+actividad.nombre,
+                        "TextPart": "My first Mailjet email",
+                        "HTMLPart": txt_mail,
+                        "CustomID": "AppGettingStartedTest"
+                    }
+                ]
+            }
             result = mailjet.send.create(data=data)
             return "Reserva creada con exito"
         return "Guia no encontrado"
 # una tabla de comentarios de actividad
 
+
 class Comentarios(db.Model):
-    id = db.Column(db.Integer, Sequence('comentarios_id_seq', start=1, increment=1), primary_key=True)
-    id_actividad = db.Column(db.Integer, ForeignKey('actividades.id'), unique=False, nullable=False)
-    id_usuario = db.Column(db.Integer, ForeignKey('users.id'), unique=False, nullable=False)
+    id = db.Column(db.Integer, Sequence('comentarios_id_seq',
+                   start=1, increment=1), primary_key=True)
+    id_actividad = db.Column(db.Integer, ForeignKey(
+        'actividades.id'), unique=False, nullable=False)
+    id_usuario = db.Column(db.Integer, ForeignKey(
+        'users.id'), unique=False, nullable=False)
     texto = db.Column(db.Text, unique=True, nullable=False)
-    activo = db.Column(db.Integer, unique=False, nullable=True) # 0 inactivo 1 activo
+    activo = db.Column(db.Integer, unique=False,
+                       nullable=True)  # 0 inactivo 1 activo
     rels = relationship(Actividades)
-    rel2= relationship(Users)
+    rel2 = relationship(Users)
 
     def __repr__(self):
         return f'<Comentarios {self.nombre}>'
@@ -477,8 +541,9 @@ class Comentarios(db.Model):
             "id_usuario": self.id_usuario,
             "texto": self.texto,
             "activo": self.activo
-            
+
         }
+
     @classmethod
     def get_by_id(self, pid):
         return self.query.filter_by(id=pid).first()
@@ -488,11 +553,11 @@ class Comentarios(db.Model):
         return self.query.filter_by(id_actividad=pid, activo=1)
 
     @classmethod
-    def com_nuevo(self, id_act, id_usr, data): 
+    def com_nuevo(self, id_act, id_usr, data):
         new_comn_act = Comentarios(
             id_actividad=id_act,
-            id_usuario=id_usr, 
-            texto=data['texto'], 
+            id_usuario=id_usr,
+            texto=data['texto'],
             activo=1
         )
         db.session.add(new_comn_act)

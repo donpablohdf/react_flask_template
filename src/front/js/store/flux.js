@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			userid:"",
 			message: null,
 			usuario:[
 				{
@@ -112,7 +113,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			solicitudesAPI: async (url, meth, head, bod) => {
 
 				const body = JSON.stringify(bod)
-				const store = getStore()
 				//console.log(body)
 				if (url === '/api/logout') {
 					const token = localStorage.removeItem('jwt-token')
@@ -124,12 +124,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: head,
 					body: body
 				}).then((resp) => resp.json()).then((data) => {
-					//console.log(data[1])
+					
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
+						localStorage.setItem("userid", data.userid)
+						return data
+					}else{
 						return data
 					}		
-					return data
+					
 
 				}).catch((error) => {
 					return 'Hubo un problema con la petición Fetch:' + error.message

@@ -4,80 +4,70 @@ import "../../styles/login.css";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
 export const Login = () => {
-	const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context);
 
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
-	const [errorLogin, setErrorLogin] = useState("")
+  const {
+    register,
+    reset,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm(); // declaracion para react-hook-form
 
-	const navigate = useNavigate();
+  const navigate = useNavigate();
+  let login = false;
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    const url = "/api/login";
+    const method = "POST";
+    const head = { "Content-Type": "application/json" };
+    //console.log(email, password)
+    login = actions.solicitudesAPI(url, method, head, data);
+    if (login) {
+		navigate("/userhome");
+    }
+  };
 
-	const login=() =>{
-		var myHeaders = new Headers();
-		myHeaders.append("Content-Type", "application/json");
-
-		console.log(email, password)
-
-		var raw = JSON.stringify({
-		"email": email,
-		"password": password
-		});
-
-		var requestOptions = {
-		method: 'POST',
-		headers: myHeaders,
-		body: raw,
-		redirect: 'follow'
-		};
-
-		fetch("https://3000-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/login", requestOptions)
-		.then(response => response.json())
-		//Aqui esta el token, en result
-		.then(result => {
-			if(result.token){
-				localStorage.setItem("token",result.token);
-				navigate("/user");
-			}else{
-				setErrorLogin(result.msg)
-			}
-			
-		})
-		.catch(error => console.log('error', error));
-			}
-
-	return (
-		<div className="login-body">
-			<h1>Hola Viajero!!</h1>
-			<div>
-				<label>Email: </label>
-				<br></br>
-				<input onChange = {(event) => setEmail(event.target.value)}></input>
-			</div>
-			<p></p>
-			<div>
-				<label>Password: </label>
-				<br></br>
-				<input onChange = {(event) => setPassword(event.target.value)}></input>
-			</div>
-			<p></p>
-			<button onClick={login}>Login</button>
-				{errorLogin && <div className="alert alert-danger" role="alert">
-  					{errorLogin}
-				</div>}
-            <p></p>
-            <p>Si no estás registrado pincha<Link to="/signup/">
-							<span className="link_signup"> aquí</span>
-						</Link>
-            </p>
-			<p>
-			<Link to="/userhome/">USUARIOS</Link>
-			</p>
-			<p>
-			<Link to="/guiahome/">GUIAS</Link>
-			</p>
-		</div>
-
-	);
+  return (
+    <div className="login-body">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <h1>Hola Viajero!!</h1>
+        <div>
+          <input
+            autoComplete="off" //no permitir autocompletado del input
+            type="text"
+            placeholder="Email"
+            {...register("email", { required: true })} //crear el name del input y requerido react-hook-form
+          />
+        </div>
+        <p></p>
+        <div>
+          <input
+            autoComplete="off" //no permitir autocompletado del input
+            type="text"
+            placeholder="Password"
+            {...register("password", { required: true })} //crear el name del input y requerido react-hook-form
+          />
+        </div>
+        <p></p>
+        <button type="submit">Login</button>
+      </form>
+      <p></p>
+      <p>
+        Si no estás registrado pincha
+        <Link to="/signup/">
+          <span className="link_signup"> aquí</span>
+        </Link>
+      </p>
+      <p>
+        <Link to="/userhome/">USUARIOS</Link>
+      </p>
+      <p>
+        <Link to="/guiahome/">GUIAS</Link>
+      </p>
+    </div>
+  );
 };

@@ -81,7 +81,7 @@ def login_user():
             token = jwt.encode({'id': user.id, 'exp': datetime.datetime.utcnow(
             ) + ACCESS_EXPIRES}, SECRET)
             access_token = create_access_token(token)
-            return jsonify({"token": access_token}), 200
+            return jsonify({"token": access_token, "userid":user.id}), 200
         return jsonify({"error": 'no_pass'}), 401
     return jsonify({"error": 'no_user'}), 401
 
