@@ -29,8 +29,6 @@ export const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
-    
-    console.log(esLogin)
     return () => {
       window.removeEventListener("scroll", controlNavbar);
       

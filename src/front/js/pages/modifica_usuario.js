@@ -43,7 +43,7 @@ export const ModificaUsuario = () => {
     //console.log(data)
     login = actions.solicitudesAPI(url, method, head, data)
     if (login) {
-      navigate("/userhome")
+      navigate("/islogin")
     }
   }
   const token = localStorage.getItem("jwt-token")

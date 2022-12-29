@@ -14,11 +14,7 @@ export const UserHome = () => {
   const userid = localStorage.userid
   const token = localStorage.getItem("jwt-token");
   
-  const promesa = () => {
-    return new Promise((resolve, reject) => {
-      resolve(actions.dataFromAPI("/api/usuario/" + userid));
-    });
-  };
+ 
   useEffect(() => {
     if (!token) {
       return (
@@ -27,6 +23,11 @@ export const UserHome = () => {
         </div>
       );
     }
+    const promesa = () => {
+      return new Promise((resolve, reject) => {
+        resolve(actions.dataFromAPI("/api/usuario/" + userid));
+      });
+    };
     promesa().then((datos) => {
       setListaUsuarios(datos);
       setIsLoading(false);
@@ -59,6 +60,7 @@ export const UserHome = () => {
         <h1>Esta es la pagina de usuario</h1>
         <img src={"/src/" + listaUsuarios.foto} alt="" />
         <h5>Nombre: {listaUsuarios.nombre}</h5>
+        <p>Apellidos: {listaUsuarios.apellidos}</p>
         <p>Email: {listaUsuarios.email}</p>
         <p>Ciudad: {listaUsuarios.ciudad}</p>
         {listaUsuarios.tipo == 1 ? (
