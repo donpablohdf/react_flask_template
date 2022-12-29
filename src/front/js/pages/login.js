@@ -27,7 +27,8 @@ export const Login = () => {
     //console.log(email, password)
     login = actions.solicitudesAPI(url, method, head, data);
     if (login) {
-      navigate("/islogin");
+      
+      return navigate("/islogin");
     }
   };
 

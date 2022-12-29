@@ -33,7 +33,7 @@ export const ModificaUsuario = () => {
       setListaUsuarios(datos)
       setIsLoading(false);
 
-      console.log(datos)
+      //console.log(datos)
     })
   }, [])
 
@@ -43,7 +43,7 @@ export const ModificaUsuario = () => {
     const url = "/api/modifica_user/" + userid
     const method = "POST"
     const head = { "Content-Type": "application/json" }
-    console.log(data)
+    //console.log(data)
     login = actions.solicitudesAPI(url, method, head, data)
     if (login) {
       navigate("/islogin")

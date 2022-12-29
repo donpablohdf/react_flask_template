@@ -119,8 +119,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				const body = JSON.stringify(bod)
 				//console.log(body)
-				
-
 				//console.log(url, meth, head, body);
 				await fetch(process.env.BACKEND_URL + url, {
 					method: meth,
@@ -131,7 +129,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
 						localStorage.setItem("userid", data.userid)						
-						return data
+						return true
 					}else{
 						return data
 					}		
