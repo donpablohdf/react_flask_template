@@ -16,16 +16,20 @@ export const FormSignup = () => {
   } = useForm(); // declaracion para react-hook-form
   const { actions } = useContext(Context);
   const token = localStorage.getItem("jwt-token");
-
+  const [errPass, setErrPass] = useState(false);
   const onSubmit = (data, e) => {
     e.preventDefault();
     // console.log(data)
     const url = "/api/new_user";
     const method = "POST";
     const head = { "Content-Type": "application/json" };
-    const login = actions.solicitudesAPI(url, method, head, data);
-    if (login) {
-      navigate("/login");
+    if (data.password !== data.passwordR) {
+		setErrPass(true)
+    } else {
+      const login = actions.solicitudesAPI(url, method, head, data);
+      if (login) {
+        navigate("/login");
+      }
     }
   };
 
@@ -84,6 +88,16 @@ export const FormSignup = () => {
               </div>
             </div>
           </div>
+		  {errPass? (
+          <>
+            <span className="text-danger text-small d-block m-2 fw-lighter">
+              El password no coincide
+            </span>
+          </>
+        ) : (
+          ""
+        )}
+
           {/* control de errores react-hook-form */}
           {errors.email && (
             <span className="text-danger text-small d-block m-2 fw-lighter">
