@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import { Link } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
 export const Login = () => {
@@ -60,12 +60,6 @@ export const Login = () => {
         <Link to="/signup/">
           <span className="link_signup"> aquí</span>
         </Link>
-      </p>
-      <p>
-        <Link to="/userhome/">USUARIOS</Link>
-      </p>
-      <p>
-        <Link to="/guiahome/">GUIAS</Link>
       </p>
     </div>
   );

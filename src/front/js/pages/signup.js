@@ -1,165 +1,102 @@
-import React, {useContext, useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
+import { useNavigate } from "react-router-dom";
 
-import "../../styles/signup.css";
+import "../../styles/login.css";
+export const FormSignup = () => {
+  const navigate = useNavigate();
 
-export const SignUp = () => {
-	const { store, actions } = useContext(Context);
+  const {
+    register,
+    reset,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm(); // declaracion para react-hook-form
+  const { actions } = useContext(Context);
+  const token = localStorage.getItem("jwt-token");
 
-	const [input, setInput] = useState({
-		nombre: '',
-		password: '',
-		confirmPassword: ''
-	});
-	 
-	const [error, setError] = useState({
-		nombre: '',
-		password: '',
-		confirmPassword: ''
-	})
-	 
-	const onInputChange = e => {
-		const { name, value } = e.target;
-			setInput(prev => ({
-		  	...prev,
-		  	[name]: value,
-		}));
-		validateInput(e);
-	}
-	const validateInput = e => {
-		let { name, value } = e.target;
-		setError(prev => {
-			const stateObj = { ...prev, [name]: "" };
-	 
-		  switch (name) {
-			case "nombre":
-			  if (!value) {
-				stateObj[name] = "Introduzca un nombre por favor.";
-			  }
-			  break;
-	 
-			case "password":
-			  if (!value) {
-				stateObj[name] = "Introduzca una contraseña por favor.";
-			  } else if (input.confirmPassword && value !== input.confirmPassword) {
-				stateObj["confirmPassword"] = "Las contraseñas no coinciden.";
-			  } else {
-				stateObj["confirmPassword"] = input.confirmPassword ? "" : error.confirmPassword;
-			  }
-			  break;
-	 
-			case "confirmPassword":
-			  if (!value) {
-				stateObj[name] = "Repita la contraseña por favor.";
-			  } else if (input.password && value !== input.password) {
-				stateObj[name] = "Las contraseñas no coinciden.";
-			  }
-			  break;
-	 
-			default:
-			  break;
-		  }
-	 
-		  return stateObj;
-		});
-	  }
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    // console.log(data)
+    const url = "/api/new_user";
+    const method = "POST";
+    const head = { "Content-Type": "application/json" };
+    const login = actions.solicitudesAPI(url, method, head, data);
+    if (login) {
+      navigate("/login");
+    }
+  };
 
-	  /*const [nombre, setNombre] = useState("");
-	  const [apellidos, setApellidos] = useState("");
-	  const [email, setEmail] = useState("");
-	  const [password, setPassword] = useState("");
-	  const [tipo,setTipo] = useState("");*/
-	  let handleSubmit = async (e) => {
-		e.preventDefault();
-		try {
-		  let res = await fetch("", {
-			method: "POST",
-			body: JSON.stringify({
-			  nombre: nombre,
-			  email: email,
-			  apellidos: apellidos,
-			  password: password,
-			}),
-		  });
-		  let resJson = await res.json();
-		  if (res.status === 200) {
-			setNombre("");
-			setEmail("");
-			setPassword("");
-			setMessage("Usuario creado");
-		  } else {
-			setMessage("Ha ocurrido un error");
-		  }
-		} catch (err) {
-		  console.log(err);
-		}
-	  };
+  return (
+    <div className="login-body">
+      <section className="d-flex justify-content-center">
+        <h5>Registro</h5>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="d-flex container-fluid flex-column mt-5">
+            <div
+              id="input_username"
+              className="row mt-2 align-items-center bg-warning rounded"
+            >
+              <span className="col-3 ">Email</span>
+              <input
+                type="text"
+                className="form-control ms-2 col"
+                placeholder="Email"
+                {...register("email", { required: true })} //crear el name del input y requerido react-hook-form
+              />
+            </div>
+            <div
+              id="input_password"
+              className="row mt-2 align-items-center bg-warning rounded"
+            >
+              <span className="col-3 ">Password</span>
 
+              <input
+                autoComplete="off" //no permitir autocompletado del input
+                type="text"
+                className="form-control  ms-2 col"
+                placeholder="Password"
+                {...register("password", { required: true })} //crear el name del input y requerido react-hook-form
+              />
+            </div>
+            <div
+              id="input_password"
+              className="row mt-2 align-items-center bg-warning rounded"
+            >
+              <span className="col-3 ">Repita password</span>
 
-	return (
-		<div className="signup-body">
-			<h1>Registro de Usuario: </h1>
-			<form onSubmit={handleSubmit} action ="" method="post" autoComplete="on">
-				<fieldset>
-					<ul>
-						<li>
-							<label>Nombre: </label><br></br>
-							<input
-          						type="text"
-								id="nombre"
-          						name="nombre"
-          						placeholder='Enter Username'
-          						value={input.nombre}
-          						onChange={onInputChange}
-          						onBlur={validateInput}
-								required>
-							</input>
-							{error.nombre && <span className='err'>{error.nombre}</span>}
-						</li>
-						<li>
-							<label>Correo electrónico: </label><br></br>
-							<input type="email" id="email" name="email" required/>
-						</li>
-						<li>
-							<label>Password: </label><br></br>
-							<input
-          						type="password"
-								id="password"
-         						name="password"
-          						placeholder='Password'
-          						value={input.password}
-          						onChange={onInputChange}
-          						onBlur={validateInput}
-								required>
-							</input>
-							{error.password && <span className='err'>{error.password}</span>}
-						</li>
-						<li>
-							<label>Confirma el Password: </label><br></br>
-							<input
-          						type="password"
-         						name="confirmPassword"
-          						placeholder='Enter Confirm Password'
-          						value={input.confirmPassword}
-          						onChange={onInputChange}
-          						onBlur={validateInput}
-								required>
-							</input>
-							{error.confirmPassword && <span className='err'>{error.confirmPassword}</span>}
-						</li>
-						<li>
-							<p>Tipo de persona: </p>
-							<label>Usuario</label>
-							<input type="radio" id="usuario" name="persona" value="usuario" required/>
-							<label>Guia</label>
-							<input type="radio" id="guia" name="persona" value="guia"/>
-						</li>
-						<button className="button-submit" type="submit" value="Submit" onSubmit={handleSubmit}></button>
-					</ul>
-				</fieldset>
-			</form>
-		</div>
-	);
+              <input
+                autoComplete="off" //no permitir autocompletado del input
+                type="text"
+                className="form-control  ms-2 col"
+                placeholder="Repita password"
+                {...register("passwordR", { required: true })} //crear el name del input y requerido react-hook-form
+              />
+            </div>
+            <div id="input_btn" className="row my-4">
+              <div className="d-inline-flex container justify-content-center">
+                <button className="btn btn-primary m-0" type="submit">
+                  {" "}
+                  enviar
+                </button>
+              </div>
+            </div>
+          </div>
+          {/* control de errores react-hook-form */}
+          {errors.email && (
+            <span className="text-danger text-small d-block m-2 fw-lighter">
+              El campo email no puede estar vacío
+            </span>
+          )}
+          {errors.password && (
+            <span className="text-danger text-small d-block m-2 fw-lighter">
+              El campo password no puede estar vacío
+            </span>
+          )}
+        </form>
+      </section>
+    </div>
+  );
 };

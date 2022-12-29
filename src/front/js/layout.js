@@ -9,7 +9,6 @@ import { Guia } from "./pages/guia";
 import { Login } from "./pages/login";
 import { Search } from "./pages/search";
 import { Actividades } from "./pages/actividades";
-import { SignUp } from "./pages/signup";
 import { UserHome } from "./pages/userhome";
 import { Cart } from "./pages/cart"
 import { Reservas } from "./pages/reservas"
@@ -19,6 +18,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { ModificaUsuario } from "./pages/modifica_usuario";
 import {Logout} from "./pages/logout";
+import { FormSignup } from "./pages/signup";
 
 //create your first component
 const Layout = () => {
@@ -40,7 +40,7 @@ const Layout = () => {
                         <Route element = {<Guia />} path="/guia/:theid" />
                         <Route element = {<Actividades />} path="/actividades/:theid" />
                         <Route element = {<Login/>} path = "/login"/>
-                        <Route element = {<SignUp/>} path = "/signup"/>
+                        <Route element = {<FormSignup/>} path = "/signup"/>
                         <Route element = {<UserHome />} path="/userhome"/>
                         <Route element = {<ModificaUsuario />} path="/modifica_usuario"/>
                         <Route element = {<Logout />} path="/logout"/>

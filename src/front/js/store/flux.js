@@ -130,8 +130,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
-						if (localStorage.setItem("userid", data.userid)){console.log(data)}
-						
+						localStorage.setItem("userid", data.userid)						
 						return data
 					}else{
 						return data
