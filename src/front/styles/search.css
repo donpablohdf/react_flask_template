@@ -1,0 +1,19 @@
+.search_body{
+    background-color: lightsalmon;
+    display:flex;
+    width: 100%;
+    padding-top: 10%;
+    text-align: center;
+    padding-bottom: 25%;
+    align-items:center;
+}
+.barra_search{
+    width: 80%;
+    margin-bottom: 60px;
+}
+.containerInput{
+    width: 50%;
+}
+.search_field{
+  margin-top: 60px; 
+}
