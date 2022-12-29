@@ -6,6 +6,7 @@ import { Context } from "../store/appContext";
 import "../../styles/login.css";
 
 export const UserHome = () => {
+  const cargarImagen = require.context("/src/imgs/users/", true);
   const navigate = useNavigate();
   const { store, actions } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,25 +41,30 @@ export const UserHome = () => {
         <h1>Cargando...</h1>
       </div>
     );
-  } 
-    if (!listaUsuarios.nombre || listaUsuarios.nombre==='') {
-      return (
-        <div className="login-body">
-          <h1>Para continuar debe rellenar su perfil</h1>
-          <Link to="/modifica_usuario">
-            <button>Rellenar mi perfil</button>
-          </Link>
-        </div>
-      );
-    }
-  
+  }
+  if (!listaUsuarios.nombre || listaUsuarios.nombre === "") {
+    return (
+      <div className="login-body">
+        <h1>Para continuar debe rellenar su perfil</h1>
+        <Link to="/modifica_usuario">
+          <button>Rellenar mi perfil</button>
+        </Link>
+      </div>
+    );
+  }
 
+  const imagen = listaUsuarios.foto;
   return (
     <div className="login-body">
       <h1>Esta es la pagina de usuario</h1>
-      <img src={"src/" + listaUsuarios.foto} alt="" />
+      <img src={"/src/" + imagen} alt="" />
       <h5>Nombre: {listaUsuarios.nombre}</h5>
       <p>Email: {listaUsuarios.email}</p>
+      <div>
+        <Link to="/modifica_usuario">
+          <button>Modificar mis datos de perfil</button>
+        </Link>
+      </div>
       <h2>Actividades Realizadas: </h2>
       <p>{store.actividades[0].nombre}</p>
       <button>Comentar</button>

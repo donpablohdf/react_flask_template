@@ -1,59 +1,58 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react"
+import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
-import { Context } from "../store/appContext";
-import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
+import { Context } from "../store/appContext"
+import { useForm } from "react-hook-form" // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
-import "../../styles/login.css";
+import "../../styles/login.css"
 
 export const ModificaUsuario = () => {
-  const userid = localStorage.getItem("userid");
-  const navigate = useNavigate();
-  const [listaUsuarios, setListaUsuarios] = useState([]);
-  const { actions } = useContext(Context);
+  const userid = localStorage.getItem("userid")
+  const navigate = useNavigate()
+  const [listaUsuarios, setListaUsuarios] = useState([])
+  const [esGuia, setEsGuia] = useState(false)
+
+  const { actions } = useContext(Context)
   const {
     register,
     reset,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm(); // declaracion para react-hook-form
+  } = useForm({ defaultValues: { tipo: false } }) // declaracion para react-hook-form
 
   useEffect(() => {
     const promesa = () => {
       return new Promise((resolve, reject) => {
-        resolve(actions.dataFromAPI("/api/usuario/" + userid));
-      });
-    };
-    promesa().then((datos) => {
-      setListaUsuarios(datos);
-      console.log(datos);
-    });
-  }, []);
-  const onChangeValue = (e) => {
-    e.removeAttribute("value");
-  };
-
-  let login = false;
-  const onSubmit = (data, e) => {
-    e.preventDefault();
-    const url = "/api/modifica_user/" + userid;
-    const method = "POST";
-    const head = { "Content-Type": "application/json" };
-    console.log(data);
-    login = actions.solicitudesAPI(url, method, head, data);
-    if (login) {
-      navigate("/userhome");
+        resolve(actions.dataFromAPI("/api/usuario/" + userid))
+      })
     }
-  };
-  const token = localStorage.getItem("jwt-token");
+    promesa().then((datos) => {
+      setListaUsuarios(datos)
+      console.log(datos)
+    })
+  }, [])
+
+  let login = false
+  const onSubmit = (data, e) => {
+    e.preventDefault()
+    const url = "/api/modifica_user/" + userid
+    const method = "POST"
+    const head = { "Content-Type": "application/json" }
+    console.log(data)
+    login = actions.solicitudesAPI(url, method, head, data)
+    if (login) {
+      navigate("/userhome")
+    }
+  }
+  const token = localStorage.getItem("jwt-token")
   if (!token) {
     return (
       <div className="login-body">
         <h1 className="bg-danger">No está autorizado</h1>
       </div>
-    );
+    )
   } else {
     return (
       <>
@@ -108,7 +107,20 @@ export const ModificaUsuario = () => {
               />
             </div>
             <p></p>
-            {listaUsuarios.tipo == 1 ? (
+            {listaUsuarios.tipo == 0 ? (
+              <div>
+                <label >Quiero ser guía</label>
+                <input type="checkbox" {...register("tipo")} id="tipo" value="1" onChange={() => setEsGuia(!esGuia)} />
+              </div>
+            ) : (
+              <input
+                {...register("tipo")}
+                type="hidden"
+                value={listaUsuarios.tipo ? listaUsuarios.tipo : "1"}
+              />
+            )}
+            <p></p>
+            {(listaUsuarios.tipo == 1 || esGuia) ? (
               <div>
                 <textarea
                   type="text"
@@ -120,24 +132,10 @@ export const ModificaUsuario = () => {
                 />
               </div>
             ) : ''}
-            <p></p>
-            {listaUsuarios.tipo == 0 ? (
-              <div>
-                <label for="tipo">Quiero ser guía</label>
-                <input type="radio" {...register("tipo")} value="1" />
-              </div>
-            ) : (
-              <input
-                {...register("tipo")}
-                type="hidden"
-                value={listaUsuarios.tipo ? listaUsuarios.tipo : "1"}
-              />
-            )}
-            <p></p>
             <button type="submit">Modificar</button>
           </form>
         </div>
       </>
-    );
+    )
   }
-};
+}
