@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-BiArea
+
 import { BiLogInCircle } from "react-icons/bi";
 import {BiLogOutCircle} from "react-icons/bi"
 import {BiArea} from "react-icons/bi"

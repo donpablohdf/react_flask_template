@@ -12,28 +12,26 @@ export const UserHome = () => {
 
   const [listaUsuarios, setListaUsuarios] = useState([]);
   const userid = localStorage.userid
+  const token = localStorage.getItem("jwt-token");
+  
   const promesa = () => {
     return new Promise((resolve, reject) => {
       resolve(actions.dataFromAPI("/api/usuario/" + userid));
     });
   };
   useEffect(() => {
-    
-    const token = localStorage.getItem("jwt-token");
     if (!token) {
       return (
-        <div className="m-3">
+        <div className="login-body">
           <h1 className="bg-danger">No está autorizado</h1>
         </div>
       );
     }
-
-    
     promesa().then((datos) => {
       setListaUsuarios(datos);
       setIsLoading(false);
     });
-  }, [userid]);
+  }, [token]);
 
   if (isLoading) {
     return (
@@ -42,6 +40,7 @@ export const UserHome = () => {
       </div>
     );
   }
+  
   if (!listaUsuarios.nombre || listaUsuarios.nombre === "") {
     return (
       <div className="login-body">
@@ -52,6 +51,7 @@ export const UserHome = () => {
       </div>
     );
   }
+
 
   return (
     <>
