@@ -30,7 +30,7 @@ export const ModificaUsuario = () => {
     }
     promesa().then((datos) => {
       setListaUsuarios(datos)
-      console.log(datos)
+      //console.log(datos)
     })
   }, [])
 
@@ -40,7 +40,7 @@ export const ModificaUsuario = () => {
     const url = "/api/modifica_user/" + userid
     const method = "POST"
     const head = { "Content-Type": "application/json" }
-    console.log(data)
+    //console.log(data)
     login = actions.solicitudesAPI(url, method, head, data)
     if (login) {
       navigate("/userhome")
@@ -131,7 +131,13 @@ export const ModificaUsuario = () => {
                   {...register("descripcion")} //crear el name del input y requerido react-hook-form
                 />
               </div>
-            ) : ''}
+            ) : (
+              <input
+                {...register("descripcion")}
+                type="hidden"
+                value={listaUsuarios.descripcion ? listaUsuarios.descripcion : ""}
+              />
+            )}
             <button type="submit">Modificar</button>
           </form>
         </div>
