@@ -20,6 +20,7 @@ import { ModificaUsuario } from "./pages/modifica_usuario";
 import {Logout} from "./pages/logout";
 import { FormSignup } from "./pages/signup";
 import { IsLogin } from "./pages/isLogin";
+import { NuevaActividad } from "./pages/nuevaActividad";
 
 //create your first component
 const Layout = () => {
@@ -46,6 +47,7 @@ const Layout = () => {
                         <Route element = {<ModificaUsuario />} path="/modifica_usuario"/>
                         <Route element = {<Logout />} path="/logout"/>
                         <Route element = {<IsLogin />} path="/islogin"/>
+                        <Route element = {<NuevaActividad />} path="/nueva_actividad"/>
                         <Route element = {<Cart />} path="/cart" />
                         <Route element = {<Reservas />} path="/reservas/:theid" />
                         <Route element = {<h1>Not found!</h1>} />

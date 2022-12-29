@@ -48,10 +48,10 @@ export const Actividades = props => {
 	}
 
 	return (
-		<div className="actividades-body">{console.log(actividades.id_guia)}
+		<div className="actividades-body">
 			<div className="container jumbotron body">
 				<h1 className="display-4">{actividades.title}</h1>
-				<img src={rigoImageUrl} />
+				<img src={actividades.foto} />
 				<h3>{actividades.ciudad}</h3>
 				<h4>{actividades.descripcion}</h4>
 				<h2>{actividades.precio}</h2>
