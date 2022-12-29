@@ -6,16 +6,20 @@ import { Context } from "../store/appContext";
 import "../../styles/login.css";
 
 export const UserHome = () => {
-  const cargarImagen = require.context("/src/imgs/users/", true);
   const navigate = useNavigate();
   const { store, actions } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
 
   const [listaUsuarios, setListaUsuarios] = useState([]);
-  const userid = localStorage.getItem("userid");
+  const userid = localStorage.userid
+  const promesa = () => {
+    return new Promise((resolve, reject) => {
+      resolve(actions.dataFromAPI("/api/usuario/" + userid));
+    });
+  };
   useEffect(() => {
+    
     const token = localStorage.getItem("jwt-token");
-
     if (!token) {
       return (
         <div className="m-3">
@@ -24,20 +28,16 @@ export const UserHome = () => {
       );
     }
 
-    const promesa = () => {
-      return new Promise((resolve, reject) => {
-        resolve(actions.dataFromAPI("/api/usuario/" + userid));
-      });
-    };
+    
     promesa().then((datos) => {
       setListaUsuarios(datos);
       setIsLoading(false);
     });
-  }, [isLoading]);
+  }, [userid]);
 
   if (isLoading) {
     return (
-      <div className="tbody">
+      <div className="login-body">
         <h1>Cargando...</h1>
       </div>
     );
@@ -53,34 +53,35 @@ export const UserHome = () => {
     );
   }
 
-  const imagen = listaUsuarios.foto;
   return (
-    <div className="login-body">
-      <h1>Esta es la pagina de usuario</h1>
-      <img src={"/src/" + imagen} alt="" />
-      <h5>Nombre: {listaUsuarios.nombre}</h5>
-      <p>Email: {listaUsuarios.email}</p>
-      <div>
-        <Link to="/modifica_usuario">
-          <button>Modificar mis datos de perfil</button>
-        </Link>
-      </div>
-      {listaUsuarios.tipo == 1 ? (
+    <>
+      <div className="login-body">
+        <h1>Esta es la pagina de usuario</h1>
+        <img src={"/src/" + listaUsuarios.foto} alt="" />
+        <h5>Nombre: {listaUsuarios.nombre}</h5>
+        <p>Email: {listaUsuarios.email}</p>
+        <p>Ciudad: {listaUsuarios.ciudad}</p>
+        {listaUsuarios.tipo == 1 ? (
+          <>
+            <p>Descripcion: {listaUsuarios.descripcion}</p>
+            <div>
+              <Link to={"/guia/" + userid}>
+                <button>Ir a mi pagina de guía</button>
+              </Link>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
         <div>
-          <Link to={"/guia/" + userid}>
-            <button>Ir a mi pagina de guía</button>
+          <Link to="/modifica_usuario">
+            <button>Modificar mis datos de perfil</button>
           </Link>
         </div>
-      ) : (
-        ""
-      )}
 
-      <h2>Actividades Realizadas: </h2>
-      <p>{store.actividades[0].nombre}</p>
-      <button>Comentar</button>
-      <h2>Ultimos comentarios: </h2>
-      <p>{store.comentarios[0].comentario}</p>
-      <button>Editar comentario</button>
-    </div>
+        <h2>Actividades Realizadas: </h2>
+        <p>{store.actividades[0].nombre}</p>
+      </div>
+    </>
   );
 };

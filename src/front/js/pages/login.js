@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
 export const Login = () => {
+  const navigate = useNavigate();
   const { actions } = useContext(Context);
 
   const {
@@ -17,7 +18,6 @@ export const Login = () => {
     formState: { errors },
   } = useForm(); // declaracion para react-hook-form
 
-  const navigate = useNavigate();
   let login = false;
   const onSubmit = (data, e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ export const Login = () => {
     //console.log(email, password)
     login = actions.solicitudesAPI(url, method, head, data);
     if (login) {
-		navigate("/userhome");
+      navigate("/");
     }
   };
 
@@ -37,7 +37,6 @@ export const Login = () => {
         <h1>Hola Viajero!!</h1>
         <div>
           <input
-            autoComplete="off" //no permitir autocompletado del input
             type="text"
             placeholder="Email"
             {...register("email", { required: true })} //crear el name del input y requerido react-hook-form

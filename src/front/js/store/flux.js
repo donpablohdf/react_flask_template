@@ -100,6 +100,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			dataFromAPI: async (url) => {
 				// para meter los datos de la API
+				if (url === '/logout') {
+					const token = localStorage.removeItem('jwt-token')
+					const userid = localStorage.removeItem('userid')
+					return true
+				}
 					try {
 						const resp = await fetch(process.env.BACKEND_URL + url)
 						const data = await resp.json()
@@ -114,9 +119,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				const body = JSON.stringify(bod)
 				//console.log(body)
-				if (url === '/api/logout') {
-					const token = localStorage.removeItem('jwt-token')
-				}
+				
 
 				//console.log(url, meth, head, body);
 				await fetch(process.env.BACKEND_URL + url, {
@@ -127,7 +130,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
-						localStorage.setItem("userid", data.userid)
+						if (localStorage.setItem("userid", data.userid)){console.log(data)}
+						
 						return data
 					}else{
 						return data

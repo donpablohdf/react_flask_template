@@ -18,6 +18,7 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { ModificaUsuario } from "./pages/modifica_usuario";
+import {Logout} from "./pages/logout";
 
 //create your first component
 const Layout = () => {
@@ -42,7 +43,7 @@ const Layout = () => {
                         <Route element = {<SignUp/>} path = "/signup"/>
                         <Route element = {<UserHome />} path="/userhome"/>
                         <Route element = {<ModificaUsuario />} path="/modifica_usuario"/>
-
+                        <Route element = {<Logout />} path="/logout"/>
                         <Route element = {<Cart />} path="/cart" />
                         <Route element = {<Reservas />} path="/reservas/:theid" />
                         <Route element = {<h1>Not found!</h1>} />
