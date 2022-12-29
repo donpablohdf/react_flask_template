@@ -17,21 +17,23 @@ export const Guia = (props) => {
   const [isLoading, setIsLoading] = useState(true); //cargando guias
   const [isLoading2, setIsLoading2] = useState(true); //cargando actividades
 
+  const promesaGuias = () => {
+    return new Promise((resolve, reject) => {
+      resolve(actions.dataFromAPI("/api/usuario/" + params.theid));
+    });
+  };
+  const promesaActividades = () => {
+    return new Promise((resolve, reject) => {
+      resolve(actions.dataFromAPI("/api/actividad_guia/" + params.theid));
+    });
+  };
+
   useEffect(() => {
-    const promesaGuias = () => {
-      return new Promise((resolve, reject) => {
-        resolve(actions.dataFromAPI("/api/usuario/" + params.theid));
-      });
-    };
     promesaGuias().then((datos) => {
       setGuia(datos);
       setIsLoading(false);
     });
-    const promesaActividades = () => {
-      return new Promise((resolve, reject) => {
-        resolve(actions.dataFromAPI("/api/actividad_guia/" + params.theid));
-      });
-    };
+
     promesaActividades().then((datos) => {
       setActividades(datos);
       setIsLoading2(false);
@@ -62,7 +64,18 @@ export const Guia = (props) => {
             </div>
           </div>
         </div>
+        <h5>ACTIVIDADES</h5>
+        {guia.tipo === 1 ? (
+          <div className="changeColor col-1">
+            <Link to="/nueva_actividad">
+              <span className="cart nav-link">Nueva actividad</span>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
         <div className="row row-cols-1 row-cols-md-3 g-4">
+        
           {actividades.map((element) => (
             <div key={element.id} className="col">
               <Link to={"/actividades/" + element.id}>
@@ -80,17 +93,7 @@ export const Guia = (props) => {
             </div>
           ))}
         </div>
-        {guia.tipo ===1 ? (
-          <div className="changeColor col-1">
-            <Link to="/nueva_actividad">
-              <span className="cart nav-link">
-                Nueva actividad
-              </span>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+       
 
         <p>{store.comentarios[0].comentario}</p>
         <p>{store.comentarios[1].comentario}</p>
