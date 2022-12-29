@@ -14,8 +14,10 @@ export const Guia = (props) => {
 
   const [guia, setGuia] = useState([]);
   const [actividades, setActividades] = useState([]);
+  const [reservas, setReservas] = useState([]);
   const [isLoading, setIsLoading] = useState(true); //cargando guias
   const [isLoading2, setIsLoading2] = useState(true); //cargando actividades
+  const [isLoading3, setIsLoading3] = useState(true); //cargando reservas
 
   const promesaGuias = () => {
     return new Promise((resolve, reject) => {
@@ -27,7 +29,11 @@ export const Guia = (props) => {
       resolve(actions.dataFromAPI("/api/actividad_guia/" + params.theid));
     });
   };
-
+  const promesaReservas = () => {
+    return new Promise((resolve, reject) => {
+      resolve(actions.dataFromAPI("/api/reserva_guia/" + params.theid));
+    });
+  };
   useEffect(() => {
     promesaGuias().then((datos) => {
       setGuia(datos);
@@ -37,10 +43,14 @@ export const Guia = (props) => {
     promesaActividades().then((datos) => {
       setActividades(datos);
       setIsLoading2(false);
+      promesaReservas().then((datos) => {
+        setReservas(datos);
+        setIsLoading3(false);
+      });
     });
   }, []);
 
-  if (isLoading || isLoading2) {
+  if (isLoading && isLoading2 && isLoading3) {
     return (
       <div className="tbody">
         <h1>Cargando...</h1>
@@ -66,16 +76,15 @@ export const Guia = (props) => {
         </div>
         <h5>ACTIVIDADES</h5>
         {guia.tipo === 1 ? (
-          <div className="changeColor col-1">
+          <div>
             <Link to="/nueva_actividad">
-              <span className="cart nav-link">Nueva actividad</span>
+              <button>Nueva actividad</button>
             </Link>
           </div>
         ) : (
           ""
         )}
         <div className="row row-cols-1 row-cols-md-3 g-4">
-        
           {actividades.map((element) => (
             <div key={element.id} className="col">
               <Link to={"/actividades/" + element.id}>
@@ -93,12 +102,23 @@ export const Guia = (props) => {
             </div>
           ))}
         </div>
-       
+        <h5>RESERVAS</h5>
 
-        <p>{store.comentarios[0].comentario}</p>
-        <p>{store.comentarios[1].comentario}</p>
-        <br></br>
-        <br></br>
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+          {reservas.map((element) => (
+            <div key={element.id} className="col">
+              <div className="card h-100">
+                <img src={element.foto} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <h5 className="card-title">{element.num_reserva}</h5>
+                  <p className="card-text">Actividad: {element.id_actividad}</p>
+                  <p className="card-text">Realizada: {element.fecha_realizacion}</p>
+                  <p className="card-text">Emitida: {element.fecha_reserva}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
