@@ -24,18 +24,19 @@ export const Actividades = props => {
 		promesaActividades().then((datos) => { 
 			setActividades(datos)
 			setIsLoading2(false);
+			const promesaGuias = () => {
+				return new Promise((resolve, reject) => {
+					resolve(actions.dataFromAPI('/api/usuario/'+ datos.id_guia)) 
+				})
+			}
+			promesaGuias().then((datos) => { 
+				setGuia(datos)
+				setIsLoading (false);
+			}
+			)
 		}
 		)
-		const promesaGuias = () => {
-			return new Promise((resolve, reject) => {
-				resolve(actions.dataFromAPI('/api/usuario/'+ actividades.id_guia)) 
-			})
-		}
-		promesaGuias().then((datos) => { 
-			setGuia(datos)
-			setIsLoading (false);
-		}
-		)
+		
 	},[])
 
 	if (isLoading || isLoading2) {
