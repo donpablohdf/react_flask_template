@@ -10,6 +10,7 @@ import "../../styles/login.css"
 export const ModificaUsuario = () => {
   const userid = localStorage.getItem("userid")
   const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(true);
   const [listaUsuarios, setListaUsuarios] = useState([])
   const [esGuia, setEsGuia] = useState(false)
 
@@ -30,7 +31,9 @@ export const ModificaUsuario = () => {
     }
     promesa().then((datos) => {
       setListaUsuarios(datos)
-      //console.log(datos)
+      setIsLoading(false);
+
+      console.log(datos)
     })
   }, [])
 
@@ -40,11 +43,18 @@ export const ModificaUsuario = () => {
     const url = "/api/modifica_user/" + userid
     const method = "POST"
     const head = { "Content-Type": "application/json" }
-    //console.log(data)
+    console.log(data)
     login = actions.solicitudesAPI(url, method, head, data)
     if (login) {
       navigate("/islogin")
     }
+  }
+  if (isLoading) {
+    return (
+      <div className="login-body">
+        <h1>Cargando...</h1>
+      </div>
+    );
   }
   const token = localStorage.getItem("jwt-token")
   if (!token) {
@@ -123,11 +133,8 @@ export const ModificaUsuario = () => {
             {(listaUsuarios.tipo == 1 || esGuia) ? (
               <div>
                 <textarea
-                  type="text"
-                  placeholder="Descripcion"
-                  defaultValue={
-                    listaUsuarios.descripcion ? listaUsuarios.descripcion : ""
-                  }
+                defaultValue={listaUsuarios.descripcion ? listaUsuarios.descripcion : ""}
+                 
                   {...register("descripcion")} //crear el name del input y requerido react-hook-form
                 />
               </div>

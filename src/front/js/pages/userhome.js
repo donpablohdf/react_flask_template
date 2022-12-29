@@ -32,7 +32,7 @@ export const UserHome = () => {
       setListaUsuarios(datos);
       setIsLoading(false);
     });
-  }, [token]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -52,13 +52,13 @@ export const UserHome = () => {
       </div>
     );
   }
-
+ //<img src={"/src/" + listaUsuarios.foto} alt="" />
 
   return (
     <>
       <div className="login-body">
         <h1>Esta es la pagina de usuario</h1>
-        <img src={"/src/" + listaUsuarios.foto} alt="" />
+        
         <h5>Nombre: {listaUsuarios.nombre}</h5>
         <p>Apellidos: {listaUsuarios.apellidos}</p>
         <p>Email: {listaUsuarios.email}</p>
