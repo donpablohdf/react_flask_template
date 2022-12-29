@@ -13,8 +13,10 @@ import "../../styles/navbar.css";
 import logo from "../../img/OMT1.png";
 
 export const Navbar = () => {
+  const token = localStorage.getItem("jwt-token");
   const userid = localStorage.getItem("userid");
-  const [esLogin, setEsLogin] = useState(true);
+  const [esLogin, setEsLogin] = useState(false);
+  //if (userid){setEsLogin(true)}
   /* Navbar Animation*/
   const [show, setShow] = useState(false);
   const controlNavbar = () => {
@@ -27,10 +29,14 @@ export const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
+    
+    console.log(esLogin)
     return () => {
       window.removeEventListener("scroll", controlNavbar);
+      
     };
-  }, [userid]);
+    
+  }, []);
 
   return (
     <div className={`header_area ${show && "stickyheader"}`} id="header">
@@ -54,7 +60,7 @@ export const Navbar = () => {
                   </span>
                 </Link>
               </div>
-              {(!userid) ? (
+              {(!userid ) ? (
                 
                   <div className="changeColor col-1">
                     <Link to="/login" >

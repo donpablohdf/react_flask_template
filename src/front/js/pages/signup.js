@@ -15,7 +15,7 @@ export const FormSignup = () => {
     formState: { errors },
   } = useForm(); // declaracion para react-hook-form
   const { actions } = useContext(Context);
-  const token = localStorage.getItem("jwt-token");
+  
   const [errPass, setErrPass] = useState(false);
   const onSubmit = (data, e) => {
     e.preventDefault();
