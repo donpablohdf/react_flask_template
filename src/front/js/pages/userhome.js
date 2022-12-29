@@ -12,10 +12,10 @@ export const UserHome = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [listaUsuarios, setListaUsuarios] = useState([]);
-
+  const userid = localStorage.getItem("userid");
   useEffect(() => {
     const token = localStorage.getItem("jwt-token");
-    const userid = localStorage.getItem("userid");
+
     if (!token) {
       return (
         <div className="m-3">
@@ -65,6 +65,16 @@ export const UserHome = () => {
           <button>Modificar mis datos de perfil</button>
         </Link>
       </div>
+      {listaUsuarios.tipo == 1 ? (
+        <div>
+          <Link to={"/guia/" + userid}>
+            <button>Ir a mi pagina de guía</button>
+          </Link>
+        </div>
+      ) : (
+        ""
+      )}
+
       <h2>Actividades Realizadas: </h2>
       <p>{store.actividades[0].nombre}</p>
       <button>Comentar</button>
