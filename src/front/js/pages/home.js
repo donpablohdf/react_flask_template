@@ -229,7 +229,7 @@ export const Home = () => {
 											<span><FaMapMarkerAlt  className= "icono-actividad"/></span>
 										</div>
 										</div>
-										<div className="col-md-7">{console.log(listaTareas)}
+										<div className="col-md-7">
 											<Link to ={"/actividades/"+listaTareas[0].id}>
 												<div id ="actividadesSugeridas"className="card-body actividades">
 													<h5 className="card-title">{listaTareas[0].nombre}</h5>

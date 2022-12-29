@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-
+BiArea
 import { BiLogInCircle } from "react-icons/bi";
 import {BiLogOutCircle} from "react-icons/bi"
+import {BiArea} from "react-icons/bi"
 
 import { TfiHelp } from "react-icons/tfi";
 import { BsCart } from "react-icons/bs";
@@ -29,7 +30,7 @@ export const Navbar = () => {
     return () => {
       window.removeEventListener("scroll", controlNavbar);
     };
-  }, []);
+  }, [userid]);
 
   return (
     <div className={`header_area ${show && "stickyheader"}`} id="header">
@@ -53,7 +54,7 @@ export const Navbar = () => {
                   </span>
                 </Link>
               </div>
-              {(!userid && esLogin) ? (
+              {(!userid) ? (
                 
                   <div className="changeColor col-1">
                     <Link to="/login" >
@@ -64,7 +65,7 @@ export const Navbar = () => {
                   </div>
                 
               ) : (
-                
+                <>
                   <div className="changeColor col-1">
                     <Link to="/logout" >
                       <span className="login nav-link">
@@ -72,7 +73,14 @@ export const Navbar = () => {
                       </span>
                     </Link>
                   </div>
-                
+                  <div className="changeColor col-1">
+                  <Link to="/userhome" >
+                    <span className="login nav-link">
+                      <BiArea size="35px" className="changeColor" onClick={() => setEsLogin(!esLogin)} />
+                    </span>
+                  </Link>
+                </div>
+                </>
               )}
 
               <div className="changeColor col-1">
@@ -82,6 +90,7 @@ export const Navbar = () => {
                   </span>
                 </Link>
               </div>
+              {(userid) ? (
               <div className="changeColor col-1">
                 <Link to="/cart">
                   <span className="cart nav-link">
@@ -89,6 +98,7 @@ export const Navbar = () => {
                   </span>
                 </Link>
               </div>
+              ) : ('')}
               <div className="col-2"></div>
             </nav>
           </div>
