@@ -14,28 +14,40 @@ export const Guia = props => {
 
 	const[guia, setGuia] = useState([])
 	const[actividades,setActividades] = useState([])
+	const [isLoading, setIsLoading] = useState(true);		//cargando guias
+	const [isLoading2, setIsLoading2] = useState(true);		//cargando actividades
 
 	useEffect(() => {
-		fetch("https://3001-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/usuario/"+params.theid).then(
-			res => res.json()
-		).then(
-			data =>{
-				setGuia(data)
-				console.log(data)
-			}
+		const promesaGuias = () => {
+			return new Promise((resolve, reject) => {
+				resolve(actions.dataFromAPI('/api/usuario/'+params.theid)) 
+			})
+		}
+		promesaGuias().then((datos) => { 
+			setGuia(datos)
+			setIsLoading (false);
+		}
+		)
+		const promesaActividades = () => {
+			return new Promise((resolve, reject) => {
+				resolve(actions.dataFromAPI('/api/actividad_guia/'+params.theid)) 
+			})
+		}
+		promesaActividades().then((datos) => { 
+			setActividades(datos)
+			setIsLoading2(false);
+		}
 		)
 	},[])
 
-	useEffect(() => {
-		fetch("https://3001-donpablohdf-ohmytown-68nrr9rybe0.ws-eu80.gitpod.io/api/actividad_guia/"+params.theid).then(
-			res => res.json()
-		).then(
-			data =>{
-				setActividades(data)
-				console.log(data)
-			}
+	if (isLoading || isLoading2) {
+		return (
+		<div className="tbody">
+			<h1>Cargando...</h1>
+		</div>
 		)
-	},[])
+	}
+
 	return (
 		<div className = "guia-body">
 			<div className="container">
@@ -53,42 +65,20 @@ export const Guia = props => {
 						</div>
 					</div>
 				</div>
-				<div className="row row-cols-1 row-cols-md-3 g-4">
+				<div className="row row-cols-1 row-cols-md-3 g-4">{actividades.map((element) =>
 					<div className="col">
-						<Link to="/actividades/0">    									{/*Link a la pagina de actividades + index. Variable global en flux.js */}
+						<Link to = {"/actividades/"+element.id}>    					{/*Link a la pagina de actividades + index. Variable global en flux.js */}
 							<div className="card h-100">
 								<img src="..." className="card-img-top" alt="..."/>
 								<div className="card-body">
-									<h5 className="card-title">{store.actividades[0].nombre}</h5>
-									<p className="card-text">{store.actividades[0].ciudad}</p>
-									<p className="card-text">{store.actividades[0].precio}</p>
+									<h5 className="card-title">{element.nombre}</h5>
+									<p className="card-text">{element.ciudad}</p>
+									<p className="card-text">{element.precio}</p>
 								</div>
 							</div>
 						</Link>
 					</div>
-					<div className="col">
-						<Link to="/actividades/1">
-							<div className="card">
-								<img src="..." className="card-img-top" alt="..."/>
-								<div className="card-body">
-									<h5 className="card-title">Ir de Tapas</h5>
-									<p className="card-text">Valencia</p>
-								</div>
-							</div>
-						</Link>
-					</div>
-					<div className="col">
-						<Link to="/actividades/2">
-							<div className="card">
-								<img src="..." className="card-img-top" alt="..."/>
-								<div className="card-body">
-									<h5 className="card-title">Noche de Discoteca</h5>
-									<p className="card-text">En el corazón de Barcelona.</p>
-								</div>
-							</div>
-						</Link>
-					</div>
-				</div>
+				)}</div>
 				<p>{store.comentarios[0].comentario}</p>
 				<p>{store.comentarios[1].comentario}</p>
 				<br></br>

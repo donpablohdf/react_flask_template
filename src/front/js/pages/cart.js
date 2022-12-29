@@ -11,7 +11,7 @@ export const Cart = () => {
 		<div className="container body">
 			<h1>Esta es la pagina de compras</h1>
             <Link to="/reservas/1">
-                <button type="button" classvName="btn btn-primary">Reservar</button>
+                <button type="button" className="btn btn-primary">Reservar</button>
 			</Link>
             
 		</div>

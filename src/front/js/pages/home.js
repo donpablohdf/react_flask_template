@@ -19,8 +19,8 @@ import {FaQuoteLeft} from 'react-icons/fa';
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
-	const [isLoading, setIsLoading] = useState(true);
-	const [isLoading2, setIsLoading2] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);		//cargando guias
+	const [isLoading2, setIsLoading2] = useState(true);		//cargando actividades
 
 	const [listaUsuarios, setListaUsuarios] = useState([])
 
@@ -229,12 +229,12 @@ export const Home = () => {
 											<span><FaMapMarkerAlt  className= "icono-actividad"/></span>
 										</div>
 										</div>
-										<div className="col-md-7">
-											<Link to = "/actividades/0">
+										<div className="col-md-7">{console.log(listaTareas)}
+											<Link to ={"/actividades/"+listaTareas[0].id}>
 												<div id ="actividadesSugeridas"className="card-body actividades">
-													<h5 className="card-title">{listaTareas[0,"nombre"]}</h5>
-														<h6 className="card-text">{store.actividades[0].ciudad}</h6>
-														<p className="card-text">{store.actividades[0].precio}</p>
+													<h5 className="card-title">{listaTareas[0].nombre}</h5>
+														<h6 className="card-text">{listaTareas[0].ciudad}</h6>
+														<p className="card-text">{listaTareas[0].precio}</p>
 												</div>
 											</Link>
 										</div>
@@ -250,11 +250,11 @@ export const Home = () => {
 										</div>
 										</div>
 										<div className="col-md-7">
-											<Link to = "/actividades/1">
+											<Link to ={"/actividades/"+listaTareas[1].id}>
 												<div id ="actividadesSugeridas"className="card-body actividades">
-													<h5 className="card-title">{store.actividades[1].nombre}</h5>
-														<h6 className="card-text">{store.actividades[1].ciudad}</h6>
-														<p className="card-text">{store.actividades[1].precio}</p>
+													<h5 className="card-title">{listaTareas[1].nombre}</h5>
+														<h6 className="card-text">{listaTareas[1].ciudad}</h6>
+														<p className="card-text">{listaTareas[1].precio}</p>
 												</div>
 											</Link>
 										</div>
@@ -270,11 +270,11 @@ export const Home = () => {
 										</div>
 										</div>
 										<div className="col-md-7">
-											<Link to = "/actividades/0">
+											<Link to ={"/actividades/"+listaTareas[2].id}>
 												<div id ="actividadesSugeridas"className="card-body actividades">
-													<h5 className="card-title">{store.actividades[2].nombre}</h5>
-														<h6 className="card-text">{store.actividades[2].ciudad}</h6>
-														<p className="card-text">{store.actividades[2].precio}</p>
+													<h5 className="card-title">{listaTareas[2].nombre}</h5>
+														<h6 className="card-text">{listaTareas[2].ciudad}</h6>
+														<p className="card-text">{listaTareas[2].precio}</p>
 												</div>
 											</Link>
 										</div>
@@ -292,11 +292,11 @@ export const Home = () => {
 										</div>
 										</div>
 										<div className="col-md-7">
-											<Link to = "/actividades/0">
+											<Link to ={"/actividades/"+listaTareas[3].id}>
 												<div id ="actividadesSugeridas"className="card-body actividades">
-													<h5 className="card-title">{store.actividades[0].nombre}</h5>
-														<h6 className="card-text">{store.actividades[0].ciudad}</h6>
-														<p className="card-text"><small className="text-muted">{store.actividades[0].precio}</small></p>
+													<h5 className="card-title">{listaTareas[3].nombre}</h5>
+														<h6 className="card-text">{listaTareas[3].ciudad}</h6>
+														<p className="card-text">{listaTareas[3].precio}</p>
 												</div>
 											</Link>
 										</div>
@@ -312,11 +312,11 @@ export const Home = () => {
 										</div>
 										</div>
 										<div className="col-md-7">
-											<Link to = "/actividades/0">
+											<Link to ={"/actividades/"+listaTareas[4].id}>
 												<div id ="actividadesSugeridas"className="card-body actividades">
-													<h5 className="card-title">{store.actividades[0].nombre}</h5>
-														<h6 className="card-text">{store.actividades[0].ciudad}</h6>
-														<p className="card-text"><small className="text-muted">{store.actividades[0].precio}</small></p>
+													<h5 className="card-title">{listaTareas[4].nombre}</h5>
+														<h6 className="card-text">{listaTareas[4].ciudad}</h6>
+														<p className="card-text">{listaTareas[4].precio}</p>
 												</div>
 											</Link>
 										</div>
@@ -332,11 +332,11 @@ export const Home = () => {
 										</div>
 										</div>
 										<div className="col-md-7">
-											<Link to = "/actividades/0">
+											<Link to ={"/actividades/"+listaTareas[5].id}>
 												<div id ="actividadesSugeridas"className="card-body actividades">
-													<h5 className="card-title">{store.actividades[0].nombre}</h5>
-														<h6 className="card-text">{store.actividades[0].ciudad}</h6>
-														<p className="card-text"><small className="text-muted">{store.actividades[0].precio}</small></p>
+													<h5 className="card-title">{listaTareas[5].nombre}</h5>
+														<h6 className="card-text">{listaTareas[5].ciudad}</h6>
+														<p className="card-text">{listaTareas[5].precio}</p>
 												</div>
 											</Link>
 										</div>
