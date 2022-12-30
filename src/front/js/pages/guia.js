@@ -8,9 +8,10 @@ import { BsFillStarFill } from "react-icons/bs";
 
 import "../../styles/guia.css";
 
-export const Guia = (props) => {
+export const Guia = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
+  const [recarga, setRecarga] = useState(params.random);
 
   const [guia, setGuia] = useState([]);
   const [actividades, setActividades] = useState([]);
@@ -18,7 +19,7 @@ export const Guia = (props) => {
   const [isLoading, setIsLoading] = useState(true); //cargando guias
   const [isLoading2, setIsLoading2] = useState(true); //cargando actividades
   const [isLoading3, setIsLoading3] = useState(true); //cargando reservas
-  
+
   const promesaGuias = () => {
     return new Promise((resolve, reject) => {
       resolve(actions.dataFromAPI("/api/usuario/" + params.theid));
@@ -87,19 +88,24 @@ export const Guia = (props) => {
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {actividades.map((element) => (
             <div key={element.id} className="col">
-              <Link to={"/actividades/" + element.id}>
-                {" "}
-                {/*Link a la pagina de actividades + index. Variable global en flux.js */}
-                <div className="card h-100">
-                  <img src={element.foto} className="card-img-top" alt="..." />
-                  <div className="card-body">
+              {" "}
+              {/*Link a la pagina de actividades + index. Variable global en flux.js */}
+              <div className="card h-100">
+                <img src={element.foto} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <Link to={"/actividades/" + element.id}>
                     <h5 className="card-title">{element.nombre}</h5>
-                    <p className="card-text">{element.ciudad}</p>
-                    <p className="card-text">{element.precio}</p>
-                    <Link to={"/modifica_actividad/"+ element.id}><button>Modificar</button></Link>
-                  </div>
+                  </Link>
+                  <p className="card-text">{element.ciudad}</p>
+                  <p className="card-text">{element.precio}</p>
+                  <Link
+                    id={"navLink" + element.id}
+                    to={"/modifica_actividad/" + element.id}
+                  >
+                    <div>Modificar</div>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             </div>
           ))}
         </div>
@@ -112,12 +118,13 @@ export const Guia = (props) => {
                 <img src={element.foto} className="card-img-top" alt="..." />
                 <div className="card-body">
                   <h5 className="card-title">Reserva: {element.num_reserva}</h5>
-                  <p className="card-text">Actividad: {element.obj_actividad.nombre}</p>
+                  <p className="card-text">
+                    Actividad: {element.obj_actividad.nombre}
+                  </p>
                   <p className="card-text">
                     Realizada: {element.fecha_realizacion}
                   </p>
                   <p className="card-text">Emitida: {element.fecha_reserva}</p>
-                  
                 </div>
               </div>
             </div>

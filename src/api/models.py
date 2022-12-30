@@ -279,22 +279,36 @@ class Actividades(db.Model):
             user = self.query.get(pid)
         if user:
             if user.ids_usuarios is None:
-                if user.nombre != data["nombre"]:
+                if data["nombre"] and user.nombre != data["nombre"]:
                     user.nombre = data["nombre"]
-                if user.descripcion != data["descripcion"]:
+                else:
+                    user.nombre = user.nombre
+                if data["descripcion"] and user.descripcion != data["descripcion"]:
                     user.descripcion = data["descripcion"]
-                if user.precio != data["precio"]:
+                else:
+                    user.descripcion = user.descripcion
+                if data["precio"] and user.precio != data["precio"]:
                     user.precio = data["precio"]
-                if user.fecha != data["fecha"]:
+                else:
+                    user.precio = user.precio
+                if data["fecha"] and user.fecha != data["fecha"]:
                     user.fecha = data["fecha"]
-                if user.ciudad != data["ciudad"]:
+                else:
+                    user.fecha =  user.fecha
+                if data["ciudad"] and user.ciudad != data["ciudad"]:
                     user.ciudad = data["ciudad"]
+                else:
+                    user.ciudad = user.ciudad
             else:
                 # si ya hay usuarios apuntados a la actividad
-                if user.nombre != data["nombre"]:
+                if data["nombre"] and user.nombre != data["nombre"]:
                     user.nombre = data["nombre"]
-                if user.descripcion != data["descripcion"]:
+                else:
+                    user.nombre = user.nombre
+                if data["descripcion"] and user.descripcion != data["descripcion"]:
                     user.descripcion = data["descripcion"]
+                else:
+                    user.descripcion = user.descripcion
             db.session.commit()
             return "Actividad modificada con exito"
         return False
