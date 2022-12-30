@@ -209,6 +209,9 @@ class Actividades(db.Model):
         return f'<Actividades {self.nombre}>'
 
     def serialize(self):
+        guia= Users.get_by_id(self.id_guia)
+        the_guia = Users.serialize(guia)
+
         return {
             "id": self.id,
             "nombre": self.nombre,
@@ -216,6 +219,7 @@ class Actividades(db.Model):
             "precio": self.precio,
             "fecha": self.fecha,
             "id_guia": self.id_guia,
+            "obj_guia": the_guia,
             "ids_usuarios": self.ids_usuarios,
             "ciudad": self.ciudad,
             "calificacion": self.calificacion,
@@ -381,14 +385,23 @@ class Reservas(db.Model):
         return f'<Reservas {self.num_reserva}>'
 
     def serialize(self):
+        actividad= Actividades.get_by_id(self.id_actividad)
+        the_act = Actividades.serialize(actividad)
+        usuario= Users.get_by_id(self.id_usuario)
+        the_usr = Users.serialize(usuario)
+        guia= Users.get_by_id(self.id_guia)
+        the_guia = Users.serialize(guia)
         return {
             "id": self.id,
             "num_reserva": self.num_reserva,
             "fecha_reserva": self.fecha_reserva,
             "fecha_realizacion": self.fecha_realizacion,
             "id_actividad": self.id_actividad,
+            "obj_actividad": the_act ,
             "id_usuario": self.id_usuario,
+            "obj_usuario": the_usr ,
             "id_guia": self.id_guia,
+            "obj_guia": the_guia ,
             "estado": self.estado,
 
         }

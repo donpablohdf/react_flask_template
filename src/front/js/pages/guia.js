@@ -18,7 +18,7 @@ export const Guia = (props) => {
   const [isLoading, setIsLoading] = useState(true); //cargando guias
   const [isLoading2, setIsLoading2] = useState(true); //cargando actividades
   const [isLoading3, setIsLoading3] = useState(true); //cargando reservas
-
+  
   const promesaGuias = () => {
     return new Promise((resolve, reject) => {
       resolve(actions.dataFromAPI("/api/usuario/" + params.theid));
@@ -35,16 +35,16 @@ export const Guia = (props) => {
     });
   };
   useEffect(() => {
-    promesaGuias().then((datos) => {
-      setGuia(datos);
+    promesaGuias().then((datosG) => {
+      setGuia(datosG);
       setIsLoading(false);
     });
 
-    promesaActividades().then((datos) => {
-      setActividades(datos);
+    promesaActividades().then((datosA) => {
+      setActividades(datosA);
       setIsLoading2(false);
-      promesaReservas().then((datos) => {
-        setReservas(datos);
+      promesaReservas().then((datosR) => {
+        setReservas(datosR);
         setIsLoading3(false);
       });
     });
@@ -52,7 +52,7 @@ export const Guia = (props) => {
 
   if (isLoading && isLoading2 && isLoading3) {
     return (
-      <div className="tbody">
+      <div className="guia-body">
         <h1>Cargando...</h1>
       </div>
     );
@@ -96,6 +96,7 @@ export const Guia = (props) => {
                     <h5 className="card-title">{element.nombre}</h5>
                     <p className="card-text">{element.ciudad}</p>
                     <p className="card-text">{element.precio}</p>
+                    <Link to={"/modifica_actividad/"+ element.id}><button>Modificar</button></Link>
                   </div>
                 </div>
               </Link>
@@ -110,10 +111,13 @@ export const Guia = (props) => {
               <div className="card h-100">
                 <img src={element.foto} className="card-img-top" alt="..." />
                 <div className="card-body">
-                  <h5 className="card-title">{element.num_reserva}</h5>
-                  <p className="card-text">Actividad: {element.id_actividad}</p>
-                  <p className="card-text">Realizada: {element.fecha_realizacion}</p>
+                  <h5 className="card-title">Reserva: {element.num_reserva}</h5>
+                  <p className="card-text">Actividad: {element.obj_actividad.nombre}</p>
+                  <p className="card-text">
+                    Realizada: {element.fecha_realizacion}
+                  </p>
                   <p className="card-text">Emitida: {element.fecha_reserva}</p>
+                  
                 </div>
               </div>
             </div>
