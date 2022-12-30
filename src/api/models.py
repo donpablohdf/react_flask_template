@@ -562,10 +562,16 @@ class Comentarios(db.Model):
         return f'<Comentarios {self.nombre}>'
 
     def serialize(self):
+        actividad= Actividades.get_by_id(self.id_actividad)
+        the_act = Actividades.serialize(actividad)
+        usuario= Users.get_by_id(self.id_usuario)
+        the_usr = Users.serialize(usuario)
         return {
             "id": self.id,
             "id_actividad": self.id_actividad,
+            "obj_actividad": the_act,
             "id_usuario": self.id_usuario,
+            "obj_usuario": the_usr,
             "texto": self.texto,
             "activo": self.activo
 
