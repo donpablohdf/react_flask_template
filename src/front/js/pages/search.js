@@ -16,7 +16,7 @@ export const Search = () => {
 	useEffect(() => {
 		const promesaActividades = () => {
 			return new Promise((resolve, reject) => {
-				resolve(actions.dataFromAPI('/api/actividades_index')) 
+				resolve(actions.dataFromAPI('/api/search')) 
 			})
 		}
 		promesaActividades().then((datos) => { 

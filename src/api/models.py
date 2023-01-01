@@ -209,6 +209,9 @@ class Actividades(db.Model):
         return f'<Actividades {self.nombre}>'
 
     def serialize(self):
+        guia= Users.get_by_id(self.id_guia)
+        the_guia = Users.serialize(guia)
+
         return {
             "id": self.id,
             "nombre": self.nombre,
@@ -216,6 +219,7 @@ class Actividades(db.Model):
             "precio": self.precio,
             "fecha": self.fecha,
             "id_guia": self.id_guia,
+            "obj_guia": the_guia,
             "ids_usuarios": self.ids_usuarios,
             "ciudad": self.ciudad,
             "calificacion": self.calificacion,
@@ -275,22 +279,36 @@ class Actividades(db.Model):
             user = self.query.get(pid)
         if user:
             if user.ids_usuarios is None:
-                if user.nombre != data["nombre"]:
+                if data["nombre"] and user.nombre != data["nombre"]:
                     user.nombre = data["nombre"]
-                if user.descripcion != data["descripcion"]:
+                else:
+                    user.nombre = user.nombre
+                if data["descripcion"] and user.descripcion != data["descripcion"]:
                     user.descripcion = data["descripcion"]
-                if user.precio != data["precio"]:
+                else:
+                    user.descripcion = user.descripcion
+                if data["precio"] and user.precio != data["precio"]:
                     user.precio = data["precio"]
-                if user.fecha != data["fecha"]:
+                else:
+                    user.precio = user.precio
+                if data["fecha"] and user.fecha != data["fecha"]:
                     user.fecha = data["fecha"]
-                if user.ciudad != data["ciudad"]:
+                else:
+                    user.fecha =  user.fecha
+                if data["ciudad"] and user.ciudad != data["ciudad"]:
                     user.ciudad = data["ciudad"]
+                else:
+                    user.ciudad = user.ciudad
             else:
                 # si ya hay usuarios apuntados a la actividad
-                if user.nombre != data["nombre"]:
+                if data["nombre"] and user.nombre != data["nombre"]:
                     user.nombre = data["nombre"]
-                if user.descripcion != data["descripcion"]:
+                else:
+                    user.nombre = user.nombre
+                if data["descripcion"] and user.descripcion != data["descripcion"]:
                     user.descripcion = data["descripcion"]
+                else:
+                    user.descripcion = user.descripcion
             db.session.commit()
             return "Actividad modificada con exito"
         return False
@@ -381,14 +399,23 @@ class Reservas(db.Model):
         return f'<Reservas {self.num_reserva}>'
 
     def serialize(self):
+        actividad= Actividades.get_by_id(self.id_actividad)
+        the_act = Actividades.serialize(actividad)
+        usuario= Users.get_by_id(self.id_usuario)
+        the_usr = Users.serialize(usuario)
+        guia= Users.get_by_id(self.id_guia)
+        the_guia = Users.serialize(guia)
         return {
             "id": self.id,
             "num_reserva": self.num_reserva,
             "fecha_reserva": self.fecha_reserva,
             "fecha_realizacion": self.fecha_realizacion,
             "id_actividad": self.id_actividad,
+            "obj_actividad": the_act ,
             "id_usuario": self.id_usuario,
+            "obj_usuario": the_usr ,
             "id_guia": self.id_guia,
+            "obj_guia": the_guia ,
             "estado": self.estado,
 
         }
@@ -535,10 +562,16 @@ class Comentarios(db.Model):
         return f'<Comentarios {self.nombre}>'
 
     def serialize(self):
+        actividad= Actividades.get_by_id(self.id_actividad)
+        the_act = Actividades.serialize(actividad)
+        usuario= Users.get_by_id(self.id_usuario)
+        the_usr = Users.serialize(usuario)
         return {
             "id": self.id,
             "id_actividad": self.id_actividad,
+            "obj_actividad": the_act,
             "id_usuario": self.id_usuario,
+            "obj_usuario": the_usr,
             "texto": self.texto,
             "activo": self.activo
 
