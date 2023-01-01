@@ -8,7 +8,11 @@
     -webkit-transition-duration: 700ms;
     transition-duration: 700ms;
     border-bottom: 1px solid rgba(255, 208, 1, 0.938);
-    padding: 0 30px;
+    padding: 0 10px;
+}
+
+.logo{
+    height: 80px;
 }
 
 .stickyheader {

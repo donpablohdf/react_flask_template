@@ -3,14 +3,18 @@ import { Link } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 
-import "../../styles/home.css";
+import "../../styles/help.css";
 
 export const Help = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className=" body container">
-			<h1>Esta es la pagina de ayuda</h1>
+		<div className= "help_body">
+			<div className= "container">
+				<h1>NOS ENCANTA LA AVENTURA PERO...</h1>
+				<h3>SIEMPRE SURGEN DUDAS</h3>
+
+			</div>
 		</div>
 	);
 };

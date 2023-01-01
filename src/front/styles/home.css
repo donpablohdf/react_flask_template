@@ -10,7 +10,28 @@
 
 
 /*FIN TEXTO OH MY TOWN*/
+/*CARRUSEL PRINCIPAL*/
 
+.carousel-caption {
+  top:30%;
+}
+
+.display-1{
+  font-weight:800
+}
+
+.imagen_carrusel_principal{
+  filter:grayscale(40%)
+}
+
+/*FIN CARRUSEL PRINCIPAL*/
+/*ENTRETEXTO*/
+.display-2{
+  font-weight: 800;
+  color: #FD841F;
+
+}
+/*FIN ENTRETEXTO*/
 /*CARRUSEL GUIAS*/
 .carrusel{
     padding-top: 15%;
@@ -50,19 +71,19 @@
 color: Black;
   font-size: 60px;
   position: absolute;
-  top: 70%;
-  left: 15%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  top: 50%;
+  left: 10%;
+  transform: translate(-10%, -10%);
+    -ms-transform: translate(-10%, -10%);
 }
 .ciudad_carta{
     color: Black;
     font-size: 35px;
     position: absolute;
-    top: 95%;
-    left:9%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    top: 85%;
+    left:10%;
+    transform: translate(-10%, -10%);
+    -ms-transform: translate(-10%, -10%);
 }
 
 .valoracion_carta{
@@ -70,10 +91,10 @@ color: Black;
     font-size: 35px;
     font-weight: 900;
     position: absolute;
-    top: 95%;
-    left:80%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    top: 85%;
+    left:70%;
+    transform: translate(-10%, -10%);
+    -ms-transform: translate(-10%, -10%);
 }
 
 .lineUp {
@@ -82,7 +103,7 @@ color: Black;
   @keyframes anim-lineUp {
     0% {
       opacity: 0;
-      transform: translateY(80%);
+      transform: translateY(60%);
     }
     20% {
       opacity: 0;
@@ -95,131 +116,7 @@ color: Black;
     }
   }
 
-  .cuerpo_cartab{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-}
-.carta:hover .cuerpo_cartab{
-    opacity:1;
-}
-.nombre_cartab{
-color: Black;
-  font-size: 60px;
-  position: absolute;
-  top: 70%;
-  left: 20%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-}
-.ciudad_cartab{
-    color: Black;
-    font-size: 35px;
-    position: absolute;
-    top: 95%;
-    left:15%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-}
-
-.valoracion_cartab{
-    color: yellow;
-    font-size: 35px;
-    font-weight: 900;
-    position: absolute;
-    top: 95%;
-    left:75%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-}
-
-.lineUpb {
-    animation: 3s anim-lineUp ease-out 3;
-  }
-  @keyframes anim-lineUp {
-    0% {
-      opacity: 0;
-      transform: translateY(80%);
-    }
-    20% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  .cuerpo_cartac{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-}
-.carta:hover .cuerpo_cartac{
-    opacity:1;
-}
-.nombre_cartac{
-color: Black;
-  font-size: 60px;
-  position: absolute;
-  top: 70%;
-  left: 13%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-}
-.ciudad_cartac{
-    color: Black;
-    font-size: 35px;
-    position: absolute;
-    top: 95%;
-    left:13%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-}
-
-.valoracion_cartac{
-    color: yellow;
-    font-size: 35px;
-    font-weight: 900;
-    position: absolute;
-    top: 95%;
-    left:75%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-}
-
-.lineUpc {
-    animation: 3s anim-lineUp ease-out 1;
-  }
-  @keyframes anim-lineUp {
-    0% {
-      opacity: 0;
-      transform: translateY(80%);
-    }
-    20% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+  
   /*FIN CARRUSEL GUIAS*/
 
   /*ACTIVIDADES DESTACADAS*/
@@ -317,11 +214,9 @@ color: Black;
   align-items: center;
   justify-content: center;
 }
-.texto-opiniones h4{
-  padding-top: 50px;
-  padding-bottom: 50px;
+.texto-opiniones h1{
   font-weight: 900;
-  font-size: 50px;
+
   color: #9C2C77;
 }
 .opiniones-area {

@@ -62,46 +62,54 @@ export const Home = () => {
 		return (
 			<div className="tbody">
 				{/**COMIENZO CARRUSEL PRINCIPAL */}
-				<div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
+				<div id="carouselExampleCaptions" className="carousel slide carousel-fade" data-bs-ride="carousel">
 					<div className="carousel-inner">
 						<div className="carousel-item active" data-bs-interval="5000">
-							<img src={montania} className="d-block w-100" alt="..."/>
-							<div className="carousel-caption d-none d-md-block">
-								<h5>First slide label</h5>
+							<img src={montania} className="imagen_carrusel_principal" alt="..."/>
+							<div className="carousel-caption d-md-block">
+								<h5>DESCUBRE TU CIUDAD</h5>
+								<h1 className="display-1">NUEVOS VIAJES</h1>
 								<p>Some representative placeholder content for the first slide.</p>
 							</div>
 						</div>
-						<div className="carousel-item" data-bs-interval="5000">
-							<img src={bosque} className="d-block w-100" alt="..."/>
-							<div className="carousel-caption d-none d-md-block">
-								<h5>Second slide label</h5>
+						<div className="carousel-item" data-bs-interval="3000">
+							<img src={bosque} className="w-100 imagen_carrusel_principal" alt="..."/>
+							<div className="carousel-caption d-md-block">
+								<h5>DESCUBRE TU CIUDAD</h5>
+								<h1 className="display-1">NUEVAS AVENTURAS</h1>
 								<p>Some representative placeholder content for the second slide.</p>
 							</div>
 						</div>
-						<div className="carousel-item" data-bs-interval="5000">
-							<img src={playa} className="d-block w-100" alt="..."/>
-							<div className="carousel-caption d-none d-md-block">
-								<h5>Third slide label</h5>
+						<div className="carousel-item" data-bs-interval="3000">
+							<img src={playa} className="w-100 imagen_carrusel_principal" alt="..."/>
+							<div className="carousel-caption d-md-block">
+								<h5>DESCUBRE TU CIUDAD</h5>
+								<h1 className="display-1">NUEVAS EXPERIENCIAS</h1>
 								<p>Some representative placeholder content for the third slide.</p>
 							</div>
 						</div>
 					</div>
+					<button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+						<span className="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span className="visually-hidden">Previous</span>
+					</button>
+					<button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+						<span className="carousel-control-next-icon" aria-hidden="true"></span>
+						<span className="visually-hidden">Next</span>
+					</button>
 				</div>
 				{/**FIN CARRUSEL PRINCIPAL */}
 				{/**COMIENZO TEXTO OH MY TOWN */}
 				<div>
-					<h1>DESCUBRE TU CIUDAD CON</h1>
-					<h1>OH MY TOWN!</h1>
-					<br></br>
-					<br></br>
-					<br></br>
-					<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce quis tempus elit. Sed efficitur tortor neque, vitae aliquet urna varius sit amet. Ut rhoncus, nunc nec tincidunt volutpat, ex libero.</p>
+					<h3 className="d-flex justify-content-center mt-3">DESCUBRE TU CIUDAD CON</h3>
+					<h1 className="d-flex justify-content-center display-2 mb-5">NUESTROS GUIAS</h1>
 				</div>
 				{/**FIN TEXTO OH MY TOWN */}
 				{/**COMIENZO CARRUSEL GUIAS */}
 				{/**{listaUsuarios.map((usuario,index) =>*/}
 					<div className="d-flex align-items-center" style={{backgroundImage: `url(${bosque})`}}>
-							<div id="carouselExampleControls" className="carousel carousel-dark slide carrusel" data-bs-ride="carousel">
+						<div className=""></div>
+							<div id="carouselExampleControls" className="carousel slide carrusel" data-bs-ride="carousel">
 								<div className="carousel-inner">
 									<div className="carousel-item active">
 										<div className="row">
@@ -211,8 +219,9 @@ export const Home = () => {
 				{/*)}*/}
 				{/**FIN CARRUSEL GUIAS */}
 				{/**COMIENZO TEXTO ACTIVIDADES */}
-				<div className="ultimas-actividades">
-					<h4>ACTIVIDADES RECOMENDADAS</h4>
+				<div>
+					<h3 className="d-flex justify-content-center mt-3">Y NUESTRAS</h3>
+					<h1 className="d-flex justify-content-center display-2 mb-5">ACTIVIDADES</h1>
 				</div>
 				{/**FIN TEXTO ACTIVIDADES */}
 				{/**COMIENZO ACTIVIDADES */}
@@ -348,7 +357,7 @@ export const Home = () => {
 				</div>
 				{/**FIN OPINIONES */}
 				<div className="texto-opiniones">
-					<h4>OPINIONES DE NUESTROS CLIENTES</h4>
+					<h1 className="d-flex justify-content-center display-2 my-5 texto_clientes">NUESTROS CLIENTES OPINAN</h1>
 				</div>
 				{/*COMIENZO OPINIONES*/}
 					<div className="opiniones" style={{backgroundImage: `url(${fondocomentarios})`, backgroundSize:'cover'}}>

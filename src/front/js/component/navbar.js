@@ -38,7 +38,7 @@ export const Navbar = () => {
 
   return (
     <div className={`header_area ${show && "stickyheader"}`} id="header">
-      <div className="container-fluid">
+      <header className="default-header">
         <div className="row">
           <div className="col-12">
             <nav className="navbar navbar-expand-lg">
@@ -50,41 +50,41 @@ export const Navbar = () => {
                   </span>
                 </Link>
               </div>
-
-              <div className="changeColor col-1">
-                <Link to="/search">
-                  <span className="search nav-link">
-                    <BsSearch size="30px" className="changeColor" />
-                  </span>
-                </Link>
-              </div>
-              {(!userid ) ? (
-                
-                  <div className="changeColor col-1">
-                    <Link to="/login" >
-                      <span className="login nav-link">
-                        <BiLogInCircle size="35px" className="changeColor" onClick={() => setEsLogin(!esLogin)} />
-                      </span>
-                    </Link>
-                  </div>
-                
-              ) : (
-                <>
-                  <div className="changeColor col-1">
-                    <Link to="/logout" >
-                      <span className="login nav-link">
-                        <BiLogOutCircle size="35px" className="changeColor" onClick={() => setEsLogin(!esLogin)} />
-                      </span>
-                    </Link>
-                  </div>
-                  <div className="changeColor col-1">
-                  <Link to="/userhome" >
-                    <span className="login nav-link">
-                      <BiArea size="35px" className="changeColor" onClick={() => setEsLogin(!esLogin)} />
+                <div className="changeColor col-1">
+                  <Link to="/search">
+                    <span className="search nav-link">
+                      <BsSearch size="30px" className="changeColor" />
                     </span>
                   </Link>
                 </div>
-                </>
+                {(!userid ) ? (
+                  
+                    <div className="changeColor col-1">
+                      <Link to="/login" >
+                        <span className="login nav-link">
+                          <BiLogInCircle size="35px" className="changeColor" onClick={() => setEsLogin(!esLogin)} />
+                        </span>
+                      </Link>
+                    </div>
+                  
+                ) : (
+                  <>
+                    <div className="changeColor col-1">
+                      <Link to="/logout" >
+                        <span className="login nav-link">
+                          <BiLogOutCircle size="35px" className="changeColor" onClick={() => setEsLogin(!esLogin)} />
+                        </span>
+                      </Link>
+                    </div>
+                    <div className="changeColor col-1">
+                      <Link to="/userhome" >
+                        <span className="login nav-link">
+                          <BiArea size="35px" className="changeColor" onClick={() => setEsLogin(!esLogin)} />
+                        </span>
+                      </Link>
+                    </div>
+                 
+                  </>
               )}
 
               <div className="changeColor col-1">
@@ -107,7 +107,7 @@ export const Navbar = () => {
             </nav>
           </div>
         </div>
-      </div>
+      </header>
     </div>
   );
 };
