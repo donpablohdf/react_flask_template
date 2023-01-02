@@ -1,0 +1,28 @@
+.actividades-body{
+
+}
+.imagen_actividad_header{
+   height:700px;
+   width: 100%;
+   filter:brightness(60%)
+}
+
+.actividades_nombre{
+    padding-top: 50px;
+    font-weight: 600;
+    color: #9C2C77;
+}
+.actividad_ciudad{
+    padding-bottom: 50px;
+}
+.actividad_descripcion{
+    margin-bottom: 50px;
+}
+.actividad_precio{
+    margin-bottom: 50px;
+}
+.actividad_guia{
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 25px;
+}

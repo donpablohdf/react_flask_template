@@ -2,9 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 
-import "../../styles/home.css";
+import "../../styles/actividades.css";
+import retiro from "../../img/retiro.jpg"
+import fondo from "../../img/fondo.jpg"
 
 export const Actividades = (props) => {
   const { store, actions } = useContext(Context);
@@ -46,14 +47,14 @@ export const Actividades = (props) => {
 
   return (
     <div className="actividades-body">
+      
+      <img src={retiro} className="img-fluid imagen_actividad_header"></img>
       <div className="container jumbotron body">
-        <h1 className="display-4">{actividades.title}</h1>
-        <img src={actividades.foto} />
-        <h3>{actividades.ciudad}</h3>
-        <h4>{actividades.descripcion}</h4>
-        <h2>{actividades.precio}</h2>
-        <h6>{actividades.duracion}</h6>
-        <h3>Su guía:</h3>
+        <h1 className="display-5 mt-3 actividades_nombre">{actividades.nombre}</h1>
+        <h3 className="actividad_ciudad">{actividades.ciudad}</h3>
+        <h4 className="actividad_descripcion">{actividades.descripcion}</h4>
+        <h2 className="actividad_precio">{actividades.precio}</h2>
+        <h3 className="actividad_guia">Su guía:</h3>
         <Link to={"/guia/" + guia.id}>
           <div className="card">
             <img src="..." className="card-img-top" alt="..." />
@@ -62,6 +63,7 @@ export const Actividades = (props) => {
             </div>
           </div>
         </Link>
+        <h3 className="actividad_comentarios">COMENTARIOS</h3>
         <p>{store.comentarios[0].comentario}</p>
         <p>{store.comentarios[1].comentario}</p>
         <br></br>

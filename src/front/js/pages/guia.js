@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-import opinion2 from "../../img/opinion2.jpg";
-import { BsFillStarFill } from "react-icons/bs";
+import fondo from "../../img/fondo.jpg"
+import madrid from "../../img/madrid.jpg"
 
 import "../../styles/guia.css";
 
@@ -60,7 +60,7 @@ export const Guia = () => {
   }
 
   return (
-    <div className="guia-body">
+    <div className="guia-body" style={{backgroundImage: `url(${fondo})`}}>
       <div className="container">
         <div className="card mb-5">
           <div className="row g-0">
@@ -75,9 +75,9 @@ export const Guia = () => {
             </div>
           </div>
         </div>
-        <h5>ACTIVIDADES</h5>
+        <h3 className="texto_actividades mb-5">ACTIVIDADES</h3>
         {guia.tipo === 1 ? (
-          <div>
+          <div className="mb-5">
             <Link to="/nueva_actividad">
               <button>Nueva actividad</button>
             </Link>
@@ -85,19 +85,19 @@ export const Guia = () => {
         ) : (
           ""
         )}
-        <div className="row row-cols-1 row-cols-md-3 g-4">
+        <div className="row row-cols-1 row-cols-md-3 g-5">
           {actividades.map((element) => (
             <div key={element.id} className="col">
               {" "}
               {/*Link a la pagina de actividades + index. Variable global en flux.js */}
               <div className="card h-100">
-                <img src={element.foto} className="card-img-top" alt="..." />
-                <div className="card-body">
+                <img src={madrid} className="card-img-top" alt="..." />
+                <div className="card-body tarjeta_actividad_body">
                   <Link to={"/actividades/" + element.id}>
-                    <h5 className="card-title">{element.nombre}</h5>
+                    <h5 className="card-title tarjeta_actividad_nombre">{element.nombre}</h5>
                   </Link>
-                  <p className="card-text">{element.ciudad}</p>
-                  <p className="card-text">{element.precio}</p>
+                  <p className="card-text tarjeta_actividad_texto">CIUDAD: <span className="tarjeta_actividad_variable">{element.ciudad}</span></p>
+                  <p className="card-text tarjeta_actividad_texto">PRECIO: <span className="tarjeta_actividad_variable">{element.precio}</span></p>
                   <Link
                     id={"navLink" + element.id}
                     to={"/modifica_actividad/" + element.id}
@@ -109,22 +109,22 @@ export const Guia = () => {
             </div>
           ))}
         </div>
-        <h5>RESERVAS</h5>
+        <h3 className="texto_actividades my-5">RESERVAS</h3>
 
-        <div className="row row-cols-1 row-cols-md-3 g-4">
+        <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
           {reservas.map((element) => (
             <div key={element.id} className="col">
               <div className="card h-100">
-                <img src={element.foto} className="card-img-top" alt="..." />
-                <div className="card-body">
-                  <h5 className="card-title">Reserva: {element.num_reserva}</h5>
-                  <p className="card-text">
-                    Actividad: {element.obj_actividad.nombre}
+                <img src={madrid} className="card-img-top" alt="..." />
+                <div className="card-body tarjeta_actividad_body">
+                  <h5 className="card-title tarjeta_actividad_nombre">RESERVA: <span className="tarjeta_actividad_variable">{element.num_reserva}</span></h5>
+                  <p className="card-text tarjeta_actividad_texto">
+                    ACTIVIDAD: <span className="tarjeta_actividad_variable">{element.obj_actividad.nombre}</span>
                   </p>
-                  <p className="card-text">
-                    Realizada: {element.fecha_realizacion}
+                  <p className="card-text tarjeta_actividad_texto">
+                    REALIZADA: <span className="tarjeta_actividad_variable">{element.fecha_realizacion}</span>
                   </p>
-                  <p className="card-text">Emitida: {element.fecha_reserva}</p>
+                  <p className="card-text tarjeta_actividad_texto">EMITIDA: <span className="tarjeta_actividad_variable">{element.fecha_reserva}</span></p>
                 </div>
               </div>
             </div>

@@ -6,11 +6,20 @@ import reactDom from "react-dom";
 import montania from "../../img/slider1.jpg";
 import bosque from "../../img/slider2.jpg";
 import playa from "../../img/slider3.jpg";
+
 import fondoactividades from "../../img/fondociudad.jpg";
 import fondocomentarios from '../../img/comentarios.jpeg';
+
 import opinion1 from "../../img/opinion1.jpg";
 import opinion2 from "../../img/opinion2.jpg";
 import opinion3 from "../../img/opinion3.jpg";
+
+import guia1 from "../../img/guia1.png"
+import guia2 from "../../img/guia2.jpg"
+import guia3 from "../../img/guia3.jpg"
+import guia4 from "../../img/guia4.jpg"
+import guia5 from "../../img/guia5.jpg"
+import guia6 from "../../img/guia6.jpg"
 
 import "../../styles/home.css";
 import { FaMapMarkerAlt } from 'react-icons/fa';
@@ -115,14 +124,14 @@ export const Home = () => {
 										<div className="row">
 											<div className="col-lg-4 mx-auto">
 											
-												<Link to = {"/guia/"+ listaUsuarios[0].id}>
-												<div className="card carta">
+												<Link to = {"/guia/"+ listaUsuarios[5].id}>
+												<div className="card carta"> {console.log(listaUsuarios)}
 													
-													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<img src ={listaUsuarios[5].foto} className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
-														<h2 className="nombre_carta lineUp">{listaUsuarios[0].nombre}</h2>
-														<p className="ciudad_carta lineUp">{listaUsuarios[0].ciudad}</p>
-														<p className="valoracion_carta lineUp">{listaUsuarios[0].descripcion}</p>
+														<h2 className="nombre_carta lineUp">{listaUsuarios[5].nombre}</h2>
+														<p className="ciudad_carta lineUp">{listaUsuarios[5].ciudad}</p>
+														<p className="valoracion_carta lineUp">{listaUsuarios[5].descripcion}</p>
 													</div>
 												</div>
 											</Link>
@@ -134,7 +143,7 @@ export const Home = () => {
 												<Link to = {"/guia/"+ listaUsuarios[1].id}>
 												<div className="card carta">
 													
-													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<img src={guia3} className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[1].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[1].ciudad}</p>
@@ -149,7 +158,7 @@ export const Home = () => {
 											<Link to = {"/guia/"+ listaUsuarios[2].id}>
 												<div className="card carta">
 													
-													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<img src={guia2} className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[2].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[2].ciudad}</p>
@@ -166,7 +175,7 @@ export const Home = () => {
 											<Link to = {"/guia/"+ listaUsuarios[3].id}>
 												<div className="card carta">
 													
-													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<img src={guia6} className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[3].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[3].ciudad}</p>
@@ -179,7 +188,7 @@ export const Home = () => {
 											<Link to = {"/guia/"+ listaUsuarios[4].id}>
 												<div className="card carta">
 													
-													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<img src={guia5} className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[4].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[4].ciudad}</p>
@@ -189,14 +198,14 @@ export const Home = () => {
 											</Link>
 											</div>
 											<div className="col-lg-4 mx-auto">
-											<Link to = {"/guia/"+ listaUsuarios[5].id}>
+											<Link to = {"/guia/"+ listaUsuarios[0].id}>
 												<div className="card carta">
 													
-													<img src={playa} className="card-img-top imagen_carta" alt="..."/>
+													<img src={guia4} className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
-														<h2 className="nombre_carta lineUp">{listaUsuarios[5].nombre}</h2>
-														<p className="ciudad_carta lineUp">{listaUsuarios[5].ciudad}</p>
-														<p className="valoracion_carta lineUp">{listaUsuarios[5].descripcion}</p>
+														<h2 className="nombre_carta lineUp">{listaUsuarios[0].nombre}</h2>
+														<p className="ciudad_carta lineUp">{listaUsuarios[0].ciudad}</p>
+														<p className="valoracion_carta lineUp">{listaUsuarios[0].descripcion}</p>
 													</div>
 												</div>
 											</Link>
