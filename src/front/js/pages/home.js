@@ -125,7 +125,7 @@ export const Home = () => {
 											<div className="col-lg-4 mx-auto">
 											
 												<Link to = {"/guia/"+ listaUsuarios[5].id}>
-												<div className="card carta"> {console.log(listaUsuarios)}
+												<div className="card carta"> 
 													
 													<img src ="./public/imgs/users/foto_guia.jpg" className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
