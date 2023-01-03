@@ -98,15 +98,7 @@ export const Navbar = () => {
                   </span>
                 </Link>
               </div>
-              {(store.userid) ? (
-              <div className="changeColor col-1">
-                <Link to="/cart">
-                  <span className="cart nav-link">
-                    <BsCart size="30px" className="changeColor" />
-                  </span>
-                </Link>
-              </div>
-              ) : ('')}
+              
               <div className="col-2"></div>
             </nav>
           </div>

@@ -9,7 +9,6 @@ import { Login } from "./pages/login";
 import { Search } from "./pages/search";
 import { Actividades } from "./pages/actividades";
 import { UserHome } from "./pages/userhome";
-import { Cart } from "./pages/cart";
 import { Reservas } from "./pages/reservas";
 import injectContext from "./store/appContext";
 
@@ -46,7 +45,6 @@ const Layout = () => {
             <Route element={<ModificaUsuario />} path="/modifica_usuario" />
             <Route element={<Logout />} path="/logout" />
             <Route element={<NuevaActividad />} path="/nueva_actividad" />
-            <Route element={<Cart />} path="/cart" />
             <Route element={<Reservas />} path="/reservas/:theid" />
             <Route element={<CancelaReserva />} path="/cancela_reserva/:theid" />
             <Route
