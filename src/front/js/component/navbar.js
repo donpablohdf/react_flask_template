@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
+
 
 import { BiLogInCircle } from "react-icons/bi";
 import {BiLogOutCircle} from "react-icons/bi"
@@ -13,6 +15,8 @@ import "../../styles/navbar.css";
 import logo from "../../img/OMT1.png";
 
 export const Navbar = () => {
+  const { store, actions } = useContext(Context);
+
   const token = localStorage.getItem("jwt-token");
   const userid = localStorage.getItem("userid");
   const [esLogin, setEsLogin] = useState(false);
@@ -57,7 +61,7 @@ export const Navbar = () => {
                     </span>
                   </Link>
                 </div>
-                {(!userid ) ? (
+                {(!store.userid ) ? (
                   
                     <div className="changeColor col-1">
                       <Link to="/login" >
@@ -94,7 +98,7 @@ export const Navbar = () => {
                   </span>
                 </Link>
               </div>
-              {(userid) ? (
+              {(store.userid) ? (
               <div className="changeColor col-1">
                 <Link to="/cart">
                   <span className="cart nav-link">

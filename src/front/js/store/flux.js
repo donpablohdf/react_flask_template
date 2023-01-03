@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			userid:"",
+			userid:false,
 			message: null,
 			usuario:[
 				{
@@ -103,6 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (url === '/logout') {
 					const token = localStorage.removeItem('jwt-token')
 					const userid = localStorage.removeItem('userid')
+					setStore({ userid: false })
 					return true
 				}
 					try {
@@ -120,6 +121,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const body = JSON.stringify(bod)
 				//console.log(body)
 				//console.log(url, meth, head, body);
+				const store = getStore()
+
 				await fetch(process.env.BACKEND_URL + url, {
 					method: meth,
 					headers: head,
@@ -128,7 +131,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 					if (data.token) {
 						localStorage.setItem("jwt-token", data.token)
-						localStorage.setItem("userid", data.userid)						
+						localStorage.setItem("userid", data.userid)	
+						setStore({ userid: true })
+					
 						return true
 					}else{
 						return data
