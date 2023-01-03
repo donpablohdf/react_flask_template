@@ -1,6 +1,4 @@
-.actividades-body{
 
-}
 .imagen_actividad_header{
    height:700px;
    width: 100%;
@@ -22,7 +20,63 @@
     margin-bottom: 50px;
 }
 .actividad_guia{
+    color:#9C2C77;
     text-align: center;
     font-size: 50px;
     margin-bottom: 25px;
+    font-weight: 700;
+}
+.espacio_reservas{
+    background-color: #9C2C77;
+    margin-top: 80px;
+    height: 400px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+.espacio_reservas_header{
+    color: white;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+.actividad_comentarios_body{
+    padding-bottom: 15px;
+}
+.actividad_tarjeta{
+    text-align: center;
+    width: 25rem;
+    margin-bottom: 60px;
+}
+
+
+.actividad_tarjeta_nombre{
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+}
+.actividad_comentarios{
+    color:#9C2C77;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+.tarjeta_comentarios{
+    flex-direction: row;
+    line-height: 0.7;
+    background-color: #FFE15D;
+}
+.tarjeta_comentarios img{
+    width: 10%;
+    height: 10%;
+}
+.tarjeta_comentarios_titulo{
+    font-style: italic;
+    font-size: 30px;
+}
+.tarjeta_comentarios_comentario{
+    color:gray
+}
+.tarjeta_comentarios_usuario{
+    font-weight: bold;
+    font-size: 20px;
 }

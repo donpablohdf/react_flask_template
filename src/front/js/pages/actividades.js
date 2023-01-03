@@ -6,6 +6,19 @@ import { Context } from "../store/appContext";
 import "../../styles/actividades.css";
 import retiro from "../../img/retiro.jpg"
 import fondo from "../../img/fondo.jpg"
+import opinion1 from "../../img/opinion1.jpg"
+
+import DateFnsUtils from "@date-io/date-fns"; //https://material-ui-pickers.dev/
+import {
+  DatePicker,
+  TimePicker,
+  DateTimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import {createTheme} from "@material-ui/core/styles";
+import {ThemeProvider} from "@material-ui/styles";
+import { orange } from "@material-ui/core/colors";
+
 
 export const Actividades = (props) => {
   const { store, actions } = useContext(Context);
@@ -15,6 +28,17 @@ export const Actividades = (props) => {
   const [actividades, setActividades] = useState([]);
   const [isLoading, setIsLoading] = useState(true); //cargando guias
   const [isLoading2, setIsLoading2] = useState(true); //cargando actividades
+
+  const [selectedDate, handleDateChange] = useState(new Date()); //https://material-ui-pickers.dev/
+  const materialTheme = createTheme({
+    overrides: {
+      MuiPickersToolbar:{
+        toolbar:{
+          backgroundColor:"#FD841F",
+        },
+      },
+    }
+  })
 
   useEffect(() => {
     const promesaActividades = () => {
@@ -46,33 +70,77 @@ export const Actividades = (props) => {
   }
 
   return (
-    <div className="actividades-body">
-      
-      <img src={retiro} className="img-fluid imagen_actividad_header"></img>
-      <div className="container jumbotron body">
-        <h1 className="display-5 mt-3 actividades_nombre">{actividades.nombre}</h1>
-        <h3 className="actividad_ciudad">{actividades.ciudad}</h3>
-        <h4 className="actividad_descripcion">{actividades.descripcion}</h4>
-        <h2 className="actividad_precio">{actividades.precio}</h2>
-        <h3 className="actividad_guia">Su guía:</h3>
-        <Link to={"/guia/" + guia.id}>
-          <div className="card">
-            <img src="..." className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">{guia.nombre}</h5>
-            </div>
+    <div  className = "actividades_cuerpo" style={{ backgroundImage: `url(${fondo})` }}>
+      <img src={retiro} className="imagen_actividad_header"></img>
+      <div className="container">
+        <div className="row justify-content-evenly">
+          <div className="col-8">
+              <h1 className="display-5 mt-3 actividades_nombre">{actividades.nombre}</h1>
+              <h3 className="actividad_ciudad">{actividades.ciudad}</h3>
+              <h4 className="actividad_descripcion">{actividades.descripcion}</h4>
+              <h2 className="actividad_precio">{actividades.precio}</h2>
           </div>
-        </Link>
-        <h3 className="actividad_comentarios">COMENTARIOS</h3>
-        <p>{store.comentarios[0].comentario}</p>
-        <p>{store.comentarios[1].comentario}</p>
-        <br></br>
-        <br></br>
+          <div className="col-4">
+            <div className="espacio_reservas">
+                <form>
+                  <h1 className="espacio_reservas_header">Reserva aquí</h1>
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <p></p>
+                  <div>
+                    <input
+                      autoComplete="off" //no permitir autocompletado del input
+                      type="text"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <p></p>
+                  <button type="submit">Login</button>
+                  <p></p>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <ThemeProvider theme={materialTheme}>
+                      <DatePicker value={selectedDate} onChange={handleDateChange} />
+                      <TimePicker value={selectedDate} onChange={handleDateChange} />
+                      <DateTimePicker value={selectedDate} onChange={handleDateChange} />
+                    </ThemeProvider>
+                  </MuiPickersUtilsProvider>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 className="actividad_guia">SU GUÍA</h3>
+          <div className="container d-flex justify-content-center">
+            <Link to={"/guia/" + guia.id}>
+              <div className="card actividad_tarjeta">
+                <img src={opinion1} className="card-img-top actividad_guia_imagen" alt="..." />
+                <div className="card-img-overlay actividad_tarjeta_guia_cuerpo">
+                  <h5 className="card-title actividad_tarjeta_nombre">{guia.nombre}</h5>
+                </div>
+              </div>
+            </Link>
+          </div>
+      </div>
+      <div className="actividad_comentarios_body">
+          <h3 className="actividad_comentarios">COMENTARIOS</h3>
+            <div className="container">
+              <div className="card tarjeta_comentarios">
+                <img src={opinion1} className="card-img-top img-fluid" alt="..."/>
+                <div className="card-body">
+                  <h5 className="card-title tarjeta_comentarios_titulo">"Genial"</h5>
+                  <p className="card-text tarjeta_comentarios_comentario">{store.comentarios[0].comentario}</p>
+                  <p className="card-text tarjeta_comentarios_usuario">Carla Díez</p>
+                  <p className="card-text tarjeta_comentarios_ciudad">León</p>
+                </div>
+              </div>
+            </div>
       </div>
     </div>
+        
   );
-};
-
-Actividades.propTypes = {
-  match: PropTypes.object,
 };
