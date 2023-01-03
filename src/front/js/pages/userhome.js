@@ -7,9 +7,10 @@ import "../../styles/login.css";
 export const UserHome = () => {
   const { store, actions } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
+  console.log(store.userid)
 
   const [listaUsuarios, setListaUsuarios] = useState([]);
-  const userid = localStorage.userid
+  const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("jwt-token");
   
  
@@ -20,6 +21,8 @@ export const UserHome = () => {
           <h1 className="bg-danger">No está autorizado</h1>
         </div>
       );
+    }else{
+      actions.logIn()
     }
     const promesa = () => {
       return new Promise((resolve, reject) => {
@@ -80,7 +83,7 @@ export const UserHome = () => {
         </div>
 
         <h2>Actividades Realizadas: </h2>
-        <p>{store.actividades[0].nombre}</p>
+        
       </div>
     </>
   );

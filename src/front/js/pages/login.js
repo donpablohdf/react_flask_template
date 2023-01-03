@@ -24,9 +24,7 @@ export const Login = () => {
     const head = { "Content-Type": "application/json" };
     //console.log(email, password)
     login = actions.solicitudesAPI(url, method, head, data);
-    if (login) {
-      window.location.href='/userhome'
-    }
+   
   };
 
   return (

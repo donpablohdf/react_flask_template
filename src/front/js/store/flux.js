@@ -100,6 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			dataFromAPI: async (url) => {
 				// para meter los datos de la API
+				const store = getStore()
 				if (url === '/logout') {
 					const token = localStorage.removeItem('jwt-token')
 					const userid = localStorage.removeItem('userid')
@@ -121,6 +122,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const body = JSON.stringify(bod)
 				//console.log(body)
 				//console.log(url, meth, head, body);
+				const store = getStore()
 
 				await fetch(process.env.BACKEND_URL + url, {
 					method: meth,
@@ -128,10 +130,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: body
 				}).then((resp) => resp.json()).then((data) => {
 					
-					if (data.token) {
+					if (data.token && url === '/api/login') {
 						localStorage.setItem("jwt-token", data.token)
 						localStorage.setItem("userid", data.userid)	
 						setStore({ userid: true })
+						if (store.userid){
+						window.location.href='/userhome'
+						}
 					
 						return true
 					}else{
@@ -142,6 +147,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}).catch((error) => {
 					return 'Hubo un problema con la petición Fetch:' + error.message
 				})
+			},
+			logIn: () => {
+				setStore({ userid: true })
+				return true
 			},
 		}
 	};
