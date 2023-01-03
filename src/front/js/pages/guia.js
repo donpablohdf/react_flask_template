@@ -3,15 +3,15 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-import fondo from "../../img/fondo.jpg"
-import madrid from "../../img/madrid.jpg"
+import fondo from "../../img/fondo.jpg";
+import madrid from "../../img/madrid.jpg";
 
 import "../../styles/guia.css";
 
 export const Guia = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
-  const [recarga, setRecarga] = useState(params.random);
+  const userid = localStorage.getItem("userid");
 
   const [guia, setGuia] = useState([]);
   const [actividades, setActividades] = useState([]);
@@ -60,7 +60,7 @@ export const Guia = () => {
   }
 
   return (
-    <div className="guia-body" style={{backgroundImage: `url(${fondo})`}}>
+    <div className="guia-body" style={{ backgroundImage: `url(${fondo})` }}>
       <div className="container">
         <div className="card mb-5">
           <div className="row g-0">
@@ -76,7 +76,7 @@ export const Guia = () => {
           </div>
         </div>
         <h3 className="texto_actividades mb-5">ACTIVIDADES</h3>
-        {guia.tipo === 1 ? (
+        {guia.tipo === 1 && userid === params.theid ? (
           <div className="mb-5">
             <Link to="/nueva_actividad">
               <button>Nueva actividad</button>
@@ -94,16 +94,34 @@ export const Guia = () => {
                 <img src={madrid} className="card-img-top" alt="..." />
                 <div className="card-body tarjeta_actividad_body">
                   <Link to={"/actividades/" + element.id}>
-                    <h5 className="card-title tarjeta_actividad_nombre">{element.nombre}</h5>
+                    <h5 className="card-title tarjeta_actividad_nombre">
+                      {element.nombre}
+                    </h5>
                   </Link>
-                  <p className="card-text tarjeta_actividad_texto">CIUDAD: <span className="tarjeta_actividad_variable">{element.ciudad}</span></p>
-                  <p className="card-text tarjeta_actividad_texto">PRECIO: <span className="tarjeta_actividad_variable">{element.precio}</span></p>
-                  <Link
-                    id={"navLink" + element.id}
-                    to={"/modifica_actividad/" + element.id}
-                  >
-                    <div>Modificar</div>
-                  </Link>
+                  <p className="card-text tarjeta_actividad_texto">
+                    CIUDAD:{" "}
+                    <span className="tarjeta_actividad_variable">
+                      {element.ciudad}
+                    </span>
+                  </p>
+                  <p className="card-text tarjeta_actividad_texto">
+                    PRECIO:{" "}
+                    <span className="tarjeta_actividad_variable">
+                      {element.precio}
+                    </span>
+                  </p>
+                  {guia.tipo === 1 && userid === params.theid ? (
+                    <div className="mb-5">
+                      <Link
+                        id={"navLink" + element.id}
+                        to={"/modifica_actividad/" + element.id}
+                      >
+                        <div>Modificar</div>
+                      </Link>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>
@@ -117,14 +135,30 @@ export const Guia = () => {
               <div className="card h-100">
                 <img src={madrid} className="card-img-top" alt="..." />
                 <div className="card-body tarjeta_actividad_body">
-                  <h5 className="card-title tarjeta_actividad_nombre">RESERVA: <span className="tarjeta_actividad_variable">{element.num_reserva}</span></h5>
+                  <h5 className="card-title tarjeta_actividad_nombre">
+                    RESERVA:{" "}
+                    <span className="tarjeta_actividad_variable">
+                      {element.num_reserva}
+                    </span>
+                  </h5>
                   <p className="card-text tarjeta_actividad_texto">
-                    ACTIVIDAD: <span className="tarjeta_actividad_variable">{element.obj_actividad.nombre}</span>
+                    ACTIVIDAD:{" "}
+                    <span className="tarjeta_actividad_variable">
+                      {element.obj_actividad.nombre}
+                    </span>
                   </p>
                   <p className="card-text tarjeta_actividad_texto">
-                    REALIZADA: <span className="tarjeta_actividad_variable">{element.fecha_realizacion}</span>
+                    REALIZADA:{" "}
+                    <span className="tarjeta_actividad_variable">
+                      {element.fecha_realizacion}
+                    </span>
                   </p>
-                  <p className="card-text tarjeta_actividad_texto">EMITIDA: <span className="tarjeta_actividad_variable">{element.fecha_reserva}</span></p>
+                  <p className="card-text tarjeta_actividad_texto">
+                    EMITIDA:{" "}
+                    <span className="tarjeta_actividad_variable">
+                      {element.fecha_reserva}
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
