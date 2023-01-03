@@ -127,11 +127,11 @@ export const Home = () => {
 												<Link to = {"/guia/"+ listaUsuarios[5].id}>
 												<div className="card carta"> {console.log(listaUsuarios)}
 													
-													<img src ={listaUsuarios[5].foto} className="card-img-top imagen_carta" alt="..."/>
+													<img src ="./public/imgs/users/foto_guia.jpg" className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[5].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[5].ciudad}</p>
-														<p className="valoracion_carta lineUp">{listaUsuarios[5].descripcion}</p>
+														
 													</div>
 												</div>
 											</Link>
@@ -147,7 +147,7 @@ export const Home = () => {
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[1].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[1].ciudad}</p>
-														<p className="valoracion_carta lineUp">{listaUsuarios[1].descripcion}</p>
+														
 													</div>
 												</div>
 											</Link>
@@ -162,7 +162,7 @@ export const Home = () => {
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[2].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[2].ciudad}</p>
-														<p className="valoracion_carta lineUp">{listaUsuarios[2].descripcion}</p>
+														
 													</div>
 												</div>
 											</Link>
@@ -179,7 +179,6 @@ export const Home = () => {
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[3].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[3].ciudad}</p>
-														<p className="valoracion_carta lineUp">{listaUsuarios[3].descripcion}</p>
 													</div>
 												</div>
 											</Link>
@@ -192,7 +191,6 @@ export const Home = () => {
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[4].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[4].ciudad}</p>
-														<p className="valoracion_carta lineUp">{listaUsuarios[4].descripcion}</p>
 													</div>
 												</div>
 											</Link>
@@ -205,7 +203,6 @@ export const Home = () => {
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[0].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[0].ciudad}</p>
-														<p className="valoracion_carta lineUp">{listaUsuarios[0].descripcion}</p>
 													</div>
 												</div>
 											</Link>
