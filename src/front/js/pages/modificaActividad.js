@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Guia } from "./guia";
 
 
-import { useNavigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
@@ -15,7 +14,6 @@ import "../../styles/login.css";
 export const ModificaActividad = () => {
   const params = useParams();
   const userid = localStorage.getItem("userid");
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [dataActividad, setDataActividad] = useState([]);
   const num = Math.floor(Math.random() * 1000);
@@ -52,8 +50,7 @@ export const ModificaActividad = () => {
     //console.log(data)
     login = actions.solicitudesAPI(url, method, head, data);
     if (login) {
-      navigate("/actmod");
-     
+      window.location.href="/guia/" + userid     
     }
   };
   if (isLoading) {

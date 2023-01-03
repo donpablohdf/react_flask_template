@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
@@ -9,9 +8,6 @@ import "../../styles/login.css";
 
 export const NuevaActividad = () => {
   const userid = localStorage.getItem("userid");
-  const navigate = useNavigate();
-  console.log(process.env.BACKEND_URL + "/new_act/" + userid);
-  const { actions } = useContext(Context);
   const {
     register,
     reset,
@@ -39,7 +35,7 @@ export const NuevaActividad = () => {
 
     fetch(process.env.BACKEND_URL + "/api/new_act/" + userid, requestOptions)
       .then((response) => response.text())
-      .then((result) => navigate("/guia/"+userid))
+      .then((result) => window.location.href="/guia/" + userid )
       .catch((error) => console.log("error", error));
   };
 

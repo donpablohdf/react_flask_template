@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
 
 import { Context } from "../store/appContext"
 import { useForm } from "react-hook-form" // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
@@ -9,7 +8,6 @@ import "../../styles/login.css"
 
 export const ModificaUsuario = () => {
   const userid = localStorage.getItem("userid")
-  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true);
   const [listaUsuarios, setListaUsuarios] = useState([])
   const [esGuia, setEsGuia] = useState(false)
@@ -46,7 +44,7 @@ export const ModificaUsuario = () => {
     //console.log(data)
     login = actions.solicitudesAPI(url, method, head, data)
     if (login) {
-      navigate("/islogin")
+      window.location.href='/userhome'
     }
   }
   if (isLoading) {

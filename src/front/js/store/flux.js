@@ -121,7 +121,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const body = JSON.stringify(bod)
 				//console.log(body)
 				//console.log(url, meth, head, body);
-				const store = getStore()
 
 				await fetch(process.env.BACKEND_URL + url, {
 					method: meth,

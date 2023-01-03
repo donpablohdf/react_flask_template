@@ -1,12 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 import "../../styles/login.css";
 
 export const UserHome = () => {
-  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
 

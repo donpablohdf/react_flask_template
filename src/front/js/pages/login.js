@@ -3,11 +3,9 @@ import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import { Link } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
 export const Login = () => {
-  const navigate = useNavigate();
   const { actions } = useContext(Context);
 
   const {
@@ -27,8 +25,7 @@ export const Login = () => {
     //console.log(email, password)
     login = actions.solicitudesAPI(url, method, head, data);
     if (login) {
-      
-      return navigate("/islogin");
+      window.location.href='/userhome'
     }
   };
 

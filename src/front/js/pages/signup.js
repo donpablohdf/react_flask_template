@@ -1,11 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
-import { useNavigate } from "react-router-dom";
 
 import "../../styles/login.css";
 export const FormSignup = () => {
-  const navigate = useNavigate();
 
   const {
     register,
@@ -28,7 +26,7 @@ export const FormSignup = () => {
     } else {
       const login = actions.solicitudesAPI(url, method, head, data);
       if (login) {
-        navigate("/login");
+        window.location.href="/login"
       }
     }
   };
