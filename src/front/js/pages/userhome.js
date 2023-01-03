@@ -7,7 +7,6 @@ import "../../styles/login.css";
 export const UserHome = () => {
   const { store, actions } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(store.userid)
 
   const [listaUsuarios, setListaUsuarios] = useState([]);
   const userid = localStorage.getItem("userid");
@@ -82,7 +81,11 @@ export const UserHome = () => {
           </Link>
         </div>
 
-        <h2>Actividades Realizadas: </h2>
+        <div>
+        <Link to={"/reservas/"+userid}>
+          <button>Ver mis reservas</button>
+        </Link>
+      </div>
         
       </div>
     </>

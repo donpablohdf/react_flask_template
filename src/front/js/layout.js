@@ -20,6 +20,7 @@ import { Logout } from "./pages/logout";
 import { FormSignup } from "./pages/signup";
 import { NuevaActividad } from "./pages/nuevaActividad";
 import { ModificaActividad } from "./pages/modificaActividad";
+import { CancelaReserva } from "./pages/cancelaReserva";
 
 //create your first component
 const Layout = () => {
@@ -47,6 +48,7 @@ const Layout = () => {
             <Route element={<NuevaActividad />} path="/nueva_actividad" />
             <Route element={<Cart />} path="/cart" />
             <Route element={<Reservas />} path="/reservas/:theid" />
+            <Route element={<CancelaReserva />} path="/cancela_reserva/:theid" />
             <Route
               element={<ModificaActividad />}
               path="/modifica_actividad/:theid"

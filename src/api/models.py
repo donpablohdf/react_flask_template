@@ -440,9 +440,11 @@ class Reservas(db.Model):
     def desactiva_by_id(self, pid):
         res = self.query.get(pid)
         if res:
+            #print(str(res.fecha_realizacion))
             fecha_res = datetime.strptime(
                 str(res.fecha_realizacion), "%Y-%m-%d %H:%M:%S")
             fecha_str = datetime.strftime(fecha_res, '%d-%m-%Y a las %H:%M')
+            #fecha_str=res.fecha_realizacion
             guia = Users.query.get(res.id_guia)
             usuario = Users.query.get(res.id_usuario)
             actividad = Actividades.query.get(res.id_actividad)
