@@ -1,9 +1,9 @@
 .login-body{
-    position: absolute;
     padding-top: 200px;
     text-align: center;
     height: 100%;
     width: 100%;
+    padding-bottom: 17vh;
 }
 .login_form{
     height: 100%;

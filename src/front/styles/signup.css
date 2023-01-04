@@ -1,32 +1,50 @@
 .signup-body{
-    background-color: lightsalmon;
-    padding-top: 200px;
-    text-align: center;
+  padding-top: 200px;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 26vh;
+}
+.signup_form{
+  height: 100%;
 }
 
-input, textarea, select, button {
-    width : 250px;
-    padding: 5px;
-    margin: 5px;
-    box-sizing: border-box;
-  }
+.sign_up_encabezado{
+  color: white;
+  padding-top: 25px;
+  font-size: 35px;
+  font-weight: 200;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
 
-  .button-submit {
-    padding      : 10px;
-    font         : bold 25px sans-serif;
-    border       : 2px solid #333;
-    border-radius: 5px;
-    background   : none;
-    cursor       : pointer;
-  }
-  
-  .button-submit:after {
-    content      : "REGISTRARSE";
-  }
-  
-  .button-submit:hover,
-  .button-submit:focus {
-    outline     : none;
-    background  : #000;
-    color       : #FFF;
-  }
+}
+.signup_input{
+  margin-top: 20px;
+  height:50px;
+  text-align: center;
+  font-size: 25px;
+  border-radius: 25px;
+  border-style: none;
+}
+::placeholder{
+  color:#9C2C77;
+}
+.signup_icono_email{
+  position: absolute;
+  padding-left: 32px;
+  padding-top: 35px;
+  font-size: 25px;
+  color: #9C2C77;
+}
+.signup_icono_password{
+  position: absolute;
+  padding-left: 32px;
+  padding-top: 32px;
+  font-size: 25px;
+  color: #9C2C77;
+}
+.signup_password_coincide{
+  font-size: 20px;
+  color: red;
+  font-weight: 600;
+}

@@ -4,16 +4,54 @@
     width: 100%;
     padding-top: 10%;
     text-align: center;
-    padding-bottom: 25%;
     align-items:center;
 }
 .barra_search{
     width: 80%;
     margin-bottom: 60px;
 }
+.barra_search_encabezado{
+    color: white;
+    font-size: 50px;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+.barra_search_viajar{
+    color:#9C2C77;
+    font-size: 55px;
+}
 .containerInput{
+    width: 100%;
+    margin-bottom: 30px;
+}
+.barra_search_input{
     width: 50%;
+    height:50px;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 25px;
+    border-style: none;
+}
+.search_icono_search{
+    position: absolute;
+    padding-left: 32px;
+    padding-top: 14px;
+    font-size: 25px;
+    color: #9C2C77;
 }
 .search_field{
   margin-top: 60px; 
+}
+.search_img_carta{
+    filter:brightness(80%)
+}
+.search_card_nombre{
+    color: white;
+}
+
+
+.search_boton_reserva{
+    position: relative;
+    background-color: #9C2C77;
+    color: white;
 }

@@ -2,7 +2,10 @@ import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
-import "../../styles/login.css";
+import "../../styles/signup.css";
+import fondo2 from "../../img/fondo2.jpg"
+
+
 export const FormSignup = () => {
 
   const {
@@ -32,64 +35,48 @@ export const FormSignup = () => {
   };
 
   return (
-    <div className="login-body">
-      <section className="d-flex justify-content-center">
-        <h5>Registro</h5>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="d-flex container-fluid flex-column mt-5">
-            <div
-              id="input_username"
-              className="row mt-2 align-items-center bg-warning rounded"
-            >
-              <span className="col-3 ">Email</span>
-              <input
+    <div className="signup-body" style={{ backgroundImage: `url(${fondo2})` }}>
+      <div className="container signup_espacio border border-white rounded px-0" style={{height:"400px",width:"400px",backgroundImage: `url(${fondo2})`}}>
+        <form className ="signup_form" onSubmit={handleSubmit(onSubmit)}>
+          <h2 className="sign_up_encabezado">REGISTRO</h2>
+          
+            <div id="input_username" className="sign_up_email">
+              <i className="fas fa-envelope signup_icono_email"></i>
+              <input className="signup_input"
                 type="text"
-                className="form-control ms-2 col"
                 placeholder="Email"
                 {...register("email", { required: true })} //crear el name del input y requerido react-hook-form
               />
             </div>
-            <div
-              id="input_password"
-              className="row mt-2 align-items-center bg-warning rounded"
-            >
-              <span className="col-3 ">Password</span>
-
-              <input
+            <div id="input_password">
+              <i className="fas fa-unlock-alt  signup_icono_password"></i>
+              <input className="signup_input"
                 autoComplete="off" //no permitir autocompletado del input
                 type="text"
-                className="form-control  ms-2 col"
                 placeholder="Password"
                 {...register("password", { required: true })} //crear el name del input y requerido react-hook-form
               />
             </div>
-            <div
-              id="input_password"
-              className="row mt-2 align-items-center bg-warning rounded"
-            >
-              <span className="col-3 ">Repita password</span>
-
-              <input
+            <div id="input_password">
+            <i className="fas fa-lock signup_icono_password"></i>
+              <input className="signup_input"
                 autoComplete="off" //no permitir autocompletado del input
                 type="text"
-                className="form-control  ms-2 col"
-                placeholder="Repita password"
+                placeholder="   Repita password"
                 {...register("passwordR", { required: true })} //crear el name del input y requerido react-hook-form
               />
             </div>
-            <div id="input_btn" className="row my-4">
-              <div className="d-inline-flex container justify-content-center">
-                <button className="btn btn-primary m-0" type="submit">
+            <div id="input_btn" className="container login_button_body px-0">
+                <button className="login_button px-0" type="submit">
                   {" "}
-                  enviar
+                  REGISTRARME
                 </button>
-              </div>
             </div>
-          </div>
+          
 		  {errPass? (
           <>
-            <span className="text-danger text-small d-block m-2 fw-lighter">
-              El password no coincide
+            <span className="signup_password_coincide">
+              LOS PASSWORDS NO COINCIDEN
             </span>
           </>
         ) : (
@@ -98,17 +85,17 @@ export const FormSignup = () => {
 
           {/* control de errores react-hook-form */}
           {errors.email && (
-            <span className="text-danger text-small d-block m-2 fw-lighter">
-              El campo email no puede estar vacío
+            <span className="signup_password_coincide">
+              EL EMAIL NO PUEDE ESTAR VACIO
             </span>
           )}
           {errors.password && (
-            <span className="text-danger text-small d-block m-2 fw-lighter">
-              El campo password no puede estar vacío
+            <span className="signup_password_coincide">
+              EL PASSWORD NO PUEDE ESTAR VACIO
             </span>
           )}
         </form>
-      </section>
+      </div>
     </div>
   );
 };
