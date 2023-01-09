@@ -21,6 +21,7 @@ import { NuevaActividad } from "./pages/nuevaActividad";
 import { ModificaActividad } from "./pages/modificaActividad";
 import { CancelaReserva } from "./pages/cancelaReserva";
 import { OlvidoPassword } from "./pages/olvidoPassword";
+import { BajaUsuario } from "./pages/baja";
 
 //create your first component
 const Layout = () => {
@@ -49,6 +50,7 @@ const Layout = () => {
             <Route element={<Reservas />} path="/reservas/:theid" />
             <Route element={<CancelaReserva />} path="/cancela_reserva/:theid" />
             <Route element={<OlvidoPassword />} path="/fpass/" />
+            <Route element={<BajaUsuario />} path="/baja_usuario/" />
             <Route
               element={<ModificaActividad />}
               path="/modifica_actividad/:theid"

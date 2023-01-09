@@ -77,12 +77,15 @@ def login_user():
 
     user = Users.query.filter_by(email=data['email']).first()
     if user:
-        if check_password_hash(user.password, data['password']):
-            token = jwt.encode({'id': user.id, 'exp': datetime.datetime.utcnow(
-            ) + ACCESS_EXPIRES}, SECRET)
-            access_token = create_access_token(token)
-            return jsonify({"token": access_token, "userid":user.id}), 200
-        return jsonify({"error": 'no_pass'}), 401
+        if user.activo==1:
+            if check_password_hash(user.password, data['password']):
+                token = jwt.encode({'id': user.id, 'exp': datetime.datetime.utcnow(
+                ) + ACCESS_EXPIRES}, SECRET)
+                access_token = create_access_token(token)
+                return jsonify({"token": access_token, "userid":user.id}), 200
+            return jsonify({"error": 'no_pass'}), 401
+        else:
+            return jsonify({"error": 'usuario_inactivo'}), 401
     return jsonify({"error": 'no_user'}), 401
 
 @api.route('/new_pass', methods=['POST', 'GET'])

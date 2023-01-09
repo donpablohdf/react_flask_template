@@ -80,7 +80,11 @@ export const UserHome = () => {
             <button>Modificar mis datos de perfil</button>
           </Link>
         </div>
-
+        <div>
+          <Link to="/baja_usuario">
+            <button>Darme de baja</button>
+          </Link>
+        </div>
         <div>
         <Link to={"/reservas/"+userid}>
           <button>Ver mis reservas</button>
