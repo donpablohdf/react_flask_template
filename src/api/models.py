@@ -87,6 +87,7 @@ class Users(db.Model):
             user.password = new_password
             db.session.commit()
             # enviar password
+            #print(pwd)
             data = {
                 'Messages': [
                     {
@@ -102,7 +103,7 @@ class Users(db.Model):
                         ],
                         "Subject": "Nueva contraseña OH MY TOWN",
                         "TextPart": "My first Mailjet email",
-                        "HTMLPart": "<h3>Hola, Tu nueva contraseña es"+pwd,
+                        "HTMLPart": "<h3>Hola, Tu nueva contraseña es: "+pwd,
                         "CustomID": "AppGettingStartedTest"
                     }
                 ]

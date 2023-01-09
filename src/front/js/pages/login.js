@@ -66,7 +66,13 @@ export const Login = () => {
             <span className="login_registro_link"> aquí</span>
           </Link>
         </p>
+        <p>Si no recuerdas tu contraseña pincha
+          <Link to="/fpass/">
+            <span className="login_registro_link"> aquí</span>
+          </Link>
+        </p>
       </div>
+      
     </div>
   );
 };

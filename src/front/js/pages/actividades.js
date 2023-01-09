@@ -23,6 +23,8 @@ export const Actividades = (props) => {
   const { store, actions } = useContext(Context);
   const params = useParams();
   const userid = localStorage.getItem("userid");
+  const token = localStorage.getItem("jwt-token");
+
 
   const [nwreserva, setNwreserva] = useState(false);
 
@@ -56,6 +58,10 @@ export const Actividades = (props) => {
     setNwreserva(true);
   };
   useEffect(() => {
+
+    if (token)  {
+      actions.logIn();
+    }
     const promesaActividades = () => {
       return new Promise((resolve, reject) => {
         resolve(actions.dataFromAPI("/api/actividad/" + params.theid));
