@@ -16,9 +16,9 @@ export const NuevaActividad = () => {
     formState: { errors },
   } = useForm({ defaultValues: { tipo: false } }); // declaracion para react-hook-form
 
-  let login = false;
+  
   const onSubmit = (data, e) => {
-    //e.preventDefault();
+    e.preventDefault();
     var formdata = new FormData();
     formdata.append("nombre", data.nombre);
     formdata.append("descripcion", data.descripcion);

@@ -127,7 +127,7 @@ export const Home = () => {
 												<Link to = {"/guia/"+ listaUsuarios[5].id}>
 												<div className="card carta"> 
 													
-													<img src ="../public/imgs/users/foto_guia.jpg" className="card-img-top imagen_carta" alt="..."/>
+													<img src ="./imgs/foto_user.jpg" className="card-img-top imagen_carta" alt="..."/>
 													<div className="card-body cuerpo_carta">
 														<h2 className="nombre_carta lineUp">{listaUsuarios[5].nombre}</h2>
 														<p className="ciudad_carta lineUp">{listaUsuarios[5].ciudad}</p>
