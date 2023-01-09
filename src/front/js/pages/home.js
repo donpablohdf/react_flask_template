@@ -201,22 +201,22 @@ export const Home = () => {
                 <div className="col-lg-4 mx-auto">
                   <Link to={"/guia/" + listaUsuarios[1].id}>
                     <div className="card carta">
-					{listaUsuarios[1].foto ? (
-                         <img
-						 src={
-						   process.env.BACKEND_URL + "/" + listaUsuarios[1].foto
-						 }
-						 className="card-img-top imagen_carta"
-						 alt="..."
-					   />
+                      {listaUsuarios[1].foto ? (
+                        <img
+                          src={
+                            process.env.BACKEND_URL +
+                            "/" +
+                            listaUsuarios[1].foto
+                          }
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
                       ) : (
                         <img
-						 src={
-						  guia1
-						 }
-						 className="card-img-top imagen_carta"
-						 alt="..."
-					   />
+                          src={guia1}
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
                       )}
                       <div className="card-body cuerpo_carta">
                         <h2 className="nombre_carta lineUp">
@@ -232,11 +232,23 @@ export const Home = () => {
                 <div className="col-lg-4 mx-auto">
                   <Link to={"/guia/" + listaUsuarios[2].id}>
                     <div className="card carta">
-                      <img
-                        src={guia2}
-                        className="card-img-top imagen_carta"
-                        alt="..."
-                      />
+                      {listaUsuarios[2].foto ? (
+                        <img
+                          src={
+                            process.env.BACKEND_URL +
+                            "/" +
+                            listaUsuarios[2].foto
+                          }
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
+                      ) : (
+                        <img
+                          src={guia1}
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
+                      )}
                       <div className="card-body cuerpo_carta">
                         <h2 className="nombre_carta lineUp">
                           {listaUsuarios[2].nombre}
@@ -255,11 +267,23 @@ export const Home = () => {
                 <div className="col-lg-4 mx-auto">
                   <Link to={"/guia/" + listaUsuarios[3].id}>
                     <div className="card carta">
-                      <img
-                        src={guia6}
-                        className="card-img-top imagen_carta"
-                        alt="..."
-                      />
+                      {listaUsuarios[3].foto ? (
+                        <img
+                          src={
+                            process.env.BACKEND_URL +
+                            "/" +
+                            listaUsuarios[3].foto
+                          }
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
+                      ) : (
+                        <img
+                          src={guia1}
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
+                      )}
                       <div className="card-body cuerpo_carta">
                         <h2 className="nombre_carta lineUp">
                           {listaUsuarios[3].nombre}
@@ -274,11 +298,23 @@ export const Home = () => {
                 <div className="col-lg-4 mx-auto">
                   <Link to={"/guia/" + listaUsuarios[4].id}>
                     <div className="card carta">
-                      <img
-                        src={guia5}
-                        className="card-img-top imagen_carta"
-                        alt="..."
-                      />
+                      {listaUsuarios[4].foto ? (
+                        <img
+                          src={
+                            process.env.BACKEND_URL +
+                            "/" +
+                            listaUsuarios[4].foto
+                          }
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
+                      ) : (
+                        <img
+                          src={guia1}
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
+                      )}
                       <div className="card-body cuerpo_carta">
                         <h2 className="nombre_carta lineUp">
                           {listaUsuarios[4].nombre}
@@ -293,11 +329,23 @@ export const Home = () => {
                 <div className="col-lg-4 mx-auto">
                   <Link to={"/guia/" + listaUsuarios[0].id}>
                     <div className="card carta">
-                      <img
-                        src={guia4}
-                        className="card-img-top imagen_carta"
-                        alt="..."
-                      />
+                      {listaUsuarios[0].foto ? (
+                        <img
+                          src={
+                            process.env.BACKEND_URL +
+                            "/" +
+                            listaUsuarios[0].foto
+                          }
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
+                      ) : (
+                        <img
+                          src={guia1}
+                          className="card-img-top imagen_carta"
+                          alt="..."
+                        />
+                      )}
                       <div className="card-body cuerpo_carta">
                         <h2 className="nombre_carta lineUp">
                           {listaUsuarios[0].nombre}
@@ -364,17 +412,22 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col">
-                    <img
-                      src={bosque}
-                      className="img-fluid imagen-actividad"
-                      alt="..."
-                    />
-                    <div className="eventos-area d-flex">
-                      <span>26 Nov</span>
-                      <span>
-                        <FaMapMarkerAlt className="icono-actividad" />
-                      </span>
-                    </div>
+                    {listaTareas[0].foto ? (
+                      <img
+                        src={
+                          process.env.BACKEND_URL + "/" + listaTareas[0].foto
+                        }
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    ) : (
+                      <img
+                        src={bosque}
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    )}
+                    
                   </div>
                   <div className="col-md-7">
                     <Link to={"/actividades/" + listaTareas[0].id}>
@@ -393,17 +446,21 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col">
-                    <img
-                      src={bosque}
-                      className="img-fluid imagen-actividad"
-                      alt="..."
-                    />
-                    <div className="eventos-area d-flex">
-                      <span>26 Nov</span>
-                      <span>
-                        <FaMapMarkerAlt className="icono-actividad" />
-                      </span>
-                    </div>
+				  {listaTareas[1].foto ? (
+                      <img
+                        src={
+                          process.env.BACKEND_URL + "/" + listaTareas[1].foto
+                        }
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    ) : (
+                      <img
+                        src={bosque}
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    )}
                   </div>
                   <div className="col-md-7">
                     <Link to={"/actividades/" + listaTareas[1].id}>
@@ -422,17 +479,21 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col">
-                    <img
-                      src={bosque}
-                      className="img-fluid imagen-actividad"
-                      alt="..."
-                    />
-                    <div className="eventos-area d-flex">
-                      <span>26 Nov</span>
-                      <span>
-                        <FaMapMarkerAlt className="icono-actividad" />
-                      </span>
-                    </div>
+				  {listaTareas[2].foto ? (
+                      <img
+                        src={
+                          process.env.BACKEND_URL + "/" + listaTareas[2].foto
+                        }
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    ) : (
+                      <img
+                        src={bosque}
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    )}
                   </div>
                   <div className="col-md-7">
                     <Link to={"/actividades/" + listaTareas[2].id}>
@@ -453,17 +514,21 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col">
-                    <img
-                      src={bosque}
-                      className="img-fluid imagen-actividad"
-                      alt="..."
-                    />
-                    <div className="eventos-area d-flex">
-                      <span>26 Nov</span>
-                      <span>
-                        <FaMapMarkerAlt className="icono-actividad" />
-                      </span>
-                    </div>
+				  {listaTareas[3].foto ? (
+                      <img
+                        src={
+                          process.env.BACKEND_URL + "/" + listaTareas[3].foto
+                        }
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    ) : (
+                      <img
+                        src={bosque}
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    )}
                   </div>
                   <div className="col-md-7">
                     <Link to={"/actividades/" + listaTareas[3].id}>
@@ -482,17 +547,21 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col">
-                    <img
-                      src={bosque}
-                      className="img-fluid imagen-actividad"
-                      alt="..."
-                    />
-                    <div className="eventos-area d-flex">
-                      <span>26 Nov</span>
-                      <span>
-                        <FaMapMarkerAlt className="icono-actividad" />
-                      </span>
-                    </div>
+				  {listaTareas[4].foto ? (
+                      <img
+                        src={
+                          process.env.BACKEND_URL + "/" + listaTareas[4].foto
+                        }
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    ) : (
+                      <img
+                        src={bosque}
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    )}
                   </div>
                   <div className="col-md-7">
                     <Link to={"/actividades/" + listaTareas[4].id}>
@@ -511,17 +580,21 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col">
-                    <img
-                      src={bosque}
-                      className="img-fluid imagen-actividad"
-                      alt="..."
-                    />
-                    <div className="eventos-area d-flex">
-                      <span>26 Nov</span>
-                      <span>
-                        <FaMapMarkerAlt className="icono-actividad" />
-                      </span>
-                    </div>
+				  {listaTareas[5].foto ? (
+                      <img
+                        src={
+                          process.env.BACKEND_URL + "/" + listaTareas[5].foto
+                        }
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    ) : (
+                      <img
+                        src={bosque}
+                        className="img-fluid imagen-actividad"
+                        alt="..."
+                      />
+                    )}
                   </div>
                   <div className="col-md-7">
                     <Link to={"/actividades/" + listaTareas[5].id}>
@@ -542,12 +615,13 @@ export const Home = () => {
         </div>
       </div>
       {/**FIN OPINIONES */}
+	  {/*COMIENZO OPINIONES*
       <div className="texto-opiniones">
         <h1 className="d-flex justify-content-center display-2 my-5 texto_clientes">
           NUESTROS CLIENTES OPINAN
         </h1>
       </div>
-      {/*COMIENZO OPINIONES*/}
+      
       <div
         className="opiniones"
         style={{
@@ -605,7 +679,7 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      {/*FIN OPINIONES*/}
+      FIN OPINIONES*/}
     </div>
   );
 };
