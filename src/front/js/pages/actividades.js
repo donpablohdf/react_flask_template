@@ -121,7 +121,7 @@ export const Actividades = (props) => {
                   </button>
                 </div>
               ) : (
-                ""
+                <div>Para reservar tienes que registrate</div>
               )}
               {actividades.id_guia !== userid  && nwreserva ? (
                 <div>

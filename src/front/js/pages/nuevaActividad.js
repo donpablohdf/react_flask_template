@@ -1,5 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import DateFnsUtils from "@date-io/date-fns"; //https://material-ui-pickers.dev/
+import {
+  DatePicker,
+  TimePicker,
+  DateTimePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import { createTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
@@ -7,6 +16,16 @@ import { useForm } from "react-hook-form"; // permite el manejo de formularios h
 import "../../styles/login.css";
 
 export const NuevaActividad = () => {
+  const [selectedDate, handleDateChange] = useState(new Date()); //https://material-ui-pickers.dev/
+  const materialTheme = createTheme({
+    overrides: {
+      MuiPickersToolbar: {
+        toolbar: {
+          backgroundColor: "#FD841F",
+        },
+      },
+    },
+  });
   const userid = localStorage.getItem("userid");
   const {
     register,
@@ -80,7 +99,21 @@ export const NuevaActividad = () => {
                 type="datetime"
                 {...register("fecha")} //crear el name del input y requerido react-hook-form
               />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ThemeProvider theme={materialTheme}>
+                  <DatePicker
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                  />
+                  <TimePicker
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                  />
+                  
+                </ThemeProvider>
+              </MuiPickersUtilsProvider>
             </div>
+
             <p></p>
             <div>
               <input

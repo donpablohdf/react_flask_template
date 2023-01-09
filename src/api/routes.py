@@ -9,7 +9,6 @@ from api.utils import generate_sitemap, APIException
 import datetime
 from datetime import timedelta
 import jwt
-from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
 import uuid
@@ -71,11 +70,11 @@ def handle_mod(usuario_id):
 def handle_foto(usuario_id):
     if request.method == 'POST':
         f = request.files['archivo']
-        filename = secure_filename(f.filename)
         renom = uuid.uuid4()
-        archivo= "src/imgs/users/"+str(usuario_id)+"_"+str(renom)+"_"+filename
+        archivo= "public/imgs/users/"+str(usuario_id)+"_"+str(renom)
         f.save(os.path.join(archivo))
-        foto_user = Users.foto_by_id(usuario_id, archivo)
+        img_bbdd="imgs/users/"+str(guia_id)+"_"+str(renom)
+        foto_user = Users.foto_by_id(usuario_id, img_bbdd)
         return jsonify(foto_user), 200
     else:
         return jsonify("No POST"), 400
@@ -156,11 +155,10 @@ def handle_acti_index():
 def new_act(guia_id):
     if request.method == 'POST':
         f = request.files['archivo']
-        filename = secure_filename(f.filename)
         renom = uuid.uuid4()
-        archivo= "src/imgs/actividades/"+str(guia_id)+"_"+str(renom)+"_"+filename
+        archivo= "public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
         f.save(os.path.join(archivo))
-        
+        img_bbdd="imgs/actividades/"+str(guia_id)+"_"+str(renom)
        
         data={
             "nombre": request.form["nombre"],
@@ -169,7 +167,7 @@ def new_act(guia_id):
             "fecha": request.form["fecha"],
             "id_guia": guia_id,
             "ciudad": request.form["ciudad"],
-            "foto": archivo,
+            "foto": img_bbdd,
             
         }
         new_act_guia = Actividades.new_act(guia_id, data)
@@ -189,11 +187,11 @@ def act_mod(act_id):
 def act_foto(act_id, guia_id):
     if request.method == 'POST':
         f = request.files['archivo']
-        filename = secure_filename(f.filename)
         renom = uuid.uuid4()
-        archivo= "src/imgs/actividades/"+str(guia_id)+"_"+str(renom)+"_"+filename
+        archivo= "public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
         f.save(os.path.join(archivo))
-        foto_act = Actividades.foto_by_id(act_id, archivo)
+        img_bbdd="imgs/actividades/"+str(guia_id)+"_"+str(renom)
+        foto_act = Actividades.foto_by_id(act_id, img_bbdd)
         return jsonify(foto_act), 200
     else:
         return jsonify("No POST"), 400
