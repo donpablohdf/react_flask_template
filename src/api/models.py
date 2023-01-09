@@ -141,7 +141,7 @@ class Users(db.Model):
             user = self.query.get(pid)
         if user:
             if data['password']:
-                if check_password_hash(user.password, data['password']):
+                if not check_password_hash(user.password, data['password']):
                     hashed_password = generate_password_hash(
                         str(data['password']), method='SHA256')
                     user.password = hashed_password
