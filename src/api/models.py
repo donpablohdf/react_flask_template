@@ -244,7 +244,7 @@ class Actividades(db.Model):
 
     @classmethod
     def act_index(self):
-        return self.query.order_by(Actividades.calificacion.desc()).limit(6)
+        return self.query.filter_by(activo=1).order_by(Actividades.calificacion.desc()).limit(6)
 
     @classmethod
     def new_act(self, guia, data):
@@ -587,6 +587,10 @@ class Comentarios(db.Model):
     @classmethod
     def get_by_act(self, pid):
         return self.query.filter_by(id_actividad=pid, activo=1)
+
+    @classmethod
+    def get_by_usr(self, pid):
+        return self.query.filter_by(id_usuario=pid)
 
     @classmethod
     def com_nuevo(self, id_act, id_usr, data):

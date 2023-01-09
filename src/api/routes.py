@@ -37,6 +37,26 @@ def handle_user(usuario_id):
 @api.route('/desactiva_user/<int:usuario_id>', methods=['POST', 'GET'])
 def handle_del(usuario_id):
     user = Users.desactiva_by_id(usuario_id)
+    actividades = Actividades.get_by_guia(usuario_id)
+    if actividades:
+        for x in actividades:
+            Actividades.desactiva_by_id(x.id)
+
+    resevas_usr = Reservas.get_by_user(usuario_id)
+    if resevas_usr:
+        for t in resevas_usr:
+            Reservas.desactiva_by_id(t.id)
+            
+    resevas_guia = Reservas.get_by_guia(usuario_id)
+    if resevas_guia:
+        for i in resevas_guia:
+            Reservas.desactiva_by_id(i.id)
+           
+    comentarios = Comentarios.get_by_usr(usuario_id)
+    if comentarios:
+        for c in comentarios:
+            Comentarios.desactiva_by_id(c.id)
+           
     return jsonify(user), 200
 
 
