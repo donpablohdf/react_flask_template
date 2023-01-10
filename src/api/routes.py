@@ -154,11 +154,14 @@ def handle_acti_index():
 @api.route('/new_act/<int:guia_id>', methods=['POST', 'GET'])
 def new_act(guia_id):
     if request.method == 'POST':
-        f = request.files['archivo']
-        renom = uuid.uuid4()
-        archivo= "public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
-        f.save(os.path.join(archivo))
-        img_bbdd="imgs/actividades/"+str(guia_id)+"_"+str(renom)
+        if request.files:
+            f = request.files['archivo']
+            renom = uuid.uuid4()
+            archivo= "public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
+            f.save(os.path.join(archivo))
+            img_bbdd="imgs/actividades/"+str(guia_id)+"_"+str(renom)
+        else:
+            img_bbdd=""
        
         data={
             "nombre": request.form["nombre"],
