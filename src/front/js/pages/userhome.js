@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import opinion1 from "../../img/opinion1.jpg";
+
 
 import "../../styles/login.css";
 
@@ -58,6 +60,21 @@ export const UserHome = () => {
     <>
       <div className="login-body">
         <h1>Esta es la pagina de usuario</h1>
+        {listaUsuarios.foto ? (
+                <img
+                  src={
+                    process.env.BACKEND_URL + "/" + listaUsuarios.foto
+                  }
+                  className="card-img-top actividad_guia_imagen"
+                  alt="..."
+                />
+              ) : (
+                <img
+                  src={opinion1}
+                  className="card-img-top actividad_guia_imagen"
+                  alt="..."
+                />
+              )}
         
         <h5>Nombre: {listaUsuarios.nombre}</h5>
         <p>Apellidos: {listaUsuarios.apellidos}</p>
