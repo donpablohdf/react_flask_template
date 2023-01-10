@@ -15,8 +15,9 @@ export const Actividades = (props) => {
   const token = localStorage.getItem("jwt-token");
 
   const [nwreserva, setNwreserva] = useState(false);
+  const [nwFecha, setNwFecha] = useState("");
+  const [fechaPasada, setFechaPasada] = useState(false);
 
-  const [guia, setGuia] = useState([]);
   const [actividades, setActividades] = useState([]);
   const [isLoading, setIsLoading] = useState(true); //cargando guias
 
@@ -48,7 +49,27 @@ export const Actividades = (props) => {
       setIsLoading(false);
     });
   }, []);
-  
+
+  useEffect(() => {
+    let options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    let fecha = new Date(actividades["fecha"]);
+    let hoy = new Date();
+    fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+    let fechaF = fecha.toLocaleDateString("es", options);
+    let fechaD = fechaF.charAt(0).toUpperCase() + fechaF.slice(1);
+    setNwFecha(fechaD);
+
+    if (fecha < hoy) {
+      setFechaPasada(true);
+    }
+  }, [actividades.fecha]);
 
   if (isLoading) {
     return (
@@ -79,18 +100,18 @@ export const Actividades = (props) => {
               {actividades.nombre}
             </h1>
             <h3 className="actividad_ciudad">{actividades.ciudad}</h3>
+            <h2 className="actividad_precio">{nwFecha}</h2>
             <h4 className="actividad_descripcion">{actividades.descripcion}</h4>
             <h2 className="actividad_precio">{actividades.precio}</h2>
           </div>
           <div className="col-4">
             <div className="espacio_reservas">
-              
               {actividades.id_guia != userid &&
               userid &&
               !actividades["ids_usuarios"].includes(userid) &&
-              !nwreserva ? (
+              !nwreserva &&
+              !fechaPasada ? (
                 <div>
-                  {actividades.id_guia}
                   <button
                     onClick={() => {
                       reserva(userid, actividades.id_guia, params.theid);

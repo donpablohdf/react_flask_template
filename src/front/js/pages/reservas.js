@@ -14,6 +14,22 @@ export const Reservas = (props) => {
   const [reservas, setReservas] = useState([]);
   const params = useParams();
 
+  const parseFecha = (datos) => {
+    let options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    let fecha = new Date(datos);
+    fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+    let fechaF = fecha.toLocaleDateString("es", options);
+    let fechaD = fechaF.charAt(0).toUpperCase() + fechaF.slice(1);
+    return fechaD;
+  };
+
   useEffect(() => {
     if (!token) {
       return (
@@ -67,13 +83,14 @@ export const Reservas = (props) => {
                   <p className="card-text tarjeta_actividad_texto">
                     REALIZADA:{" "}
                     <span className="tarjeta_actividad_variable">
-                      {element.fecha_realizacion}
+                      {parseFecha(element.fecha_realizacion)}
+                      
                     </span>
                   </p>
                   <p className="card-text tarjeta_actividad_texto">
                     EMITIDA:{" "}
                     <span className="tarjeta_actividad_variable">
-                      {element.fecha_reserva}
+                    {parseFecha(element.fecha_reserva)}
                     </span>
                   </p>
 
@@ -83,6 +100,14 @@ export const Reservas = (props) => {
                       to={"/cancela_reserva/" + element.id}
                     >
                       <div>Cancelar reserva</div>
+                    </Link>
+                  </div>
+                  <div className="mb-5">
+                    <Link
+                      id={"navLink" + element.id}
+                      to={"/comenta_actividad/" + element.id}
+                    >
+                      <div>Comentar actividad</div>
                     </Link>
                   </div>
                 </div>

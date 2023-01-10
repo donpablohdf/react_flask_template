@@ -54,11 +54,13 @@ def setup_commands(app):
         usuario_normal = Users.query.filter_by(tipo=0).first()
         usuario_guia = Users.query.filter_by(tipo=1).first()
         for i in range(8):
+            now=ahora + timedelta(days=i)
+            fecha_act =  now.strftime("%d/%m/%Y %H:%M:%S")
             new_act_guia = Actividades(
                 nombre="Nombre actividad "+str(i),
                 descripcion="descripcion actividad "+str(i), 
                 precio="precio actividad "+str(i), 
-                fecha=ahora + timedelta(days=i), 
+                fecha=fecha_act, 
                 id_guia=usuario_guia.id, 
                 ciudad="ciudad "+str(i),
                 calificacion=10+i, 

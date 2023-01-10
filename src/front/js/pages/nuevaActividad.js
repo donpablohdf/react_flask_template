@@ -47,7 +47,7 @@ export const NuevaActividad = () => {
   const onSubmit = (data, e) => {
     let fecha = document.getElementById("fecha").value;
     let hora = document.getElementById("hora").value;
-    let cuando= fecha+ " "+ hora
+    let cuando = fecha + " " + hora;
     e.preventDefault();
     var formdata = new FormData();
     formdata.append("nombre", data.nombre);
@@ -65,7 +65,6 @@ export const NuevaActividad = () => {
       redirect: "follow",
     };
 
-    
     fetch(process.env.BACKEND_URL + "/api/new_act/" + userid, requestOptions)
       .then((response) => response.text())
       .then((result) => (window.location.href = "/guia/" + userid))
