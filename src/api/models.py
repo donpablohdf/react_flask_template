@@ -509,9 +509,11 @@ class Reservas(db.Model):
         db.session.commit()
         usuario = Users.query.get(datos['id_usuario'])
         guia = Users.query.get(datos['id_guia'])
+        now = datetime.now()
+        fecha_res = dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
         new_res = Reservas(
             num_reserva=num_reserva_g,
-            fecha_reserva=datetime.now(),
+            fecha_reserva=fecha_res,
             id_actividad=datos['id_actividad'],
             estado=0,
             fecha_realizacion=actividad.fecha,

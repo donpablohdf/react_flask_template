@@ -79,7 +79,6 @@ export const NuevaActividad = () => {
       </div>
     );
   } else {
-    //actions.logIn();
     return (
       <>
         <div className="login-body">

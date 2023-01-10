@@ -9,7 +9,7 @@ import fondo from "../../img/fondo.jpg";
 import opinion1 from "../../img/opinion1.jpg";
 
 export const Actividades = (props) => {
-  const {  actions } = useContext(Context);
+  const { actions } = useContext(Context);
   const params = useParams();
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("jwt-token");
@@ -48,6 +48,7 @@ export const Actividades = (props) => {
       setIsLoading(false);
     });
   }, []);
+  
 
   if (isLoading) {
     return (
@@ -56,29 +57,24 @@ export const Actividades = (props) => {
       </div>
     );
   }
-  
+
   return (
     <div
       className="actividades_cuerpo"
       style={{ backgroundImage: `url(${fondo})` }}
     >
       {actividades.foto ? (
-                  <img
-                    src={process.env.BACKEND_URL + "/" + actividades.foto}
-                    className="imagen_actividad_header"
-                    alt="..."
-                  />
-                ) : (
-                  <img
-                    src={retiro}
-                    className="imagen_actividad_header"
-                    alt="..."
-                  />
-                )}
+        <img
+          src={process.env.BACKEND_URL + "/" + actividades.foto}
+          className="imagen_actividad_header"
+          alt="..."
+        />
+      ) : (
+        <img src={retiro} className="imagen_actividad_header" alt="..." />
+      )}
       <div className="container">
         <div className="row justify-content-evenly">
           <div className="col-8">
-          
             <h1 className="display-5 mt-3 actividades_nombre">
               {actividades.nombre}
             </h1>
@@ -88,26 +84,28 @@ export const Actividades = (props) => {
           </div>
           <div className="col-4">
             <div className="espacio_reservas">
-              {actividades.id_guia !== userid &&
+              
+              {actividades.id_guia != userid &&
               userid &&
               !actividades["ids_usuarios"].includes(userid) &&
               !nwreserva ? (
                 <div>
+                  {actividades.id_guia}
                   <button
                     onClick={() => {
-                      reserva(userid, guia.id, params.theid);
+                      reserva(userid, actividades.id_guia, params.theid);
                     }}
                   >
                     Reservar actividad
                   </button>
                 </div>
               ) : (
-                <div>Para reservar tienes que registrate</div>
+                <div></div>
               )}
-              {actividades.id_guia !== userid && nwreserva ? (
+              {actividades.id_guia != userid && nwreserva ? (
                 <div>Actividad reservada con éxito</div>
               ) : (
-                ""
+                <></>
               )}
             </div>
           </div>
