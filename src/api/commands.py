@@ -83,9 +83,11 @@ def setup_commands(app):
         
         actividad.ids_usuarios = actividad.ids_usuarios +","+str(usuario_normal.id)
         db.session.commit()
+        now = datetime.now()
+        fecha_res =  now.strftime("%d/%m/%Y %H:%M:%S")
         new_res = Reservas(
             num_reserva=num_reserva_g,
-            fecha_reserva=ahora, 
+            fecha_reserva=fecha_res, 
             id_actividad=actividad.id, 
             estado=0, 
             fecha_realizacion=actividad.fecha, 
