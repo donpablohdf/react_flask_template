@@ -9,7 +9,7 @@ import fondo from "../../img/fondo.jpg";
 import opinion1 from "../../img/opinion1.jpg";
 
 export const Actividades = (props) => {
-  const { store, actions } = useContext(Context);
+  const {  actions } = useContext(Context);
   const params = useParams();
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("jwt-token");
@@ -56,7 +56,7 @@ export const Actividades = (props) => {
       </div>
     );
   }
-  console.log(actividades);
+  
   return (
     <div
       className="actividades_cuerpo"
@@ -116,7 +116,7 @@ export const Actividades = (props) => {
       <div>
         <h3 className="actividad_guia">SU GUÍA</h3>
         <div className="container d-flex justify-content-center">
-          <Link to={"/guia/" + guia.id}>
+          <Link to={"/guia/" + actividades.obj_guia.id}>
             <div className="card actividad_tarjeta">
               {actividades.obj_guia.foto ? (
                 <img

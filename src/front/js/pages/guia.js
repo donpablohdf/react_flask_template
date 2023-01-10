@@ -65,7 +65,19 @@ export const Guia = () => {
         <div className="card mb-5">
           <div className="row g-0">
             <div className="col-md-2">
-              <img src={guia.foto} className="img-fluid" alt="..." />
+            {guia.foto ? (
+                  <img
+                    src={process.env.BACKEND_URL + "/" + guia.foto}
+                    className="imagen_actividad_header"
+                    alt="..."
+                  />
+                ) : (
+                  <img
+                    src={madrid}
+                    className="imagen_actividad_header"
+                    alt="..."
+                  />
+                )}
             </div>
             <div className="col-md-10 cuerpo-guia-carta">
               <div className="card-body">
@@ -85,13 +97,25 @@ export const Guia = () => {
         ) : (
           ""
         )}
-        <div className="row row-cols-1 row-cols-md-3 g-5">
+        <div className="row row-cols-1 row-cols-md-3 g-5 pb-3">
           {actividades.map((element) => (
             <div key={element.id} className="col">
               {" "}
               {/*Link a la pagina de actividades + index. Variable global en flux.js */}
               <div className="card h-100">
-                <img src={madrid} className="card-img-top" alt="..." />
+              {element.foto ? (
+                  <img
+                    src={process.env.BACKEND_URL + "/" + element.foto}
+                    className="imagen_actividad_header"
+                    alt="..."
+                  />
+                ) : (
+                  <img
+                    src={madrid}
+                    className="imagen_actividad_header"
+                    alt="..."
+                  />
+                )}
                 <div className="card-body tarjeta_actividad_body">
                   <Link to={"/actividades/" + element.id}>
                     <h5 className="card-title tarjeta_actividad_nombre">
@@ -127,43 +151,63 @@ export const Guia = () => {
             </div>
           ))}
         </div>
-        <h3 className="texto_actividades my-5">RESERVAS</h3>
+        {userid === params.theid ? (
+          <>
+                  <h3 className="texto_actividades my-5">RESERVAS</h3>
 
-        <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
-          {reservas.map((element) => (
-            <div key={element.id} className="col">
-              <div className="card h-100">
-                <img src={madrid} className="card-img-top" alt="..." />
-                <div className="card-body tarjeta_actividad_body">
-                  <h5 className="card-title tarjeta_actividad_nombre">
-                    RESERVA:{" "}
-                    <span className="tarjeta_actividad_variable">
-                      {element.num_reserva}
-                    </span>
-                  </h5>
-                  <p className="card-text tarjeta_actividad_texto">
-                    ACTIVIDAD:{" "}
-                    <span className="tarjeta_actividad_variable">
-                      {element.obj_actividad.nombre}
-                    </span>
-                  </p>
-                  <p className="card-text tarjeta_actividad_texto">
-                    REALIZADA:{" "}
-                    <span className="tarjeta_actividad_variable">
-                      {element.fecha_realizacion}
-                    </span>
-                  </p>
-                  <p className="card-text tarjeta_actividad_texto">
-                    EMITIDA:{" "}
-                    <span className="tarjeta_actividad_variable">
-                      {element.fecha_reserva}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                  <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
+                    {reservas.map((element) => (
+                      <div key={element.id} className="col">
+                        <div className="card h-100">
+                        {element.obj_actividad.foto ? (
+                            <img
+                              src={process.env.BACKEND_URL + "/" + element.obj_actividad.foto}
+                              className="imagen_actividad_header"
+                              alt="..."
+                            />
+                          ) : (
+                            <img
+                              src={madrid}
+                              className="imagen_actividad_header"
+                              alt="..."
+                            />
+                          )}
+                          <div className="card-body tarjeta_actividad_body">
+                            <h5 className="card-title tarjeta_actividad_nombre">
+                              RESERVA:{" "}
+                              <span className="tarjeta_actividad_variable">
+                                {element.num_reserva}
+                              </span>
+                            </h5>
+                            <p className="card-text tarjeta_actividad_texto">
+                              ACTIVIDAD:{" "}
+                              <span className="tarjeta_actividad_variable">
+                                {element.obj_actividad.nombre}
+                              </span>
+                            </p>
+                            <p className="card-text tarjeta_actividad_texto">
+                              REALIZADA:{" "}
+                              <span className="tarjeta_actividad_variable">
+                                {element.fecha_realizacion}
+                              </span>
+                            </p>
+                            <p className="card-text tarjeta_actividad_texto">
+                              EMITIDA:{" "}
+                              <span className="tarjeta_actividad_variable">
+                                {element.fecha_reserva}
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  </>
+                ) : (
+                 <></>
+                )}
+        
+
       </div>
     </div>
   );
