@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/login.css";
 
 export const BajaUsuario= () => {
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
     const token = localStorage.getItem('jwt-token')
     const userid = localStorage.getItem("userid");
 

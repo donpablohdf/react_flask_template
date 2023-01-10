@@ -9,7 +9,7 @@ import madrid from "../../img/madrid.jpg";
 import "../../styles/guia.css";
 
 export const Guia = () => {
-  const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context);
   const params = useParams();
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("jwt-token");

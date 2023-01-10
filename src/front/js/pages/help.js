@@ -9,7 +9,7 @@ import hoguera from "../../img/grupohoguera.jpg"
 import duda from "../../img/duda.jpg"
 
 export const Help = () => {
-	const { store, actions } = useContext(Context);
+	const { actions } = useContext(Context);
 	const token = localStorage.getItem("jwt-token");
 	useEffect(() => {
 		if (token) {

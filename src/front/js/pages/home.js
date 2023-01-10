@@ -26,7 +26,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaQuoteLeft } from "react-icons/fa";
 
 export const Home = () => {
-  const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context);
   const token = localStorage.getItem("jwt-token");
 
   const [isLoading, setIsLoading] = useState(true); //cargando guias

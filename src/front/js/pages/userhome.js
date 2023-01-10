@@ -7,7 +7,7 @@ import opinion1 from "../../img/opinion1.jpg";
 import "../../styles/login.css";
 
 export const UserHome = () => {
-  const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
 
   const [listaUsuarios, setListaUsuarios] = useState([]);

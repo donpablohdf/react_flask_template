@@ -10,7 +10,7 @@ export const Reservas = (props) => {
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("jwt-token");
   const [isLoading, setIsLoading] = useState(true);
-  const { store, actions } = useContext(Context);
+  const { actions } = useContext(Context);
   const [reservas, setReservas] = useState([]);
   const params = useParams();
 
