@@ -105,7 +105,7 @@ export const Reservas = (props) => {
                   <div className="mb-5">
                     <Link
                       id={"navLink" + element.id}
-                      to={"/comenta_actividad/" + element.id}
+                      to={"/comenta_actividad/" + element.obj_actividad.id}
                     >
                       <div>Comentar actividad</div>
                     </Link>
