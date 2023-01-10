@@ -212,6 +212,8 @@ class Actividades(db.Model):
     def serialize(self):
         guia= Users.get_by_id(self.id_guia)
         the_guia = Users.serialize(guia)
+        comentarios= Comentarios.get_by_act(self.id)
+        all_com = [Comentarios.serialize2() for Comentarios in comentarios]
 
         return {
             "id": self.id,
@@ -221,6 +223,7 @@ class Actividades(db.Model):
             "fecha": self.fecha,
             "id_guia": self.id_guia,
             "obj_guia": the_guia,
+            "obj_com": all_com,
             "ids_usuarios": self.ids_usuarios,
             "ciudad": self.ciudad,
             "calificacion": self.calificacion,
@@ -579,7 +582,17 @@ class Comentarios(db.Model):
             "activo": self.activo
 
         }
+    def serialize2(self):
+        
+        return {
+            "id": self.id,
+            "id_actividad": self.id_actividad,
+            "id_usuario": self.id_usuario,
+            
+            "texto": self.texto,
+            "activo": self.activo
 
+        }
     @classmethod
     def get_by_id(self, pid):
         return self.query.filter_by(id=pid).first()
