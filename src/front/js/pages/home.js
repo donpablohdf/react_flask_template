@@ -27,6 +27,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
+  const token = localStorage.getItem("jwt-token");
 
   const [isLoading, setIsLoading] = useState(true); //cargando guias
   const [isLoading2, setIsLoading2] = useState(true); //cargando actividades
@@ -36,6 +37,9 @@ export const Home = () => {
   const [listaTareas, setListaTareas] = useState([]);
 
   useEffect(() => {
+    if (token) {
+		  actions.logIn();
+		}
     const promesaGuias = () => {
       return new Promise((resolve, reject) => {
         resolve(actions.dataFromAPI("/api/usuarios_index"));

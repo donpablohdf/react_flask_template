@@ -1,4 +1,4 @@
-import React, {useContext } from "react";
+import React, {useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { Context } from "../store/appContext";
@@ -10,7 +10,13 @@ import duda from "../../img/duda.jpg"
 
 export const Help = () => {
 	const { store, actions } = useContext(Context);
-
+	const token = localStorage.getItem("jwt-token");
+	useEffect(() => {
+		if (token) {
+		  actions.logIn();
+		}
+		
+	  }, []);
 	return (
 		<div className= "help_body" style={{backgroundImage: `url(${fondo})`}}>
 			<div className= "container">

@@ -14,6 +14,7 @@ import "../../styles/login.css";
 export const ModificaActividad = () => {
   const params = useParams();
   const userid = localStorage.getItem("userid");
+  const token = localStorage.getItem("jwt-token");
   const [isLoading, setIsLoading] = useState(true);
   const [dataActividad, setDataActividad] = useState([]);
   const num = Math.floor(Math.random() * 1000);
@@ -27,6 +28,9 @@ export const ModificaActividad = () => {
   } = useForm({ defaultValues: { tipo: false } }); // declaracion para react-hook-form
 
   useEffect(() => {
+    if (token) {
+		  actions.logIn();
+		}
     const promesa = () => {
       return new Promise((resolve, reject) => {
         resolve(actions.dataFromAPI("/api/actividad/" + params.theid));
@@ -60,7 +64,7 @@ export const ModificaActividad = () => {
       </div>
     );
   }
-  const token = localStorage.getItem("jwt-token");
+  
   if (!token) {
     return (
       <div className="login-body">

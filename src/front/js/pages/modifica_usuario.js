@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form" // permite el manejo de formularios ht
 import "../../styles/login.css"
 
 export const ModificaUsuario = () => {
+  const token = localStorage.getItem("jwt-token")
   const userid = localStorage.getItem("userid")
   const [isLoading, setIsLoading] = useState(true);
   const [listaUsuarios, setListaUsuarios] = useState([])
@@ -22,6 +23,9 @@ export const ModificaUsuario = () => {
   } = useForm({ defaultValues: { tipo: false } }) // declaracion para react-hook-form
 
   useEffect(() => {
+    if (token) {
+		  actions.logIn();
+		}
     const promesa = () => {
       return new Promise((resolve, reject) => {
         resolve(actions.dataFromAPI("/api/usuario/" + userid))
@@ -54,7 +58,7 @@ export const ModificaUsuario = () => {
       </div>
     );
   }
-  const token = localStorage.getItem("jwt-token")
+  
   if (!token) {
     return (
       <div className="login-body">

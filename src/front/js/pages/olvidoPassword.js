@@ -9,6 +9,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
 export const OlvidoPassword = () => {
+
   const { actions } = useContext(Context);
 
   const [nwpass, setNwpass] = useState(false);

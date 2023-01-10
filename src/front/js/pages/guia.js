@@ -12,6 +12,8 @@ export const Guia = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
   const userid = localStorage.getItem("userid");
+  const token = localStorage.getItem("jwt-token");
+
 
   const [guia, setGuia] = useState([]);
   const [actividades, setActividades] = useState([]);
@@ -36,6 +38,9 @@ export const Guia = () => {
     });
   };
   useEffect(() => {
+    if (token) {
+      actions.logIn();
+    }
     promesaGuias().then((datosG) => {
       setGuia(datosG);
       setIsLoading(false);

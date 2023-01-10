@@ -16,6 +16,9 @@ import { useForm } from "react-hook-form"; // permite el manejo de formularios h
 import "../../styles/login.css";
 
 export const NuevaActividad = () => {
+  const token = localStorage.getItem("jwt-token");
+  const userid = localStorage.getItem("userid");
+  const { actions } = useContext(Context);
   const [selectedDate, handleDateChange] = useState(new Date()); //https://material-ui-pickers.dev/
   const materialTheme = createTheme({
     overrides: {
@@ -26,7 +29,12 @@ export const NuevaActividad = () => {
       },
     },
   });
-  const userid = localStorage.getItem("userid");
+
+  useEffect(() => {
+    if (token) {
+      actions.logIn();
+    }
+  }, []);
   const {
     register,
     reset,
@@ -35,7 +43,6 @@ export const NuevaActividad = () => {
     formState: { errors },
   } = useForm({ defaultValues: { tipo: false } }); // declaracion para react-hook-form
 
-  
   const onSubmit = (data, e) => {
     e.preventDefault();
     var formdata = new FormData();
@@ -54,11 +61,10 @@ export const NuevaActividad = () => {
 
     fetch(process.env.BACKEND_URL + "/api/new_act/" + userid, requestOptions)
       .then((response) => response.text())
-      .then((result) => window.location.href="/guia/" + userid )
+      .then((result) => (window.location.href = "/guia/" + userid))
       .catch((error) => console.log("error", error));
   };
 
-  const token = localStorage.getItem("jwt-token");
   if (!token) {
     return (
       <div className="login-body">
@@ -66,10 +72,11 @@ export const NuevaActividad = () => {
       </div>
     );
   } else {
+    //actions.logIn();
     return (
       <>
         <div className="login-body">
-          <form onSubmit={handleSubmit(onSubmit)} >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <h1>Nueva Actividad</h1>
             <div>
               <input
@@ -109,7 +116,6 @@ export const NuevaActividad = () => {
                     value={selectedDate}
                     onChange={handleDateChange}
                   />
-                  
                 </ThemeProvider>
               </MuiPickersUtilsProvider>
             </div>
