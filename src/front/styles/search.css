@@ -1,3 +1,4 @@
+/*-https://bbbootstrap.com/snippets/bootstrap-5-flipping-cards-for-catalog-29291738-*/
 .search_body{
     background-color: lightsalmon;
     display:flex;
@@ -45,13 +46,88 @@
 .search_img_carta{
     filter:brightness(80%)
 }
-.search_card_nombre{
-    color: white;
+  /****************************************************************************/
+
+
+.container-fluid{
+    transform-style: preserve-3d;
+}
+
+.container-fluid .box{
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 20px;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.container-fluid .box .cuerpo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: 1s ease;
+}
+.container-fluid .box .cuerpo .cuerpo_titulo{
+    font-size: 100px;
+    top: 0;
+    left: 0;
 }
 
 
-.search_boton_reserva{
-    position: relative;
-    background-color: #9C2C77;
-    color: white;
+.container-fluid .box .cuerpo .imgContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+.container-fluid .box .cuerpo .imgContainer .titulo_container .h2{
+    position:absolute;
+    z-index: 1;
+}
+
+.container-fluid .box .cuerpo .imgContainer img{
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter:brightness(80%)
+}
+
+.container-fluid .box .cuerpo .imgContainer .precio_container{
+    position: absolute;
+    padding-left: 70px;
+    padding-top: 220px;
+}
+
+.container-fluid .box .cuerpo .content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #9C2C77;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+}
+
+.container-fluid .box:hover .cuerpo{
+    transform: rotateY(180deg);
+}
+
+.container-fluid .box .cuerpo .content div{
+    transform-style: preserve-3d;
+    padding: 20px;
+    background: linear-gradient(45deg, #CD104D,#FD841F);
+    transform: translateZ(100px);
 }

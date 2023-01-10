@@ -6,10 +6,6 @@
     on that page only (the ones not reused in other pages).
 */
 
-/*TEXTO OH MY TOWN*/
-
-
-/*FIN TEXTO OH MY TOWN*/
 /*CARRUSEL PRINCIPAL*/
 
 .carousel-caption {
@@ -19,7 +15,6 @@
 .display-1{
   font-weight:800
 }
-
 .imagen_carrusel_principal{
   filter:brightness(60%);
 }
@@ -37,10 +32,7 @@
     padding-top: 15%;
     margin-bottom: 150px;
 }
-.carta{
-  height:400px;
-  width: 400px;
-}
+
 .imagen_carta{
     opacity: 1;
     object-fit: cover;
@@ -139,7 +131,7 @@ color: Black;
   padding-bottom: 100px;
 }
 .imagen-actividad{
-  height: 125px;
+  object-fit: cover;
 }
 
 .eventos-area {

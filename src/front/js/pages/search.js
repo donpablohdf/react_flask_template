@@ -55,27 +55,34 @@ export const Search = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				
-				<div className="row mt-5">{tarea.map((element,index) =>
-						<div className="col-sm-12 col-md-6 col-lg-4 mb-4">
-							<Link to={"/actividades/"+ element.id}>
-								<div className="card">
-									<img src={leon} className="card-img rounded search_img_carta" alt="..."/>
-									<div className="card-img-overlay d-flex flex-column">
-										<div className="card-body">
-											<h5 className="card-title search_card_nombre fs-2 mt-2">{element.nombre}</h5>
-										</div>
-										<div className="card-footer">
-											<p className="card-text text-start text-uppercase fs-4 search_texto_ciudad text-white">{element.ciudad}</p>
-											<p className="card-text text-end fs-3 text-danger">{element.precio}</p>
-										</div>
-											
-										
+					
+				<div className="container-fluid d-flex align-items-center justify-content-center flex-wrap contenedor_search">{tarea.map((element,index) =>
+					<Link to={"/actividades/"+ element.id}>
+						<div className="box">
+            				<div className="cuerpo">
+							
+                				<div className="imgContainer">
+									<div className = "titulo_container">
+										<h2 className="text-white fs-3">{element.nombre}</h2>
 									</div>
-								</div>
-							</Link>
-						</div>
-					)}</div>
+                    				<img src={leon} alt=""/>
+									<div className = "precio_container">
+										<h2 className= "text-white fs-3">{element.precio}</h2>
+									</div>
+									
+                				</div>
+                				<div className="content d-flex flex-column align-items-center justify-content-center">
+									<div>
+										
+										<p className="fs-6 text-white">{element.descripcion}</p>
+										<h3 className="text-white fs-5">{element.ciudad}</h3>
+									</div>
+                				</div>
+            				</div>
+        				</div>
+					</Link>
+						
+				)}</div>
 			</div>
 		</div>
 	);

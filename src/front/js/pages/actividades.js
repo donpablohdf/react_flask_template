@@ -106,6 +106,7 @@ export const Actividades = (props) => {
           </div>
           <div className="col-4">
             <div className="espacio_reservas">
+              {actividades.id_guia + " " + userid}
               {actividades.id_guia != userid &&
               userid &&
               !actividades["ids_usuarios"].includes(userid) &&

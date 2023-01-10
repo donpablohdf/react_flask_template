@@ -67,32 +67,35 @@ export const Guia = () => {
   return (
     <div className="guia-body" style={{ backgroundImage: `url(${fondo})` }}>
       <div className="container">
-        <div className="card mb-5">
-          <div className="row g-0">
-            <div className="col-md-2">
-            {guia.foto ? (
-                  <img
-                    src={process.env.BACKEND_URL + "/" + guia.foto}
-                    className="imagen_actividad_header"
-                    alt="..."
-                  />
-                ) : (
-                  <img
-                    src={madrid}
-                    className="imagen_actividad_header"
-                    alt="..."
-                  />
-                )}
-            </div>
-            <div className="col-md-10 cuerpo-guia-carta">
-              <div className="card-body">
-                <h1 className="card-title nombre-guia">{guia.nombre}</h1>
-                <p className="card-text descripcion-guia">{guia.descripcion}</p>
+        <div className="container">
+          <div className="card mb-5">
+            <div className="row g-0">
+              <div className="col-md-2">
+              {guia.foto ? (
+                    <img
+                      src={process.env.BACKEND_URL + "/" + guia.foto}
+                      className="imagen_actividad_header"
+                      alt="..."
+                    />
+                  ) : (
+                    <img
+                      src={madrid}
+                      className="imagen_actividad_header"
+                      alt="..."
+                    />
+                  )}
+              </div>
+              <div className="col-md-10 cuerpo-guia-carta">
+                <div className="card-body">
+                  <h1 className="card-title nombre-guia">{guia.nombre}</h1>
+                  <p className="card-text descripcion-guia">{guia.descripcion}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <h3 className="texto_actividades mb-5">ACTIVIDADES</h3>
+        <div className="">
+          <h3 className="texto_actividades mb-5">ACTIVIDADES</h3>
         {guia.tipo === 1 && userid === params.theid ? (
           <div className="mb-5">
             <Link to="/nueva_actividad">
@@ -102,6 +105,7 @@ export const Guia = () => {
         ) : (
           ""
         )}
+        </div>
         <div className="row row-cols-1 row-cols-md-3 g-5 pb-3">
           {actividades.map((element) => (
             <div key={element.id} className="col">

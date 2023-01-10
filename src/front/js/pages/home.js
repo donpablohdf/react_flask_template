@@ -69,325 +69,326 @@ export const Home = () => {
     );
   }
   return (
-    <div className="tbody">
+    <div className="cuerpo_home">
       {/**COMIENZO CARRUSEL PRINCIPAL */}
       <div
-        id="carouselExampleCaptions"
-        className="carousel slide carousel-fade"
-        data-bs-ride="carousel"
-      >
-        <div className="carousel-inner">
-          <div className="carousel-item active" data-bs-interval="5000">
-            <img
-              src={montania}
-              className="imagen_carrusel_principal"
-              alt="..."
-            />
-            <div className="carousel-caption d-md-block">
-              <h5>DESCUBRE TU CIUDAD</h5>
-              <h1 className="display-1">NUEVOS VIAJES</h1>
-              <p>
-                Some representative placeholder content for the first slide.
-              </p>
+          id="carouselExampleCaptions"
+          className="carousel slide carousel-fade"
+          data-bs-ride="carousel"
+        >
+          <div className="carousel-inner">
+            <div className="carousel-item active" data-bs-interval="5000">
+              <img
+                src={montania}
+                className="imagen_carrusel_principal"
+                alt="..."
+              />
+              <div className="carousel-caption d-md-block">
+                <h5>DESCUBRE TU CIUDAD</h5>
+                <h1 className="display-1">NUEVOS VIAJES</h1>
+                <p>
+                  Some representative placeholder content for the first slide.
+                </p>
+              </div>
+            </div>
+            <div className="carousel-item" data-bs-interval="3000">
+              <img
+                src={bosque}
+                className="imagen_carrusel_principal"
+                alt="..."
+              />
+              <div className="carousel-caption d-md-block">
+                <h5>DESCUBRE TU CIUDAD</h5>
+                <h1 className="display-1">NUEVAS AVENTURAS</h1>
+                <p>
+                  Some representative placeholder content for the second slide.
+                </p>
+              </div>
+            </div>
+            <div className="carousel-item" data-bs-interval="3000">
+              <img
+                src={playa}
+                className="imagen_carrusel_principal"
+                alt="..."
+              />
+              <div className="carousel-caption d-md-block">
+                <h5>DESCUBRE TU CIUDAD</h5>
+                <h1 className="display-1">NUEVAS EXPERIENCIAS</h1>
+                <p>
+                  Some representative placeholder content for the third slide.
+                </p>
+              </div>
             </div>
           </div>
-          <div className="carousel-item" data-bs-interval="3000">
-            <img
-              src={bosque}
-              className="w-100 imagen_carrusel_principal"
-              alt="..."
-            />
-            <div className="carousel-caption d-md-block">
-              <h5>DESCUBRE TU CIUDAD</h5>
-              <h1 className="display-1">NUEVAS AVENTURAS</h1>
-              <p>
-                Some representative placeholder content for the second slide.
-              </p>
-            </div>
-          </div>
-          <div className="carousel-item" data-bs-interval="3000">
-            <img
-              src={playa}
-              className="w-100 imagen_carrusel_principal"
-              alt="..."
-            />
-            <div className="carousel-caption d-md-block">
-              <h5>DESCUBRE TU CIUDAD</h5>
-              <h1 className="display-1">NUEVAS EXPERIENCIAS</h1>
-              <p>
-                Some representative placeholder content for the third slide.
-              </p>
-            </div>
-          </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev"
+          >
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next"
+          >
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+      </div>
+        {/**FIN CARRUSEL PRINCIPAL */}
+        {/**COMIENZO TEXTO OH MY TOWN */}
+        <div>
+          <h3 className="d-flex justify-content-center mt-3">
+            DESCUBRE TU CIUDAD CON
+          </h3>
+          <h1 className="d-flex justify-content-center display-2 mb-5">
+            NUESTROS GUIAS
+          </h1>
         </div>
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
-      {/**FIN CARRUSEL PRINCIPAL */}
-      {/**COMIENZO TEXTO OH MY TOWN */}
-      <div>
-        <h3 className="d-flex justify-content-center mt-3">
-          DESCUBRE TU CIUDAD CON
-        </h3>
-        <h1 className="d-flex justify-content-center display-2 mb-5">
-          NUESTROS GUIAS
-        </h1>
-      </div>
       {/**FIN TEXTO OH MY TOWN */}
       {/**COMIENZO CARRUSEL GUIAS */}
       {/**{listaUsuarios.map((usuario,index) =>*/}
       <div
-        className="d-flex align-items-center"
+        className="container-fluid pb-5"
         style={{ backgroundImage: `url(${bosque})` }}
       >
-        <div className=""></div>
         <div
           id="carouselExampleControls"
           className="carousel slide carrusel"
           data-bs-ride="carousel"
         >
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <div className="row">
-                <div className="col-lg-4 mx-auto">
-                  <Link to={"/guia/" + listaUsuarios[5].id}>
-                    <div className="card carta">
-                      {listaUsuarios[5].foto ? (
-                        <img
-                          src={
-                            process.env.BACKEND_URL +
-                            "/" +
-                            listaUsuarios[5].foto
-                          }
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      ) : (
-                        <img
-                          src={guia1}
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      )}
-                      <div className="card-body cuerpo_carta">
-                        <h2 className="nombre_carta lineUp">
-                          {listaUsuarios[5].nombre}
-                        </h2>
-                        <p className="ciudad_carta lineUp">
-                          {listaUsuarios[5].ciudad}
-                        </p>
+          <div className="container">
+            <div className="carousel-inner  ms-5">
+              <div className="carousel-item active">
+                <div className="row">
+                  <div className="col-md-4">
+                    <Link to={"/guia/" + listaUsuarios[5].id}>
+                      <div className="card carta">
+                        {listaUsuarios[5].foto ? (
+                          <img
+                            src={
+                              process.env.BACKEND_URL +
+                              "/" +
+                              listaUsuarios[5].foto
+                            }
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        ) : (
+                          <img
+                            src={guia1}
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        )}
+                        <div className="card-body cuerpo_carta">
+                          <h2 className="nombre_carta lineUp">
+                            {listaUsuarios[5].nombre}
+                          </h2>
+                          <p className="ciudad_carta lineUp">
+                            {listaUsuarios[5].ciudad}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-lg-4 mx-auto">
-                  <Link to={"/guia/" + listaUsuarios[1].id}>
-                    <div className="card carta">
-                      {listaUsuarios[1].foto ? (
-                        <img
-                          src={
-                            process.env.BACKEND_URL +
-                            "/" +
-                            listaUsuarios[1].foto
-                          }
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      ) : (
-                        <img
-                          src={guia1}
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      )}
-                      <div className="card-body cuerpo_carta">
-                        <h2 className="nombre_carta lineUp">
-                          {listaUsuarios[1].nombre}
-                        </h2>
-                        <p className="ciudad_carta lineUp">
-                          {listaUsuarios[1].ciudad}
-                        </p>
+                    </Link>
+                  </div>
+                  <div className="col-md-4">
+                    <Link to={"/guia/" + listaUsuarios[1].id}>
+                      <div className="card carta">
+                        {listaUsuarios[1].foto ? (
+                          <img
+                            src={
+                              process.env.BACKEND_URL +
+                              "/" +
+                              listaUsuarios[1].foto
+                            }
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        ) : (
+                          <img
+                            src={guia1}
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        )}
+                        <div className="card-body cuerpo_carta">
+                          <h2 className="nombre_carta lineUp">
+                            {listaUsuarios[1].nombre}
+                          </h2>
+                          <p className="ciudad_carta lineUp">
+                            {listaUsuarios[1].ciudad}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-lg-4 mx-auto">
-                  <Link to={"/guia/" + listaUsuarios[2].id}>
-                    <div className="card carta">
-                      {listaUsuarios[2].foto ? (
-                        <img
-                          src={
-                            process.env.BACKEND_URL +
-                            "/" +
-                            listaUsuarios[2].foto
-                          }
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      ) : (
-                        <img
-                          src={guia1}
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      )}
-                      <div className="card-body cuerpo_carta">
-                        <h2 className="nombre_carta lineUp">
-                          {listaUsuarios[2].nombre}
-                        </h2>
-                        <p className="ciudad_carta lineUp">
-                          {listaUsuarios[2].ciudad}
-                        </p>
+                    </Link>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <Link to={"/guia/" + listaUsuarios[2].id}>
+                      <div className="card carta">
+                        {listaUsuarios[2].foto ? (
+                          <img
+                            src={
+                              process.env.BACKEND_URL +
+                              "/" +
+                              listaUsuarios[2].foto
+                            }
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        ) : (
+                          <img
+                            src={guia1}
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        )}
+                        <div className="card-body cuerpo_carta">
+                          <h2 className="nombre_carta lineUp">
+                            {listaUsuarios[2].nombre}
+                          </h2>
+                          <p className="ciudad_carta lineUp">
+                            {listaUsuarios[2].ciudad}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <div className="row">
-                <div className="col-lg-4 mx-auto">
-                  <Link to={"/guia/" + listaUsuarios[3].id}>
-                    <div className="card carta">
-                      {listaUsuarios[3].foto ? (
-                        <img
-                          src={
-                            process.env.BACKEND_URL +
-                            "/" +
-                            listaUsuarios[3].foto
-                          }
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      ) : (
-                        <img
-                          src={guia1}
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      )}
-                      <div className="card-body cuerpo_carta">
-                        <h2 className="nombre_carta lineUp">
-                          {listaUsuarios[3].nombre}
-                        </h2>
-                        <p className="ciudad_carta lineUp">
-                          {listaUsuarios[3].ciudad}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-lg-4 mx-auto">
-                  <Link to={"/guia/" + listaUsuarios[4].id}>
-                    <div className="card carta">
-                      {listaUsuarios[4].foto ? (
-                        <img
-                          src={
-                            process.env.BACKEND_URL +
-                            "/" +
-                            listaUsuarios[4].foto
-                          }
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      ) : (
-                        <img
-                          src={guia1}
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      )}
-                      <div className="card-body cuerpo_carta">
-                        <h2 className="nombre_carta lineUp">
-                          {listaUsuarios[4].nombre}
-                        </h2>
-                        <p className="ciudad_carta lineUp">
-                          {listaUsuarios[4].ciudad}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-                <div className="col-lg-4 mx-auto">
-                  <Link to={"/guia/" + listaUsuarios[0].id}>
-                    <div className="card carta">
-                      {listaUsuarios[0].foto ? (
-                        <img
-                          src={
-                            process.env.BACKEND_URL +
-                            "/" +
-                            listaUsuarios[0].foto
-                          }
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      ) : (
-                        <img
-                          src={guia1}
-                          className="card-img-top imagen_carta"
-                          alt="..."
-                        />
-                      )}
-                      <div className="card-body cuerpo_carta">
-                        <h2 className="nombre_carta lineUp">
-                          {listaUsuarios[0].nombre}
-                        </h2>
-                        <p className="ciudad_carta lineUp">
-                          {listaUsuarios[0].ciudad}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
+              <div className="carousel-item">
+                <div className="row">
+                  <div className="col-md-4 mb-3">
+                    <Link to={"/guia/" + listaUsuarios[3].id}>
+                      <div className="card carta">
+                        {listaUsuarios[3].foto ? (
+                          <img
+                            src={
+                              process.env.BACKEND_URL +
+                              "/" +
+                              listaUsuarios[3].foto
+                            }
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        ) : (
+                          <img
+                            src={guia1}
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        )}
+                        <div className="card-body cuerpo_carta">
+                          <h2 className="nombre_carta lineUp">
+                            {listaUsuarios[3].nombre}
+                          </h2>
+                          <p className="ciudad_carta lineUp">
+                            {listaUsuarios[3].ciudad}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <Link to={"/guia/" + listaUsuarios[4].id}>
+                      <div className="card carta">
+                        {listaUsuarios[4].foto ? (
+                          <img
+                            src={
+                              process.env.BACKEND_URL +
+                              "/" +
+                              listaUsuarios[4].foto
+                            }
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        ) : (
+                          <img
+                            src={guia1}
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        )}
+                        <div className="card-body cuerpo_carta">
+                          <h2 className="nombre_carta lineUp">
+                            {listaUsuarios[4].nombre}
+                          </h2>
+                          <p className="ciudad_carta lineUp">
+                            {listaUsuarios[4].ciudad}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <Link to={"/guia/" + listaUsuarios[0].id}>
+                      <div className="card carta">
+                        {listaUsuarios[0].foto ? (
+                          <img
+                            src={
+                              process.env.BACKEND_URL +
+                              "/" +
+                              listaUsuarios[0].foto
+                            }
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        ) : (
+                          <img
+                            src={guia1}
+                            className="card-img-top imagen_carta"
+                            alt="..."
+                          />
+                        )}
+                        <div className="card-body cuerpo_carta">
+                          <h2 className="nombre_carta lineUp">
+                            {listaUsuarios[0].nombre}
+                          </h2>
+                          <p className="ciudad_carta lineUp">
+                            {listaUsuarios[0].ciudad}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
 
-            <button
-              className="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="prev"
-            >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleControls"
-              data-bs-slide="next"
-            >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Next</span>
-            </button>
+              <button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev"
+              >
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="next"
+              >
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
