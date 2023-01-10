@@ -20,6 +20,17 @@ export const NuevoComentario = () => {
     formState: { errors },
   } = useForm(); // declaracion para react-hook-form
   const { actions } = useContext(Context);
+  useEffect(() => {
+    if (!token) {
+      return (
+        <div className="login-body">
+          <h1 className="bg-danger">No está autorizado</h1>
+        </div>
+      );
+    } else {
+      actions.logIn();
+    }
+  }, []);
 
   const onSubmit = (data, e) => {
     e.preventDefault();
