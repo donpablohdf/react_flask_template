@@ -9,7 +9,6 @@ import {
 } from "@material-ui/pickers";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import format from "date-fns/format";
 
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form

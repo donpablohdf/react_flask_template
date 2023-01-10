@@ -3,6 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Guia } from "./guia";
+import DateFnsUtils from "@date-io/date-fns"; //https://material-ui-pickers.dev/
+import {
+  DatePicker,
+  TimePicker,
+  DateTimePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import { createTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 
 
 
@@ -17,7 +26,16 @@ export const ModificaActividad = () => {
   const token = localStorage.getItem("jwt-token");
   const [isLoading, setIsLoading] = useState(true);
   const [dataActividad, setDataActividad] = useState([]);
-  const num = Math.floor(Math.random() * 1000);
+  const [selectedDate, handleDateChange] = useState(new Date()); //https://material-ui-pickers.dev/
+  const materialTheme = createTheme({
+    overrides: {
+      MuiPickersToolbar: {
+        toolbar: {
+          backgroundColor: "#FD841F",
+        },
+      },
+    },
+  });
   const { actions } = useContext(Context);
   const {
     register,
@@ -28,9 +46,15 @@ export const ModificaActividad = () => {
   } = useForm({ defaultValues: { tipo: false } }); // declaracion para react-hook-form
 
   useEffect(() => {
-    if (token) {
-		  actions.logIn();
-		}
+    if (!token) {
+      return (
+        <div className="login-body">
+          <h1 className="bg-danger">No está autorizado</h1>
+        </div>
+      );
+    } else {
+      actions.logIn();
+    }
     const promesa = () => {
       return new Promise((resolve, reject) => {
         resolve(actions.dataFromAPI("/api/actividad/" + params.theid));
@@ -41,12 +65,17 @@ export const ModificaActividad = () => {
       setIsLoading(false);
 
       //console.log(datos)
+      handleDateChange(datos.fecha)
     });
     
   }, []);
 
   let login = false;
   const onSubmit = (data, e) => {
+    let fecha = document.getElementById("fecha").value;
+    let hora = document.getElementById("hora").value;
+    let cuando = fecha + " " + hora;
+    data.fecha=cuando
     e.preventDefault();
     const url = "/api/modifica_act/" + params.theid;
     const method = "POST";
@@ -139,14 +168,25 @@ export const ModificaActividad = () => {
                 </div>
                 <p></p>
                 <div>
-                  <input
-                  defaultValue={
-                    dataActividad.fecha ? dataActividad.fecha : ""
-                  }
-                    type="datetime"
-                    {...register("fecha")} //crear el name del input y requerido react-hook-form
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <ThemeProvider theme={materialTheme}>
+                  <span>Fecha</span>{" "}
+                  <DatePicker
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    format="d-MM-yyyy"
+                    id="fecha"
                   />
-                </div>
+                  <span>Hora: </span>
+                  <TimePicker
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    format="H:MM"
+                    id="hora"
+                  />
+                </ThemeProvider>
+              </MuiPickersUtilsProvider>
+            </div>
                 <p></p>
               </>
             )}
