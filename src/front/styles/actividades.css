@@ -1,8 +1,9 @@
 
-.imagen_actividad_header{
-   height:700px;
+.actividades_imagen_actividad_header{
+   height:40vh;
    width: 100%;
-   filter:brightness(60%)
+   filter:brightness(60%);
+   object-fit: fill;
 }
 
 .actividades_nombre{
@@ -12,6 +13,7 @@
 }
 .actividad_ciudad{
     padding-bottom: 50px;
+    
 }
 .actividad_descripcion{
     margin-bottom: 50px;
@@ -27,11 +29,87 @@
     font-weight: 700;
 }
 .espacio_reservas{
-    background-color: #9C2C77;
-    margin-top: 80px;
+    margin-top: 150px;
     height: 400px;
     text-align: center;
     margin-bottom: 60px;
+}
+@media (hover: hover) {
+    #creditcard {
+      transform: translateY(110px);
+      transition: transform 0.1s ease-in-out;
+    }
+  
+    #money {
+      transform: translateY(180px);
+      transition: transform 0.1s ease-in-out;
+    }
+  
+    .boton_reserva:hover #creditcard {
+      transform: translateY(0px);
+      transition: transform 0.2s ease-in-out;
+    }
+  
+    .boton_reserva:hover #money {
+      transform: translateY(0px);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+  
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-0.25rem);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
+  
+  .boton_reserva {
+    border:none;
+    outline: none;
+    position: relative;
+    border-radius: 8px;
+    letter-spacing: 0.7px;
+    padding: 10px 20px 0px 20px;
+    background: linear-gradient(92.83deg, rgb(255, 116, 38) 0%, rgb(156, 44, 110) 100%);
+    color: white;
+    font-size: 30px;
+    font-weight: 900;
+    font-family: "Lato", sans-serif;
+    cursor: pointer;
+    box-shadow: rgba(0, 9, 61, 0.2) 0px 4px 8px 0px;
+  }
+  
+  .boton_reserva:active {
+    transform: translateY(1px);
+  }
+  
+  .button__svg {
+    overflow: visible;
+    bottom: 6px;
+    right: 0.2rem;
+    height: 40%;
+  }
+.actividades_texto_reservada{
+    font-family: 'Calligraffitti', cursive;
+    font-weight: 500;
+    font-size: 40px;
+    text-shadow: -15px 5px 20px #ced0d3;
+    top: 50%;
+    left: 50%;
+    word-spacing: 4px;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 5px 5px #FD841F, 
+                10px 10px #E14D2A,  
+                15px 15px #CD104D,
+                20px 20px #9C2C77
 }
 .espacio_reservas_header{
     color: white;
@@ -80,3 +158,4 @@
     font-weight: bold;
     font-size: 20px;
 }
+

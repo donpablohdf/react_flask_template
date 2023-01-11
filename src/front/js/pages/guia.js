@@ -144,13 +144,16 @@ export const Guia = () => {
                     </span>
                   </p>
                   {guia.tipo === 1 && userid === params.theid ? (
-                    <div className="mb-5">
-                      <Link
-                        id={"navLink" + element.id}
-                        to={"/modifica_actividad/" + element.id}
-                      >
-                        <div>Modificar</div>
-                      </Link>
+                    <div className="row">
+                        <button className="col-4 mb-3 mx-auto mt-2 guia_boton_modificar">
+                          <Link
+                            id={"navLink" + element.id}
+                            to={"/modifica_actividad/" + element.id}
+                          >
+                            Modificar
+                          </Link>
+                        </button>
+                        <button className="col-4 mb-3 mx-auto mt-2 guia_boton_borrar">Borrar</button>
                     </div>
                   ) : (
                     ""
