@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
 import fondo from "../../img/fondo.jpg";
 import madrid from "../../img/madrid.jpg";
@@ -21,6 +22,7 @@ export const Guia = () => {
   const [isLoading2, setIsLoading2] = useState(true); //cargando actividades
   const [isLoading3, setIsLoading3] = useState(true); //cargando reservas
   const [desActi, setDesActi] = useState(false);
+  const [actAvatar, setActAvatar] = useState(false);
 
   const desactivaActividad = (acti) => {
     const url = "/api/desactiva_act/" + acti;
@@ -28,7 +30,32 @@ export const Guia = () => {
     console.log(desactiva);
     setDesActi(!desActi);
   };
+  const {
+    register,
+    reset,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm(); // declaracion para react-hook-form
+  const subeFotoUsr = (data) => {
+    console.log(data);
 
+    var formdata = new FormData();
+
+    formdata.append("archivo", customFile1.files[0], data.archivo);
+
+    var requestOptions = {
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
+    };
+    console.log(requestOptions);
+
+    fetch(process.env.BACKEND_URL + "/api/foto_user/" + userid, requestOptions)
+      .then((response) => response.text())
+      .then((result) => setActAvatar(!actAvatar))
+      .catch((error) => console.log("error", error));
+  };
   const promesaGuias = () => {
     return new Promise((resolve, reject) => {
       resolve(actions.dataFromAPI("/api/usuario/" + params.theid));
@@ -61,7 +88,7 @@ export const Guia = () => {
         setIsLoading3(false);
       });
     });
-  }, [desActi]);
+  }, [desActi, actAvatar]);
 
   if (isLoading && isLoading2 && isLoading3) {
     return (
@@ -90,6 +117,23 @@ export const Guia = () => {
                     className="imagen_actividad_header"
                     alt="..."
                   />
+                )}
+                {userid === params.theid ? (
+                  <form>
+                    <div className="btn btn-primary btn-rounded">
+                      <input
+                        onChange={() => {
+                          subeFotoUsr(handleSubmit);
+                        }}
+                        type="file"
+                        id="customFile1"
+                        name="archivo"
+                        className="form-control "
+                      />
+                    </div>
+                  </form>
+                ) : (
+                  ""
                 )}
               </div>
               <div className="col-md-10 cuerpo-guia-carta">

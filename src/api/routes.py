@@ -73,7 +73,7 @@ def handle_foto(usuario_id):
         renom = uuid.uuid4()
         archivo= "public/imgs/users/"+str(usuario_id)+"_"+str(renom)
         f.save(os.path.join(archivo))
-        img_bbdd="imgs/users/"+str(guia_id)+"_"+str(renom)
+        img_bbdd="imgs/users/"+str(usuario_id)+"_"+str(renom)
         foto_user = Users.foto_by_id(usuario_id, img_bbdd)
         return jsonify(foto_user), 200
     else:
