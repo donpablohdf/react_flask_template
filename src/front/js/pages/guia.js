@@ -54,8 +54,6 @@ export const Guia = () => {
   };
   const subeFotoAct = (data) => {
     let id_act = document.getElementById("id_actividad").value;
-    console.log(id_act);
-
     var formdata = new FormData();
 
     formdata.append("ftAct", ftAct1.files[0], data.ftAct);
@@ -65,8 +63,6 @@ export const Guia = () => {
       body: formdata,
       redirect: "follow",
     };
-    console.log(requestOptions);
-
     fetch(process.env.BACKEND_URL + "/api/foto_act/"+id_act+"/" + userid, requestOptions)
       .then((response) => response.text())
       .then((result) => setActAct(!actAct))
