@@ -107,7 +107,7 @@ export const Guia = () => {
     });
   }, [desActi, actAvatar, actAct]);
 
-  if (isLoading && isLoading2 && isLoading3) {
+  if (isLoading || isLoading2 || isLoading3) {
     return (
       <div className="guia-body">
         <h1>Cargando...</h1>
