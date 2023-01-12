@@ -174,7 +174,7 @@ export const ModificaActividad = () => {
                   <DatePicker
                     value={selectedDate}
                     onChange={handleDateChange}
-                    format="d-MM-yyyy"
+                    format="yyyy/MM/dd"
                     id="fecha"
                   />
                   <span>Hora: </span>
