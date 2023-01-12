@@ -128,7 +128,8 @@ class Users(db.Model):
     def foto_by_id(self, pid, foto):
         user = self.query.get(pid)
         if user:
-            remove("public/"+user.foto)
+            if os.path.isfile("public/"+user.foto):
+                remove("public/"+user.foto)
             user.foto = foto
             db.session.commit()
             return "Foto cambiada con exito"
@@ -270,7 +271,8 @@ class Actividades(db.Model):
     def foto_by_id(self, pid, foto):
         user = self.query.get(pid)
         if user:
-            remove("public/"+user.foto)
+            if os.path.isfile("public/"+user.foto):
+                remove("public/"+user.foto)
             user.foto = foto
             db.session.commit()
             return "Foto cambiada con exito"
