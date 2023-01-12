@@ -14,7 +14,6 @@ export const Guia = () => {
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("jwt-token");
 
-
   const [guia, setGuia] = useState([]);
   const [actividades, setActividades] = useState([]);
   const [reservas, setReservas] = useState([]);
@@ -23,11 +22,10 @@ export const Guia = () => {
   const [isLoading3, setIsLoading3] = useState(true); //cargando reservas
   const [desActi, setDesActi] = useState(false);
 
-
   const desactivaActividad = (acti) => {
-    const url = "/api/desactiva_act/"+acti;
-    const desactiva = actions.dataFromAPI(url)
-    console.log(desactiva)
+    const url = "/api/desactiva_act/" + acti;
+    const desactiva = actions.dataFromAPI(url);
+    console.log(desactiva);
     setDesActi(!desActi);
   };
 
@@ -80,24 +78,26 @@ export const Guia = () => {
           <div className="card mb-5">
             <div className="row g-0">
               <div className="col-md-2">
-              {guia.foto ? (
-                    <img
-                      src={process.env.BACKEND_URL + "/" + guia.foto}
-                      className="imagen_actividad_header"
-                      alt="..."
-                    />
-                  ) : (
-                    <img
-                      src={madrid}
-                      className="imagen_actividad_header"
-                      alt="..."
-                    />
-                  )}
+                {guia.foto ? (
+                  <img
+                    src={process.env.BACKEND_URL + "/" + guia.foto}
+                    className="imagen_actividad_header"
+                    alt="..."
+                  />
+                ) : (
+                  <img
+                    src={madrid}
+                    className="imagen_actividad_header"
+                    alt="..."
+                  />
+                )}
               </div>
               <div className="col-md-10 cuerpo-guia-carta">
                 <div className="card-body">
                   <h1 className="card-title nombre-guia">{guia.nombre}</h1>
-                  <p className="card-text descripcion-guia">{guia.descripcion}</p>
+                  <p className="card-text descripcion-guia">
+                    {guia.descripcion}
+                  </p>
                 </div>
               </div>
             </div>
@@ -105,15 +105,15 @@ export const Guia = () => {
         </div>
         <div className="">
           <h3 className="texto_actividades mb-5">ACTIVIDADES</h3>
-        {guia.tipo === 1 && userid === params.theid ? (
-          <div className="mb-5">
-            <Link to="/nueva_actividad">
-              <button>Nueva actividad</button>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+          {guia.tipo === 1 && userid === params.theid ? (
+            <div className="mb-5">
+              <Link to="/nueva_actividad">
+                <button>Nueva actividad</button>
+              </Link>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="row row-cols-1 row-cols-md-3 g-5 pb-3">
           {actividades.map((element) => (
@@ -121,7 +121,7 @@ export const Guia = () => {
               {" "}
               {/*Link a la pagina de actividades + index. Variable global en flux.js */}
               <div className="card h-100">
-              {element.foto ? (
+                {element.foto ? (
                   <img
                     src={process.env.BACKEND_URL + "/" + element.foto}
                     className="imagen_actividad_header"
@@ -154,19 +154,39 @@ export const Guia = () => {
                   </p>
                   {guia.tipo === 1 && userid === params.theid ? (
                     <div className="row">
-                        <button className="col-4 mb-3 mx-auto mt-2 guia_boton_modificar">
-                          <Link
-                            id={"navLink" + element.id}
-                            to={"/modifica_actividad/" + element.id}
-                          >
-                            Modificar
-                          </Link>
-                        </button>
-                        {element.ids_usuarios!='' ?( <span>Esta actividad contiene reservas, es su responsabilidad borrarla</span>) : ("")}
-                        <button className="col-4 mb-3 mx-auto mt-2 guia_boton_borrar" onClick={()=>{desactivaActividad(element.id)}}>Borrar</button>
+                      <button className="col-4 mb-3 mx-auto mt-2 guia_boton_modificar">
+                        <Link
+                          id={"navLink" + element.id}
+                          to={"/modifica_actividad/" + element.id}
+                        >
+                          Modificar
+                        </Link>
+                      </button>
+                      {element.ids_usuarios != "" ? (
+                        <span>
+                          Esta actividad contiene reservas, es su
+                          responsabilidad borrarla
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                      <button
+                        className="col-4 mb-3 mx-auto mt-2 guia_boton_borrar"
+                        onClick={() => {
+                          desactivaActividad(element.id);
+                        }}
+                      >
+                        Borrar
+                      </button>
                     </div>
                   ) : (
-                    ""
+                    <div className="row">
+                      <button className="col-4 mb-3 mx-auto mt-2 guia_boton_modificar">
+                        <Link to={"/actividades/" + element.id}>
+                          Ver actividad
+                        </Link>
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -175,61 +195,63 @@ export const Guia = () => {
         </div>
         {userid === params.theid ? (
           <>
-                  <h3 className="texto_actividades my-5">RESERVAS</h3>
+            <h3 className="texto_actividades my-5">RESERVAS</h3>
 
-                  <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
-                    {reservas.map((element) => (
-                      <div key={element.id} className="col">
-                        <div className="card h-100">
-                        {element.obj_actividad.foto ? (
-                            <img
-                              src={process.env.BACKEND_URL + "/" + element.obj_actividad.foto}
-                              className="imagen_actividad_header"
-                              alt="..."
-                            />
-                          ) : (
-                            <img
-                              src={madrid}
-                              className="imagen_actividad_header"
-                              alt="..."
-                            />
-                          )}
-                          <div className="card-body tarjeta_actividad_body">
-                            <h5 className="card-title tarjeta_actividad_nombre">
-                              RESERVA:{" "}
-                              <span className="tarjeta_actividad_variable">
-                                {element.num_reserva}
-                              </span>
-                            </h5>
-                            <p className="card-text tarjeta_actividad_texto">
-                              ACTIVIDAD:{" "}
-                              <span className="tarjeta_actividad_variable">
-                                {element.obj_actividad.nombre}
-                              </span>
-                            </p>
-                            <p className="card-text tarjeta_actividad_texto">
-                              REALIZADA:{" "}
-                              <span className="tarjeta_actividad_variable">
-                                {element.fecha_realizacion}
-                              </span>
-                            </p>
-                            <p className="card-text tarjeta_actividad_texto">
-                              EMITIDA:{" "}
-                              <span className="tarjeta_actividad_variable">
-                                {element.fecha_reserva}
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+            <div className="row row-cols-1 row-cols-md-3 g-4 pb-5">
+              {reservas.map((element) => (
+                <div key={element.id} className="col">
+                  <div className="card h-100">
+                    {element.obj_actividad.foto ? (
+                      <img
+                        src={
+                          process.env.BACKEND_URL +
+                          "/" +
+                          element.obj_actividad.foto
+                        }
+                        className="imagen_actividad_header"
+                        alt="..."
+                      />
+                    ) : (
+                      <img
+                        src={madrid}
+                        className="imagen_actividad_header"
+                        alt="..."
+                      />
+                    )}
+                    <div className="card-body tarjeta_actividad_body">
+                      <h5 className="card-title tarjeta_actividad_nombre">
+                        RESERVA:{" "}
+                        <span className="tarjeta_actividad_variable">
+                          {element.num_reserva}
+                        </span>
+                      </h5>
+                      <p className="card-text tarjeta_actividad_texto">
+                        ACTIVIDAD:{" "}
+                        <span className="tarjeta_actividad_variable">
+                          {element.obj_actividad.nombre}
+                        </span>
+                      </p>
+                      <p className="card-text tarjeta_actividad_texto">
+                        REALIZADA:{" "}
+                        <span className="tarjeta_actividad_variable">
+                          {element.fecha_realizacion}
+                        </span>
+                      </p>
+                      <p className="card-text tarjeta_actividad_texto">
+                        EMITIDA:{" "}
+                        <span className="tarjeta_actividad_variable">
+                          {element.fecha_reserva}
+                        </span>
+                      </p>
+                    </div>
                   </div>
-                  </>
-                ) : (
-                 <></>
-                )}
-        
-
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
