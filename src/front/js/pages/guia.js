@@ -23,6 +23,8 @@ export const Guia = () => {
   const [isLoading3, setIsLoading3] = useState(true); //cargando reservas
   const [desActi, setDesActi] = useState(false);
   const [actAvatar, setActAvatar] = useState(false);
+  const [actAct, setActAct] = useState(false);
+
 
   const desactivaActividad = (acti) => {
     const url = "/api/desactiva_act/" + acti;
@@ -38,11 +40,25 @@ export const Guia = () => {
     formState: { errors },
   } = useForm(); // declaracion para react-hook-form
   const subeFotoUsr = (data) => {
-    console.log(data);
+    var formdata = new FormData();
+    formdata.append("archivo", customFile1.files[0], data.archivo);
+    var requestOptions = {
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
+    };
+    fetch(process.env.BACKEND_URL + "/api/foto_user/" + userid, requestOptions)
+      .then((response) => response.text())
+      .then((result) => setActAvatar(!actAvatar))
+      .catch((error) => console.log("error", error));
+  };
+  const subeFotoAct = (data) => {
+    let id_act = document.getElementById("id_actividad").value;
+    console.log(id_act);
 
     var formdata = new FormData();
 
-    formdata.append("archivo", customFile1.files[0], data.archivo);
+    formdata.append("ftAct", ftAct1.files[0], data.ftAct);
 
     var requestOptions = {
       method: "POST",
@@ -51,10 +67,11 @@ export const Guia = () => {
     };
     console.log(requestOptions);
 
-    fetch(process.env.BACKEND_URL + "/api/foto_user/" + userid, requestOptions)
+    fetch(process.env.BACKEND_URL + "/api/foto_act/"+id_act+"/" + userid, requestOptions)
       .then((response) => response.text())
-      .then((result) => setActAvatar(!actAvatar))
+      .then((result) => setActAct(!actAct))
       .catch((error) => console.log("error", error));
+     
   };
   const promesaGuias = () => {
     return new Promise((resolve, reject) => {
@@ -88,7 +105,7 @@ export const Guia = () => {
         setIsLoading3(false);
       });
     });
-  }, [desActi, actAvatar]);
+  }, [desActi, actAvatar, actAct]);
 
   if (isLoading && isLoading2 && isLoading3) {
     return (
@@ -222,6 +239,20 @@ export const Guia = () => {
                       >
                         Borrar
                       </button>
+                      <form>
+                    <div className="btn btn-primary btn-rounded">
+                      <input
+                        onChange={() => {
+                          subeFotoAct(handleSubmit);
+                        }}
+                        type="file"
+                        id="ftAct1"
+                        name="ftAct"
+                        className="form-control "
+                      />
+                      <input type="hidden" value={element.id} id="id_actividad" />
+                    </div>
+                  </form>
                     </div>
                   ) : (
                     <div className="row">

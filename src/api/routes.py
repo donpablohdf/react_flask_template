@@ -189,7 +189,7 @@ def act_mod(act_id):
 @api.route('/foto_act/<int:act_id>/<int:guia_id>', methods=['POST', 'GET'])
 def act_foto(act_id, guia_id):
     if request.method == 'POST':
-        f = request.files['archivo']
+        f = request.files['ftAct']
         renom = uuid.uuid4()
         archivo= "public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
         f.save(os.path.join(archivo))
