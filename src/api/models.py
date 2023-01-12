@@ -239,7 +239,7 @@ class Actividades(db.Model):
     @classmethod
     def get_by_guia(self, pid):
 
-        return self.query.filter_by(id_guia=pid)
+        return self.query.filter_by(id_guia=pid, activo=1)
 
     @classmethod
     def get_by_user(self, pid):
@@ -324,16 +324,17 @@ class Actividades(db.Model):
             fecha_act = datetime.strptime(str(act.fecha), "%Y-%m-%d %H:%M:%S")
             hoy = datetime.now()
             if fecha_act > hoy:
-                if act.ids_usuarios is not None:  # si la actividad está en fecha y existe algo en el campo ids_usuarios enviar mail y cancelar reservas
+                if act.ids_usuarios is not None and act.ids_usuarios!='':  # si la actividad está en fecha y existe algo en el campo ids_usuarios enviar mail y cancelar reservas
                     lista_ids_usuarios = act.ids_usuarios.split(sep=',')
+                    print(lista_ids_usuarios)
                     reserva = Reservas.query.filter_by(
                         id_actividad=pid, estado=0)
                     for i in reserva:  # cancelar reservas
                         i.estado = 2
                         db.session.commit()
                     for x in lista_ids_usuarios:  # enviar mail
-                        user = ''
-                        reserva_cancelada = ''
+                        #user = ''
+                        #reserva_cancelada = ''
                         user = Users.query.get(x)
                         reserva_cancelada = Reservas.query.filter_by(
                             id_actividad=pid, id_usuario=x).first()

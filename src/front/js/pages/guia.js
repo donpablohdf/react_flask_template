@@ -21,6 +21,15 @@ export const Guia = () => {
   const [isLoading, setIsLoading] = useState(true); //cargando guias
   const [isLoading2, setIsLoading2] = useState(true); //cargando actividades
   const [isLoading3, setIsLoading3] = useState(true); //cargando reservas
+  const [desActi, setDesActi] = useState(false);
+
+
+  const desactivaActividad = (acti) => {
+    const url = "/api/desactiva_act/"+acti;
+    const desactiva = actions.dataFromAPI(url)
+    console.log(desactiva)
+    setDesActi(!desActi);
+  };
 
   const promesaGuias = () => {
     return new Promise((resolve, reject) => {
@@ -54,7 +63,7 @@ export const Guia = () => {
         setIsLoading3(false);
       });
     });
-  }, []);
+  }, [desActi]);
 
   if (isLoading && isLoading2 && isLoading3) {
     return (
@@ -153,7 +162,8 @@ export const Guia = () => {
                             Modificar
                           </Link>
                         </button>
-                        <button className="col-4 mb-3 mx-auto mt-2 guia_boton_borrar">Borrar</button>
+                        {element.ids_usuarios!='' ?( <span>Esta actividad contiene reservas, es su responsabilidad borrarla</span>) : ("")}
+                        <button className="col-4 mb-3 mx-auto mt-2 guia_boton_borrar" onClick={()=>{desactivaActividad(element.id)}}>Borrar</button>
                     </div>
                   ) : (
                     ""
