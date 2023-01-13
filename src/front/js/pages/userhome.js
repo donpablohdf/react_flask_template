@@ -6,7 +6,8 @@ import { Context } from "../store/appContext";
 import opinion1 from "../../img/opinion1.jpg";
 
 
-import "../../styles/login.css";
+import "../../styles/userhome.css";
+import fondo3 from "../../img/fondo3.jpg"
 
 export const UserHome = () => {
   const { actions } = useContext(Context);
@@ -69,7 +70,7 @@ export const UserHome = () => {
   
   if (!listaUsuarios.nombre || listaUsuarios.nombre === "") {
     return (
-      <div className="login-body">
+      <div className="userhome_body" style={{ backgroundImage: `url(${fondo3})` }}>
         <h1>Para continuar debe rellenar su perfil</h1>
         <Link to="/modifica_usuario">
           <button>Rellenar mi perfil</button>
@@ -80,71 +81,116 @@ export const UserHome = () => {
 
   return (
     <>
-      <div className="login-body">
-        <h1>Esta es la pagina de usuario</h1>
-        <div>
-        {listaUsuarios.foto ? (
-                <img
-                  src={
-                    process.env.BACKEND_URL + "/" + listaUsuarios.foto
-                  }
-                  className="card-img-top actividad_guia_imagen"
-                  alt="..."
-                />
-              ) : (
-                <img
-                  src={opinion1}
-                  className="card-img-top actividad_guia_imagen"
-                  alt="..."
-                />
-              )}
-              <form>
-                    <div className="btn btn-primary btn-rounded">
-                      <input
-                        onChange={() => {
-                          subeFotoUsr(handleSubmit);
-                        }}
-                        type="file"
-                        id="customFile1"
-                        name="archivo"
-                        className="form-control "
-                      />
-                    </div>
-                  </form>
+      <div className="userhome_body" style={{ backgroundImage: `url(${fondo3})` }}>
+        <div className="userhome_h1">
+          <h1>¡Bienvenid@ de nuevo!</h1>
         </div>
-        <h5>Nombre: {listaUsuarios.nombre}</h5>
-        <p>Apellidos: {listaUsuarios.apellidos}</p>
-        <p>Email: {listaUsuarios.email}</p>
-        <p>Ciudad: {listaUsuarios.ciudad}</p>
-        {listaUsuarios.tipo == 1 ? (
-          <>
-            <p>Descripcion: {listaUsuarios.descripcion}</p>
-            <div>
-              <Link to={"/guia/" + userid}>
-                <button>Ir a mi pagina de guía</button>
-              </Link>
-            </div>
-          </>
-        ) : (
-          ""
-        )}
-        <div>
-          <Link to="/modifica_usuario">
-            <button>Modificar mis datos de perfil</button>
-          </Link>
+        <div className="container row justify-content-center">
+          <div className="col-3"></div>  
+          <div className="col-4 ps-5">
+            {listaUsuarios.foto ? (
+                  <img
+                    src={
+                      process.env.BACKEND_URL + "/" + listaUsuarios.foto
+                    }
+                    className="card-img-top userhome_imagen"
+                    alt="..."
+                  />
+                ) : (
+                  <img
+                    src={opinion1}
+                    className="card-img-top userhome_imagen"
+                    alt="..."
+                  />
+                )}
+                <form>
+                      <div className="btn btn-primary btn-rounded">
+                        <input
+                          onChange={() => {
+                            subeFotoUsr(handleSubmit);
+                          }}
+                          type="file"
+                          id="customFile1"
+                          name="archivo"
+                          className="form-control "
+                        />
+                      </div>
+                    </form>
+          
         </div>
-        <div>
-          <Link to="/baja_usuario">
-            <button>Darme de baja</button>
-          </Link>
+        <div className="col-4 ps-3 text-start">
+          <h3>Nombre:</h3> 
+          <p>{listaUsuarios.nombre} {listaUsuarios.apellidos}</p>
+          <h3>Email:</h3> 
+          <p>{listaUsuarios.email}</p>
+          <h3>Ciudad:</h3> 
+          <p>{listaUsuarios.ciudad}</p>
+          <h3>Descripcion:</h3>
+          <p>{listaUsuarios.descripcion}</p>
         </div>
-        <div>
-        <Link to={"/reservas/"+userid}>
-          <button>Ver mis reservas</button>
-        </Link>
       </div>
+      <div className="userhome_modifica_datos">
+        <div className="container row justify-content-center mb-3">
+          <div className="col"></div>
+          {listaUsuarios.tipo == 1 ? (
+            
+            <>
+              <div className="col">
+                <Link to={"/guia/" + userid}>
+                  <button className="userhome_home">
+                    <div className="userhome_iconos">
+                      <i className="fas fa-suitcase-rolling userhome_icono_default"></i>
+                      <i class="fas fa-plane-departure userhome_icono_hover"></i>
+                    </div>
+                    Ir a Actividades
+                  </button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+          <div className="col">
+            <Link to="/modifica_usuario">
+              <button  className="userhome_modifica">
+                <div className="userhome_iconos">
+                  <i className="fas fa-home userhome_icono_default"></i>
+                  <i className="fas fa-pencil-alt userhome_icono_hover"></i>
+                </div>
+                Modificar perfil
+              </button>
+            </Link>
+          </div>
+        </div >
+        <div className="container row justify-content-center">
+          <div className="col"></div>
+          <div className="col">
+            <Link to={"/reservas/"+userid}>
+              <button className="userhome_reservas">
+                <div className="userhome_iconos">
+                  <i className="fas fa-archway userhome_icono_default"></i>
+                  <i className="fas fa-wine-glass  userhome_icono_hover"></i>
+                </div>
+                Ver mis reservas
+                </button>
+            </Link>
+          </div>
+          <div className="col">
+            <Link to="/baja_usuario">
+              <button className="userhome_baja">
+                <div className="userhome_iconos">
+                  <i className="fas fa-frown userhome_icono_default"></i>
+                  <i className="fas fa-sad-cry  userhome_icono_hover"></i>
+                </div>
+                Darme de baja
+              </button>
+            </Link>
+          </div>
+        </div>
         
       </div>
+        
+    </div>
     </>
   );
 };

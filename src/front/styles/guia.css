@@ -98,7 +98,7 @@ a:hover{
     
 .guia_boton_modificar:before,
 .guia_boton_modificar:after {
-    border-radius: 80px;
+    border-radius: 4px;
 }
     
 .guia_boton_modificar:before {
@@ -176,7 +176,7 @@ a:hover{
 	border: 2px solid red;
 	box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
 	transition: 500ms;
-    border-radius: 80px;
+    border-radius: 4px;
 }
 
 .guia_boton_borrar:after {
