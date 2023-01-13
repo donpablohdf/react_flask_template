@@ -1,0 +1,121 @@
+.modifica_usuario_body{
+    padding-top: 120px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 17vh;
+}
+.modifica_usuario_header{
+    color: #9C2C77; 
+     
+    font-size: 60px; 
+    font-weight: 800; 
+    line-height: 60px; 
+    margin: 0 0 16px;
+}
+.modifica_usuario_form{
+    height: 100%;
+}
+.modifica_usuario_input{
+    height:50px;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 25px;
+    border-style: none;
+    margin-top: 10px;
+}
+::placeholder{
+    color:#9C2C77;
+}
+.modifica_usuario_icono_email{
+    position: absolute;
+    padding-left: 25px;
+    padding-top: 25px;
+    font-size: 25px;
+    color: #9C2C77;
+}
+.modifica_usuario_icono_password{
+    position: absolute;
+    font-size: 25px;
+    color: #9C2C77;
+    padding-left: 27px;
+    padding-top: 22px;
+}
+.modifica_usuario_icono_nombre{
+    position: absolute;
+    font-size: 25px;
+    color: #9C2C77;
+    padding-left: 27px;
+    padding-top: 22px;
+}
+.modifica_usuario_icono_apellidos{
+    position: absolute;
+    font-size: 25px;
+    color: #9C2C77;
+    padding-left: 27px;
+    padding-top: 24px;
+}
+.modifica_usuario_icono_ciudad{
+    position: absolute;
+    font-size: 25px;
+    color: #9C2C77;
+    padding-left: 30px;
+    padding-top: 24px;
+}
+.modifica_usuario_icono_descripcion{
+    position: absolute;
+    font-size: 25px;
+    color: #9C2C77;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+.login_button_body{
+    margin-top: 30px;
+    max-height: max-content;
+    height:31%;
+    width: 100%;
+}
+.modifica_usuario_boton{
+    position: relative;
+    width: 64%;
+    background-image: linear-gradient(to bottom, #9C2C77, rgba(201, 9, 89, 0.322));
+    color: white;
+    font-size: 30px;
+    border:none;
+    border-radius: 4px;
+    padding: 10px 50px 10px 50px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.modifica_usuario_boton_iconos{
+    margin: 0px 30px 0 10px;
+}
+.modifica_usuario_icono_default{
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    display: block;
+    transition: opacity .3s, transform .3s;
+}
+.modifica_usuario_icono_hover{
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    display: block;
+    transition: opacity .3s, transform .3s;
+    transform: rotate(-180deg) scale(.5);
+    opacity: 0;
+}
+.modifica_usuario_boton:hover{
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #DE3964;
+    transform: scale(1.1);
+}
+.modifica_usuario_boton:hover .modifica_usuario_icono_hover{
+    transform: rotate(0deg) scale(1.2);
+    opacity: 1; 
+}
+.modifica_usuario_boton:hover .modifica_usuario_icono_default{
+    transform: rotate(180deg) scale(1);
+	opacity: 0;
+}

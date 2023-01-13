@@ -32,7 +32,7 @@ export const Login = () => {
 
   return (
     <div className="login-body" style={{ backgroundImage: `url(${fondo2})` }}>
-      <div className="container login_espacio border border-white rounded px-0" style={{height:"400px",width:"400px",backgroundImage: `url(${fondo2})`}}>
+      <div className="container login_espacio border border-white rounded px-0" style={{height:"400px",maxWidth:"400px",backgroundImage: `url(${fondo2})`}}>
         <form className ="login_form" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="login_icon"><FaUserCircle color="white" fontSize="2.5em"/></h1>
           <div className="login_email">

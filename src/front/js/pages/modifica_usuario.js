@@ -4,7 +4,8 @@ import { Link } from "react-router-dom"
 import { Context } from "../store/appContext"
 import { useForm } from "react-hook-form" // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
-import "../../styles/login.css"
+import "../../styles/modificaUsuario.css"
+import fondo4 from "../../img/fondo4.jpg"
 
 export const ModificaUsuario = () => {
   const token = localStorage.getItem("jwt-token")
@@ -61,94 +62,107 @@ export const ModificaUsuario = () => {
   
   if (!token) {
     return (
-      <div className="login-body">
+      <div className="modifica_usuario_body">
         <h1 className="bg-danger">No está autorizado</h1>
       </div>
     )
   } else {
     return (
       <>
-        <div className="login-body">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Modifica tus datos!!</h1>
-            <div>
-              <input
-                id="email"
-                type="text"
-                defaultValue={listaUsuarios.email ? listaUsuarios.email : ""}
-                placeholder="Email"
-                {...register("email")} //crear el name del input y requerido react-hook-form
-              />
-            </div>
-            <p></p>
-            <div>
-              <input
-                type="text"
-                placeholder="Password"
-                
-                {...register("password")} //crear el name del input y requerido react-hook-form
-              />
-            </div>
-            <p></p>
-            <div>
-              <input
-                type="text"
-                placeholder="Nombre"
-                defaultValue={listaUsuarios.nombre ? listaUsuarios.nombre : ""}
-                {...register("nombre")} //crear el name del input y requerido react-hook-form
-              />
-            </div>
-            <p></p>
-            <div>
-              <input
-                type="text"
-                placeholder="Apellidos"
-                defaultValue={
-                  listaUsuarios.apellidos ? listaUsuarios.apellidos : ""
-                }
-                {...register("apellidos")} //crear el name del input y requerido react-hook-form
-              />
-            </div>
-            <p></p>
-            <div>
-              <input
-                type="text"
-                placeholder="Ciudad"
-                defaultValue={listaUsuarios.ciudad ? listaUsuarios.ciudad : ""}
-                {...register("ciudad")} //crear el name del input y requerido react-hook-form
-              />
-            </div>
-            <p></p>
-            {listaUsuarios.tipo == 0 ? (
-              <div>
-                <label >Quiero ser guía</label>
-                <input type="checkbox" {...register("tipo")} id="tipo" value="1" onChange={() => setEsGuia(!esGuia)} />
-              </div>
-            ) : (
-              <input
-                {...register("tipo")}
-                type="hidden"
-                value={listaUsuarios.tipo ? listaUsuarios.tipo : "1"}
-              />
-            )}
-            <p></p>
-            {(listaUsuarios.tipo == 1 || esGuia) ? (
-              <div>
-                <textarea
-                defaultValue={listaUsuarios.descripcion ? listaUsuarios.descripcion : ""}
-                 
-                  {...register("descripcion")} //crear el name del input y requerido react-hook-form
+        <div className="modifica_usuario_body" style={{ backgroundImage: `url(${fondo4})`,backgroundSize:`cover`}}>
+          <div className="pb-4">
+            <h1 className="modifica_usuario_header">Modifica tus datos</h1>
+          </div>
+          <div className="container modifica_usuario_espacio border border-white rounded pt-4" style={{height:"620px",maxWidth:"600px",backgroundImage: `url(${fondo4})`,backgroundSize:`cover`}}>
+            <form className="modifica_usuario_form" onSubmit={handleSubmit(onSubmit)}>
+              
+              <div className="modifica_usuaurio_email mb-2">
+              <i className="fas fa-envelope modifica_usuario_icono_email"></i>
+                <input className="modifica_usuario_input"
+                  id="email"
+                  type="text"
+                  defaultValue={listaUsuarios.email ? listaUsuarios.email : ""}
+                  placeholder="Email"
+                  {...register("email")} //crear el name del input y requerido react-hook-form
                 />
               </div>
-            ) : (
-              <input
-                {...register("descripcion")}
-                type="hidden"
-                value={listaUsuarios.descripcion ? listaUsuarios.descripcion : ""}
-              />
-            )}
-            <button type="submit">Modificar</button>
-          </form>
+              <div className="mb-2">
+                <i className="fas fa-unlock-alt  modifica_usuario_icono_password"></i>
+                <input className="modifica_usuario_input"
+                  type="text"
+                  placeholder="Password"
+                  
+                  {...register("password")} //crear el name del input y requerido react-hook-form
+                />
+              </div>
+              <div className="mb-2">
+                <i className="fas fa-user  modifica_usuario_icono_nombre"></i>
+                <input className="modifica_usuario_input"
+                  type="text"
+                  placeholder="Nombre"
+                  defaultValue={listaUsuarios.nombre ? listaUsuarios.nombre : ""}
+                  {...register("nombre")} //crear el name del input y requerido react-hook-form
+                />
+              </div>
+              <div className="mb-2">
+                <i className="fas fa-id-card  modifica_usuario_icono_apellidos"></i>
+                <input className="modifica_usuario_input"
+                  type="text"
+                  placeholder="Apellidos"
+                  defaultValue={
+                    listaUsuarios.apellidos ? listaUsuarios.apellidos : ""
+                  }
+                  {...register("apellidos")} //crear el name del input y requerido react-hook-form
+                />
+              </div>
+              <div className="mb-2">
+                <i className="fas fa-building modifica_usuario_icono_ciudad"></i>
+                <input className="modifica_usuario_input"
+                  type="text"
+                  placeholder="Ciudad"
+                  defaultValue={listaUsuarios.ciudad ? listaUsuarios.ciudad : ""}
+                  {...register("ciudad")} //crear el name del input y requerido react-hook-form
+                />
+              </div>
+              <p></p>
+              {listaUsuarios.tipo == 0 ? (
+                <div>
+                  <label >Quiero ser guía</label>
+                  <input type="checkbox" {...register("tipo")} id="tipo" value="1" onChange={() => setEsGuia(!esGuia)} />
+                </div>
+              ) : (
+                <input className="modifica_usuario_input"
+                  {...register("tipo")}
+                  type="hidden"
+                  value={listaUsuarios.tipo ? listaUsuarios.tipo : "1"}
+                />
+              )}
+              <p></p>
+              {(listaUsuarios.tipo == 1 || esGuia) ? (
+                <div className="mb-2">
+                  <i className="fas fa-user-edit modifica_usuario_icono_descripcion"></i>
+                  <textarea className="ps-5" rows="6" cols="40"
+                  defaultValue={listaUsuarios.descripcion ? listaUsuarios.descripcion :""}
+                  
+                    {...register("descripcion")} //crear el name del input y requerido react-hook-form
+                  />
+                </div>
+              ) : (
+                <input className="modifica_usuario_input"
+                  {...register("descripcion")}
+                  type="hidden"
+                  value={listaUsuarios.descripcion ? listaUsuarios.descripcion : ""}
+                />
+              )}
+              <button className="modifica_usuario_boton" type="submit">
+                <div className="modifica_usuario_boton_iconos">
+                  <i className="fas fa-thumbs-up modifica_usuario_icono_default"></i>
+                  <i class="fas fa-upload modifica_usuario_icono_hover"></i>
+                </div>
+                Modificar
+              </button>
+            </form>
+          </div>
         </div>
       </>
     )

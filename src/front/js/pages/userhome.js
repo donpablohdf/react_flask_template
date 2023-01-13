@@ -81,9 +81,9 @@ export const UserHome = () => {
 
   return (
     <>
-      <div className="userhome_body" style={{ backgroundImage: `url(${fondo3})` }}>
-        <div className="userhome_h1">
-          <h1>¡Bienvenid@ de nuevo!</h1>
+      <div className="userhome_body" style={{ backgroundImage: `url(${fondo3})`,backgroundSize:`cover`}}>
+        <div >
+          <h1 className="userhome_h1">¡Bienvenid@ de nuevo!</h1>
         </div>
         <div className="container row justify-content-center">
           <div className="col-3"></div>  

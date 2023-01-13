@@ -36,7 +36,7 @@ export const FormSignup = () => {
 
   return (
     <div className="signup-body" style={{ backgroundImage: `url(${fondo2})` }}>
-      <div className="container signup_espacio border border-white rounded px-0" style={{height:"400px",width:"400px",backgroundImage: `url(${fondo2})`}}>
+      <div className="container signup_espacio border border-white rounded px-0" style={{height:"400px",maxWidth:"400px",backgroundImage: `url(${fondo2})`}}>
         <form className ="signup_form" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="sign_up_encabezado">REGISTRO</h2>
           

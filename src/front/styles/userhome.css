@@ -9,6 +9,11 @@
 }
 .userhome_h1{
     margin-bottom: 40px;
+    color: #9C2C77; 
+     
+    font-size: 60px; 
+    font-weight: 800; 
+    line-height: 60px;
 }
 .userhome_imagen{
     max-width: 300px;
@@ -33,10 +38,10 @@
 	transition: all 0.3s ease;
 }
 .userhome_home{
-    background-image: linear-gradient(to bottom, #782CDA, rgba(126, 94, 162, 0.51));
+    background-image: linear-gradient(to bottom, #CD104D, rgba(223, 20, 131, 0.445));
 }
 .userhome_home:hover {
-    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #782CDA;
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #CD104D;
     transform: scale(1.2);
   }
 .userhome_iconos{
@@ -68,10 +73,10 @@
 	opacity: 0;
     }
 .userhome_modifica{
-    background-image: linear-gradient(to bottom, #E48A3C, rgba(222, 135, 61, 0.24))
+    background-image: linear-gradient(to bottom, #E14D2A, rgba(240, 115, 6, 0.473))
 }
 .userhome_modifica:hover{
-    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #E48A3C;
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #E14D2A;
     transform: scale(1.2);
 }
 .userhome_modifica:hover .userhome_icono_hover{
@@ -83,10 +88,10 @@
 	opacity: 0;
 }
 .userhome_reservas{
-    background-image: linear-gradient(to bottom, #DE3964, rgba(154, 40, 87, 0.24))
+    background-image: linear-gradient(to bottom, #9C2C77, rgba(201, 9, 89, 0.322));
 }
 .userhome_reservas:hover {
-    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #DE3964;
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #9C2C77;
     transform: scale(1.2);
 }
 .userhome_reservas:hover .userhome_icono_hover{
