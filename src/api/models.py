@@ -595,7 +595,6 @@ class Comentarios(db.Model):
             "id": self.id,
             "id_actividad": self.id_actividad,
             "id_usuario": self.id_usuario,
-            
             "texto": self.texto,
             "activo": self.activo
 
