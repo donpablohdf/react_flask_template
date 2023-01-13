@@ -328,7 +328,7 @@ class Actividades(db.Model):
             if fecha_act > hoy:
                 if act.ids_usuarios is not None and act.ids_usuarios!='':  # si la actividad está en fecha y existe algo en el campo ids_usuarios enviar mail y cancelar reservas
                     lista_ids_usuarios = act.ids_usuarios.split(sep=',')
-                    print(lista_ids_usuarios)
+                    #print(lista_ids_usuarios)
                     reserva = Reservas.query.filter_by(
                         id_actividad=pid, estado=0)
                     for i in reserva:  # cancelar reservas
@@ -515,7 +515,7 @@ class Reservas(db.Model):
         usuario = Users.query.get(datos['id_usuario'])
         guia = Users.query.get(datos['id_guia'])
         now = datetime.now()
-        fecha_res = now.strftime("%d/%m/%Y %H:%M:%S")
+        fecha_res = now.strftime("%Y/%m/%d %H:%M:%S")
         new_res = Reservas(
             num_reserva=num_reserva_g,
             fecha_reserva=fecha_res,
