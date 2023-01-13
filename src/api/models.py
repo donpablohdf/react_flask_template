@@ -112,7 +112,7 @@ class Users(db.Model):
             if "200" in str(result.status_code):
                 return "Enviado password"
             else:
-                print(str(result.status_code))
+                #print(str(result.status_code))
                 return "Password no enviado"
 
     @classmethod
