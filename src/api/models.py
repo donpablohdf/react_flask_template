@@ -240,7 +240,7 @@ class Actividades(db.Model):
     @classmethod
     def get_by_guia(self, pid):
 
-        return self.query.filter_by(id_guia=pid, activo=1)
+        return self.query.filter_by(id_guia=pid, activo=1).order_by(Actividades.fecha.desc())
 
     @classmethod
     def get_by_user(self, pid):

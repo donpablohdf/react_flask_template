@@ -52,21 +52,31 @@ export const Guia = () => {
       .then((result) => setActAvatar(!actAvatar))
       .catch((error) => console.log("error", error));
   };
-  const subeFotoAct = (data) => {
-    let id_act = document.getElementById("id_actividad").value;
+  const subeFotoAct = (data, id) => {
+    console.log(id)
+    let id_act = document.getElementById("id_actividad"+id).value;
+    let file= document.getElementById("ftActF"+id).files[0];
+    let nom = document.getElementById("ftActF"+id).value;
+
+    //<input type="file" id="ftActF30" name="ftAct30" class="form-control "></input>
+    console.log(nom)
     var formdata = new FormData();
 
-    formdata.append("ftAct", ftAct1.files[0], data.ftAct);
+    formdata.append("ftAct", file, nom);
+    //formdata.append("ftAct", ftAct1.files[0], data.ftAct);
+
 
     var requestOptions = {
       method: "POST",
       body: formdata,
       redirect: "follow",
     };
-    fetch(process.env.BACKEND_URL + "/api/foto_act/"+id_act+"/" + userid, requestOptions)
+    console.log(requestOptions)
+    fetch(process.env.BACKEND_URL + "/api/foto_act/"+id+"/" + userid, requestOptions)
       .then((response) => response.text())
       .then((result) => setActAct(!actAct))
       .catch((error) => console.log("error", error));
+      
      
   };
   const promesaGuias = () => {
@@ -239,14 +249,14 @@ export const Guia = () => {
                     <div className="btn btn-primary btn-rounded">
                       <input
                         onChange={() => {
-                          subeFotoAct(handleSubmit);
+                          subeFotoAct(handleSubmit, element.id);
                         }}
                         type="file"
-                        id="ftAct1"
-                        name="ftAct"
+                        id={"ftActF"+ element.id}
+                        name={"ftAct"+ element.id}
                         className="form-control "
                       />
-                      <input type="hidden" value={element.id} id="id_actividad" />
+                      <input type="hidden" value={element.id} id={"id_actividad"+ element.id} />
                     </div>
                   </form>
                     </div>
