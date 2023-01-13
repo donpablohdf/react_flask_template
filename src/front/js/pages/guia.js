@@ -25,7 +25,6 @@ export const Guia = () => {
   const [actAvatar, setActAvatar] = useState(false);
   const [actAct, setActAct] = useState(false);
 
-
   const desactivaActividad = (acti) => {
     const url = "/api/desactiva_act/" + acti;
     const desactiva = actions.dataFromAPI(url);
@@ -53,31 +52,22 @@ export const Guia = () => {
       .catch((error) => console.log("error", error));
   };
   const subeFotoAct = (data, id) => {
-    console.log(id)
-    let id_act = document.getElementById("id_actividad"+id).value;
-    let file= document.getElementById("ftActF"+id).files[0];
-    let nom = document.getElementById("ftActF"+id).value;
-
-    //<input type="file" id="ftActF30" name="ftAct30" class="form-control "></input>
-    console.log(nom)
+    let file = document.getElementById("ftActF" + id).files[0];
+    let nom = document.getElementById("ftActF" + id).value;
     var formdata = new FormData();
-
     formdata.append("ftAct", file, nom);
-    //formdata.append("ftAct", ftAct1.files[0], data.ftAct);
-
-
     var requestOptions = {
       method: "POST",
       body: formdata,
       redirect: "follow",
     };
-    console.log(requestOptions)
-    fetch(process.env.BACKEND_URL + "/api/foto_act/"+id+"/" + userid, requestOptions)
+    fetch(
+      process.env.BACKEND_URL + "/api/foto_act/" + id + "/" + userid,
+      requestOptions
+    )
       .then((response) => response.text())
       .then((result) => setActAct(!actAct))
       .catch((error) => console.log("error", error));
-      
-     
   };
   const promesaGuias = () => {
     return new Promise((resolve, reject) => {
@@ -142,8 +132,8 @@ export const Guia = () => {
                   />
                 )}
                 {userid === params.theid ? (
-                  <form>
-                    <div className="btn btn-primary btn-rounded">
+                  <>
+                    <div className="file-select" id="src-file1">
                       <input
                         onChange={() => {
                           subeFotoUsr(handleSubmit);
@@ -151,10 +141,10 @@ export const Guia = () => {
                         type="file"
                         id="customFile1"
                         name="archivo"
-                        className="form-control "
+                        accept=".jpg, .png"
                       />
                     </div>
-                  </form>
+                  </>
                 ) : (
                   ""
                 )}
@@ -246,19 +236,24 @@ export const Guia = () => {
                         Borrar
                       </button>
                       <form>
-                    <div className="btn btn-primary btn-rounded">
-                      <input
-                        onChange={() => {
-                          subeFotoAct(handleSubmit, element.id);
-                        }}
-                        type="file"
-                        id={"ftActF"+ element.id}
-                        name={"ftAct"+ element.id}
-                        className="form-control "
-                      />
-                      <input type="hidden" value={element.id} id={"id_actividad"+ element.id} />
-                    </div>
-                  </form>
+                        <div className="file-select" id="src-file1">
+                          <input
+                            onChange={() => {
+                              subeFotoAct(handleSubmit, element.id);
+                            }}
+                            type="file"
+                            id={"ftActF" + element.id}
+                            name={"ftAct" + element.id}
+                            className="form-control "
+                            accept=".jpg, .png"
+                          />
+                          <input
+                            type="hidden"
+                            value={element.id}
+                            id={"id_actividad" + element.id}
+                          />
+                        </div>
+                      </form>
                     </div>
                   ) : (
                     <div className="row">
