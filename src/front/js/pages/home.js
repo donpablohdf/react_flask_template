@@ -8,18 +8,9 @@ import bosque from "../../img/slider2.jpg";
 import playa from "../../img/slider3.jpg";
 
 import fondoactividades from "../../img/fondociudad.jpg";
-import fondocomentarios from "../../img/comentarios.jpeg";
-
-import opinion1 from "../../img/opinion1.jpg";
-import opinion2 from "../../img/opinion2.jpg";
-import opinion3 from "../../img/opinion3.jpg";
 
 import guia1 from "../../img/guia1.png";
-import guia2 from "../../img/guia2.jpg";
-import guia3 from "../../img/guia3.jpg";
-import guia4 from "../../img/guia4.jpg";
-import guia5 from "../../img/guia5.jpg";
-import guia6 from "../../img/guia6.jpg";
+
 
 import "../../styles/home.css";
 import { FaMapMarkerAlt } from "react-icons/fa";
