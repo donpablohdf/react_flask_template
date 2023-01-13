@@ -382,7 +382,9 @@ class Actividades(db.Model):
 
     @classmethod
     def search(self):
-        return self.query.filter_by(activo=1)
+        
+        current_time = datetime.utcnow()
+        return self.query.filter_by(activo=1).filter(Actividades.fecha>current_time)
 
 
 class Reservas(db.Model):

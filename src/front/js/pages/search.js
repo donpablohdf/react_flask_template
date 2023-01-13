@@ -9,7 +9,22 @@ import leon from "../../img/leon.jpg"
 import { Link, useParams } from "react-router-dom";
 
 export const Search = () => {
-	const { store, actions } = useContext(Context);
+	const parseFecha = (datos) => {
+		let options = {
+		  weekday: "long",
+		  year: "numeric",
+		  month: "long",
+		  day: "numeric",
+		  hour: "2-digit",
+		  minute: "2-digit",
+		};
+		let fecha = new Date(datos);
+		fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+		let fechaF = fecha.toLocaleDateString("es", options);
+		let fechaD = fechaF.charAt(0).toUpperCase() + fechaF.slice(1);
+		return fechaD;
+	  };
+	const { actions } = useContext(Context);
 
 	const [tarea, setTarea] = useState([]);					//renderizado dinamico
 	const [listaTareas, setListaTareas] = useState([]);		//renderizado estatico
@@ -64,17 +79,21 @@ export const Search = () => {
                 				<div className="imgContainer">
 									<div className = "titulo_container">
 										<h2 className="text-white fs-3">{element.nombre}</h2>
+										
 									</div>
+									<div>{parseFecha(element.fecha)}</div>
                     				<img src={leon} alt=""/>
+									
 									<div className = "precio_container">
+									
 										<h2 className= "text-white fs-3">{element.precio}</h2>
+										
+										
 									</div>
 									
                 				</div>
                 				<div className="content d-flex flex-column align-items-center justify-content-center">
 									<div>
-										
-										<p className="fs-6 text-white">{element.descripcion}</p>
 										<h3 className="text-white fs-5">{element.ciudad}</h3>
 									</div>
                 				</div>
