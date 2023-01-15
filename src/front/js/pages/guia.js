@@ -132,8 +132,8 @@ export const Guia = () => {
                   />
                 )}
                 {userid === params.theid ? (
-                  <>
-                    <div className="file-select" id="src-file1">
+                  <div className="contenedor_boton_cambiar_foto">
+                    <div className="file-select boton_cambiar_foto" id="src-file1">
                       <input
                         onChange={() => {
                           subeFotoUsr(handleSubmit);
@@ -144,7 +144,7 @@ export const Guia = () => {
                         accept=".jpg, .png"
                       />
                     </div>
-                  </>
+                  </div>
                 ) : (
                   ""
                 )}
@@ -163,9 +163,19 @@ export const Guia = () => {
         <div className="">
           <h3 className="texto_actividades mb-5">ACTIVIDADES</h3>
           {guia.tipo === 1 && userid === params.theid ? (
-            <div className="mb-5">
+            <div className="mb-5 contenedor_boton_nueva_actividad">
               <Link to="/nueva_actividad">
-                <button>Nueva actividad</button>
+                <button className="boton_nueva_actividad">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <div className="boton_nueva_actividad_iconos">
+                        <i className="fas fa-suitcase-rolling guia_icono_default"></i>
+                        <i className="fas fa-plane-departure guia_icono_hover"></i>
+                  </div>
+                  Nueva actividad
+                </button>
               </Link>
             </div>
           ) : (
@@ -219,14 +229,6 @@ export const Guia = () => {
                           Modificar
                         </Link>
                       </button>
-                      {element.ids_usuarios != "" ? (
-                        <span>
-                          Esta actividad contiene reservas, es su
-                          responsabilidad borrarla
-                        </span>
-                      ) : (
-                        ""
-                      )}
                       <button
                         className="col-4 mb-3 mx-auto mt-2 guia_boton_borrar"
                         onClick={() => {
@@ -235,7 +237,14 @@ export const Guia = () => {
                       >
                         Borrar
                       </button>
-                      <form>
+                      {element.ids_usuarios != "" ? (
+                        <span className="contiene_reservas">
+                          Esta actividad está reservada
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                      <form className="boton_modificar_foto_actividad">
                         <div className="file-select" id="src-file1">
                           <input
                             onChange={() => {

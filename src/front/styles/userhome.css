@@ -1,5 +1,3 @@
-/*https://codepen.io/phat-xluong/pen/ZEWNxdq*/
-/*https://codepen.io/toaster99/pen/BpgzQR*/
 .userhome_body{
     padding-top: 120px;
     text-align: center;
@@ -67,11 +65,11 @@
 .userhome_home:hover .userhome_icono_hover{
     transform: rotate(0deg) scale(1.2);
     opacity: 1; 
-    }
+}
 .userhome_home:hover .userhome_icono_default{
     transform: rotate(180deg) scale(1);
 	opacity: 0;
-    }
+}
 .userhome_modifica{
     background-image: linear-gradient(to bottom, #E14D2A, rgba(240, 115, 6, 0.473))
 }
@@ -123,12 +121,12 @@
   }
   
   .file-select::before {
-    background-color: #5678EF;
+    background-color: #9C2C77;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 3px;
+    border-radius: 4px;
     content: 'Cambiar foto'; /* testo por defecto */
     position: absolute;
     left: 0;
