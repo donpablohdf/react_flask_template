@@ -1,7 +1,91 @@
 footer{
     background-image: linear-gradient(to right, rgba(253,132,31) , rgba(156,44,119));
-    color:white
+    color:white;
 }
-
-
-/*https://codepen.io/abdelrhmansaid/pen/OJRNOpQ*/
+.footer_copyright{
+    font-size: 20px;
+    font-weight: 800;
+}
+.footer_iconos{
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+}
+.icon-list {
+    width: 80%;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .icon-item {
+    list-style: none
+  }
+  
+  .icon-link {  
+    display: inline-flex;
+    font-size: 40px;  
+    text-decoration: none;    
+    transition: .5s linear;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0);
+    border:none;
+    color:white;
+  }
+  
+  .icon-link:hover {
+    color: #fff;
+  }
+  
+  .icon-link i {
+    margin: auto;    
+  }
+  
+  .icon-link::before {  
+    content: '';
+    position:absolute;
+    background: #000;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    top:-15px;
+    left:-17px;
+    z-index: -1;
+    transform: scale(0);
+    transition: 0.3s cubic-bezier(.95, .32, .37, 1.21);
+  }
+    
+  .icon-link:hover::before {  
+    transform: scale(1);
+  }
+  
+  .icon-item:nth-child(1) .icon-link:hover:before { 
+    background: #e4405f;
+    top: -15px;
+    left:-17px; 
+  }
+  
+  .icon-item:nth-child(2) .icon-link:hover:before { 
+    background:#3b5999; 
+    top: -15px;
+    left:-22px;
+  }
+  
+  .icon-item:nth-child(3) .icon-link:hover:before { 
+    background: #038bfa;
+    top: -15px;
+    left:-15px; 
+  }
+  
+  .icon-item:nth-child(4) .icon-link:hover:before { 
+    background:#cd201f;
+    top: -15px;
+    left:-12px; 
+  }
+  
+  .icon-item:nth-child(5) .icon-link:hover:before { 
+    background: #0077B5;
+    top: -15px;
+    left:-16px; 
+  }
