@@ -115,7 +115,7 @@ export const Guia = () => {
     <div className="guia-body" style={{ backgroundImage: `url(${fondo})` }}>
       <div className="container">
         <div className="container">
-          <div className="card mb-5">
+          <div className="card mb-5 guia_carta_contenedor">
             <div className="row g-0">
               <div className="col-md-2">
                 {guia.foto ? (
@@ -132,7 +132,7 @@ export const Guia = () => {
                   />
                 )}
                 {userid === params.theid ? (
-                  <div className="contenedor_boton_cambiar_foto">
+                  <div className="contenedor_boton_cambiar_foto" style={{ backgroundImage: `url(${fondo})` }}>
                     <div className="file-select boton_cambiar_foto" id="src-file1">
                       <input
                         onChange={() => {

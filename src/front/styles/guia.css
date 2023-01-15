@@ -8,6 +8,9 @@ a:hover{
 .guia-body{
     padding-top: 200px;
 }
+.guia_carta_contenedor{
+    border:none
+}
 .cuerpo-guia-carta{
     background-color: #FD841F;
 }
@@ -21,10 +24,10 @@ a:hover{
     color: white;
 }
 .contenedor_boton_cambiar_foto{
-    background-color:#9C2C77;
+    background-color:linear-gradient(to bottom, #9C2C77, rgba(201, 9, 89, 0.322));
 }
 .boton_cambiar_foto{
-    left:25%;
+    width: 100%;
     cursor: pointer;
 }
 
@@ -456,7 +459,6 @@ a:hover{
     align-items: center;
     transition: 0.5s;
     background-size: 200% auto;
-    border-radius: 3px;
     content: 'Cambiar foto'; /* texto por defecto */
     position: absolute;
     left: 0;
@@ -464,7 +466,7 @@ a:hover{
     top: 0;
     bottom: 0;
     box-shadow: 0px 0px 14px -7px #f09819;
-    background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+    background-image:linear-gradient(to bottom, #9C2C77, rgba(201, 9, 89, 0.322));
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;

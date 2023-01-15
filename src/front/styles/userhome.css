@@ -121,12 +121,11 @@
   }
   
   .file-select::before {
-    background-color: #9C2C77;
+    background-color: linear-gradient(to bottom, #9C2C77, rgba(201, 9, 89, 0.322));
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 4px;
     content: 'Cambiar foto'; /* testo por defecto */
     position: absolute;
     left: 0;
