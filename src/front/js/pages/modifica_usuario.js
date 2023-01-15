@@ -62,7 +62,7 @@ export const ModificaUsuario = () => {
   
   if (!token) {
     return (
-      <div className="modifica_usuario_body">
+      <div className="modifica_usuario_body" style={{ backgroundImage: `url(${fondo4})`,backgroundSize:`cover`}}>
         <h1 className="bg-danger">No está autorizado</h1>
       </div>
     )

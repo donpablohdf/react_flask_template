@@ -1,0 +1,123 @@
+/***https://mui.com/x/introduction/installation/***/
+/*NECESARIO ACTUALIZAR A REACT 17 O SUPERIOR*/
+
+.nueva_actividad_body{
+    padding-top: 120px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 17vh;
+}
+.nueva_actividad_header{
+    color: #9C2C77; 
+    font-size: 60px; 
+    font-weight: 800; 
+    line-height: 60px; 
+    margin: 0 0 16px;
+}
+.nueva_actividad_input{
+    height:50px;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 25px;
+    border-style: none;
+    margin-top: 10px;
+}
+.nueva_actividad_icono_nombre{
+    position: absolute;
+    font-size: 25px;
+    color: #9C2C77;
+    padding-left: 27px;
+    padding-top: 22px;
+}
+.nueva_actividad_icono_descripcion{
+    position: absolute;
+    font-size: 25px;
+    color: #9C2C77;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+.nueva_actividad_fecha{
+    color: #9C2C77; 
+    font-size: 30px; 
+    font-weight: 600;
+}
+.nueva_actividad_foto{
+    position: relative;
+    display: inline-block;
+}
+.nueva_actividad_foto::before{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    content: 'Subir foto'; /* texto por defecto */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: 0px 0px 14px -7px #f09819;
+    background-color: #9C2C77;
+    background-image:linear-gradient(to bottom, #9C2C77, rgba(201, 9, 89, 0.322));
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+.nueva_actividad_boton_crear_contenedor{
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    width: 300px;
+    height: 55px;
+    margin: 0 15px;
+    perspective: 1000px;
+}
+.nueva_actividad_boton_crear{
+    position: relative;
+    width: 80%;
+    background-image: linear-gradient(to bottom, #9C2C77, rgba(201, 9, 89, 0.322));
+    color: white;
+    font-size: 30px;
+    border:none;
+    border-radius: 4px;
+    padding: 5px 20px 10px 50px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.nueva_actividad_boton_iconos{
+    margin: 0px 30px 0 10px;
+}
+.nueva_actividad_icono_default{
+    position: absolute;
+    top: 12px;
+    left: 40px;
+    display: block;
+    transition: opacity .3s, transform .3s;
+}
+.nueva_actividad_icono_hover{
+    position: absolute;
+    top: 12px;
+    left: 40px;
+    display: block;
+    transition: opacity .3s, transform .3s;
+    transform: rotate(-180deg) scale(.5);
+    opacity: 0;
+}
+.nueva_actividad_boton_crear:hover{
+    background-image: linear-gradient(to bottom, #FD841F, rgba(245, 169, 97, 0.322));
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #FD841F;
+    transform: scale(1.1);
+}
+.nueva_actividad_boton_crear:hover .nueva_actividad_icono_hover{
+    transform: rotate(0deg) scale(1.2);
+    opacity: 1; 
+}
+.nueva_actividad_boton_crear:hover .nueva_actividad_icono_default{
+    transform: rotate(180deg) scale(1);
+	opacity: 0;
+}

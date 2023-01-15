@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns"; //https://material-ui-pickers.dev/
 import {
   DatePicker,
@@ -13,7 +12,8 @@ import { ThemeProvider } from "@material-ui/styles";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
-import "../../styles/login.css";
+import "../../styles/nuevaActividad.css";
+import fondo5 from "../../img/fondo5.jpg"
 
 export const NuevaActividad = () => {
   const token = localStorage.getItem("jwt-token");
@@ -21,11 +21,32 @@ export const NuevaActividad = () => {
   const { actions } = useContext(Context);
   const [selectedDate, handleDateChange] = useState(new Date()); //https://material-ui-pickers.dev/
   const materialTheme = createTheme({
+    typography:{
+      fontSize:18,
+      spacing:5,
+      fontWeightBold:600,
+    },
+    palette:{
+      primary:{
+        main:'#9C2C77'
+      }
+    },
     overrides: {
       MuiPickersToolbar: {
         toolbar: {
           backgroundColor: "#FD841F",
         },
+      },
+      MuiPickersDay:{
+        day:{
+          color:"#FD841F",
+        },
+        daySelected:{
+          backgroundColor:"#FD841F",
+        },
+        current:{
+          color:"#FD841F",
+        }
       },
     },
   });
@@ -72,18 +93,23 @@ export const NuevaActividad = () => {
 
   if (!token) {
     return (
-      <div className="login-body">
-        <h1 className="bg-danger">No está autorizado</h1>
+      <div className="nueva_actividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
+        <div className="pb-4">
+            <h1 className="nueva_actividad_header">No está autorizado</h1>
+          </div>
       </div>
     );
   } else {
     return (
       <>
-        <div className="login-body">
+        <div className="nueva_actividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Nueva Actividad</h1>
-            <div>
-              <input
+            <div className="pb-4">
+              <h1 className="nueva_actividad_header">Nueva Actividad</h1>
+            </div>
+            <div className="mb-2">
+              <i className="fas fa-map nueva_actividad_icono_nombre"></i>
+              <input className="nueva_actividad_input"
                 id="nombre"
                 type="text"
                 placeholder="Nombre"
@@ -91,34 +117,38 @@ export const NuevaActividad = () => {
               />
             </div>
             <p></p>
-            <div>
-              <textarea
+            <div className="mb-2">
+              <i className="fas fa-edit nueva_actividad_icono_descripcion"></i>
+              <textarea className="ps-5" rows="6" cols="40"
                 {...register("descripcion")} //crear el name del input y requerido react-hook-form
               />
             </div>
             <p></p>
-            <div>
-              <input
+            <div className="mb-2">
+              <i className="fas fa-euro-sign nueva_actividad_icono_nombre"></i>
+              <input className="nueva_actividad_input"
                 type="text"
                 placeholder="Precio"
                 {...register("precio")} //crear el name del input y requerido react-hook-form
               />
             </div>
             <p></p>
-            <div>
+            <div className="mb-2">
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ThemeProvider theme={materialTheme}>
-                  <span>Fecha</span>{" "}
+                  <span className="nueva_actividad_fecha">Fecha: </span>{" "}
                   <DatePicker
+                    color="primary"
                     value={selectedDate}
                     onChange={handleDateChange}
                     format="yyyy/MM/dd"
                     id="fecha"
                   />
-                  <span>Hora: </span>
+                  <br></br>
+                  <span className="nueva_actividad_fecha">  Hora: </span>
                   <TimePicker
                     value={selectedDate}
-                    onChange={handleDateChange}
+                    onChange={handleDateChange}  
                     format="H:MM"
                     id="hora"
                   />
@@ -127,21 +157,30 @@ export const NuevaActividad = () => {
             </div>
 
             <p></p>
-            <div>
-              <input
+            <div className="mb-4">
+              <i className="fas fa-building nueva_actividad_icono_nombre"></i>
+              <input className="nueva_actividad_input"
                 type="text"
                 placeholder="Ciudad"
                 {...register("ciudad")} //crear el name del input y requerido react-hook-form
               />
             </div>
-            <div>
-              <input
+            <div className="mb-3">
+              <input className="nueva_actividad_foto"
                 id="fileInput"
                 type="file"
                 {...register("archivo")} //crear el name del input y requerido react-hook-form
               />
             </div>
-            <button type="submit">Crear</button>
+            <div className="nueva_actividad_boton_crear_contenedor">
+              <button className="nueva_actividad_boton_crear" type="submit">
+                <div className="nueva_actividad_boton_iconos">
+                  <i className="fas fa-square nueva_actividad_icono_default"></i>
+                  <i class="fas fa-check-square nueva_actividad_icono_hover"></i>
+                  Crear
+                </div>
+              </button>
+            </div>
           </form>
         </div>
       </>
