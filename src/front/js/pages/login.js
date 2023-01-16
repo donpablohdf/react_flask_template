@@ -66,7 +66,7 @@ export const Login = () => {
             <input
               className="login_input"
               autoComplete="off" //no permitir autocompletado del input
-              type="text"
+              type="password"
               placeholder="Password"
               {...register("password", { required: true })} //crear el name del input y requerido react-hook-form
             />
