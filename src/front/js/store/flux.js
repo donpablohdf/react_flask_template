@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       userid: false,
       message: null,
+      verifica: [],
     },
     actions: {
       dataFromAPI: async (url) => {
@@ -22,6 +23,33 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           return false;
+        }
+      },
+
+      verifyEmail: async (email) => {
+        const store = getStore();
+        try {
+          var requestOptions = {
+            method: "GET",
+            redirect: "follow",
+          };
+
+          await fetch(
+            "https://api.hunter.io/v2/email-verifier?email=" +
+              email +
+              "&api_key=" +
+              process.env.HUNTER_KEY,
+            requestOptions
+          )
+            .then((response) => response.text())
+            .then((result) => {
+              setStore({ verifica:  JSON.parse(result) });
+              
+              
+            })
+            .catch((error) => console.log("error", error));
+        } catch (error) {
+          console.log(error);
         }
       },
 
