@@ -30,6 +30,7 @@ export const FormSignup = () => {
     if (hasKey) {
 
       setIsEmail("Email no válido")
+      store.verifica=null
     } else {
       const url = "/api/new_user";
       const method = "POST";

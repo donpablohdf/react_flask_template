@@ -176,7 +176,7 @@ export const NuevaActividad = () => {
               <button className="nueva_actividad_boton_crear" type="submit">
                 <div className="nueva_actividad_boton_iconos">
                   <i className="fas fa-square nueva_actividad_icono_default"></i>
-                  <i class="fas fa-check-square nueva_actividad_icono_hover"></i>
+                  <i className="fas fa-check-square nueva_actividad_icono_hover"></i>
                   Crear
                 </div>
               </button>

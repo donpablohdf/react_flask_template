@@ -63,7 +63,11 @@ def handle_del(usuario_id):
 def handle_mod(usuario_id):
     data = request.get_json()
     mod_user = Users.modifica_by_id(usuario_id, data)
-    return jsonify(mod_user), 200
+    print(mod_user)
+    if (mod_user):
+        return jsonify(mod_user), 200
+    else:
+        return jsonify(mod_user), 401
 
 
 @api.route('/foto_user/<int:usuario_id>', methods=['POST', 'GET'])

@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     store: {
       userid: false,
       message: null,
-      verifica: [],
+      verifica: null,
     },
     actions: {
       dataFromAPI: async (url) => {
@@ -74,13 +74,16 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ message: null });
                 window.location.href = "/userhome";
               }
-            } else {
+            } else if(data.error) {
               setStore({ message: "Error en el login" });
             }
+            if(data.error){setStore({ message: data.error });}
+            return data;
           })
           .catch((error) => {
             return "Hubo un problema con la petición Fetch:" + error.message;
           });
+          
       },
       logIn: () => {
         setStore({ userid: true });

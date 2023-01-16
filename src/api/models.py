@@ -68,6 +68,10 @@ class Users(db.Model):
         return self.query.filter_by(id=pid).first()
 
     @classmethod
+    def get_by_mail(self, pid):
+        return self.query.filter_by(email=pid).first()
+
+    @classmethod
     def pass_by_mail(self, usuario_email):
         # generar password
         letters = string.ascii_letters
@@ -137,16 +141,21 @@ class Users(db.Model):
 
     @classmethod
     def modifica_by_id(self, pid, data):
+        ismail=False
         if data:
-            # print(data)
+            
             user = self.query.get(pid)
-        if user:
+            ismail = self.query.filter_by(email=data['email']).first()
+        if ismail:
+            return {"error": "Email no valido"}
+        if user and not ismail:
             if data['password']:
                 if not check_password_hash(user.password, data['password']):
                     hashed_password = generate_password_hash(
                         str(data['password']), method='SHA256')
                     user.password = hashed_password
             if data['email'] and user.email != data["email"]:
+                
                 user.email = data["email"]
             else:
                 user.email = user.email
@@ -172,7 +181,7 @@ class Users(db.Model):
                 user.ciudad = user.ciudad
             db.session.commit()
             return "Usuario modificado con exito"
-        return False
+        return "No se puede cambiar los datos", 401
 
     @classmethod
     def new_user(self, user):
