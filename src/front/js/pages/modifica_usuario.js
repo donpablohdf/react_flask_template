@@ -74,7 +74,6 @@ export const ModificaUsuario = () => {
       const url = "/api/modifica_user/" + userid;
       const method = "POST";
       const head = { "Content-Type": "application/json" };
-      console.log(data)
       login = actions.solicitudesAPI(url, method, head, data);
       if (login) {
         window.location.href = "/userhome";

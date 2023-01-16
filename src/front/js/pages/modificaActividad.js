@@ -13,8 +13,6 @@ import {
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
-
-
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
@@ -65,9 +63,8 @@ export const ModificaActividad = () => {
       setIsLoading(false);
 
       //console.log(datos)
-      handleDateChange(datos.fecha)
+      handleDateChange(datos.fecha);
     });
-    
   }, []);
 
   let login = false;
@@ -75,7 +72,7 @@ export const ModificaActividad = () => {
     let fecha = document.getElementById("fecha").value;
     let hora = document.getElementById("hora").value;
     let cuando = fecha + " " + hora;
-    data.fecha=cuando
+    data.fecha = cuando;
     e.preventDefault();
     const url = "/api/modifica_act/" + params.theid;
     const method = "POST";
@@ -83,7 +80,7 @@ export const ModificaActividad = () => {
     //console.log(data)
     login = actions.solicitudesAPI(url, method, head, data);
     if (login) {
-      window.location.href="/guia/" + userid     
+      window.location.href = "/guia/" + userid;
     }
   };
   if (isLoading) {
@@ -93,7 +90,7 @@ export const ModificaActividad = () => {
       </div>
     );
   }
-  
+
   if (!token) {
     return (
       <div className="login-body">
@@ -106,9 +103,9 @@ export const ModificaActividad = () => {
         <div className="login-body">
           <form onSubmit={handleSubmit(onSubmit)}>
             <h1>Modifica la actividad!!</h1>
-            {dataActividad.ids_usuarios !=="" ? (
+            {dataActividad.ids_usuarios !== "" ? (
               <>
-              <h6>La actividad tiene reservas</h6>
+                <h6>La actividad tiene reservas</h6>
                 <div>
                   <input
                     id="nombre"
@@ -117,18 +114,27 @@ export const ModificaActividad = () => {
                       dataActividad.nombre ? dataActividad.nombre : ""
                     }
                     placeholder="Nombre"
-                    {...register("nombre")} //crear el name del input y requerido react-hook-form
+                    {...register("nombre", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  {errors.nombre && (
+                    <span className="signup_password_coincide">
+                      EL NOMBRE NO PUEDE ESTAR VACIO
+                    </span>
+                  )}
                 </div>
                 <p></p>
                 <div>
-                    
                   <textarea
-                  defaultValue={
-                    dataActividad.descripcion ? dataActividad.descripcion : ""
-                  }
-                    {...register("descripcion")} //crear el name del input y requerido react-hook-form
+                    defaultValue={
+                      dataActividad.descripcion ? dataActividad.descripcion : ""
+                    }
+                    {...register("descripcion", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  {errors.descripcion && (
+                    <span className="signup_password_coincide">
+                      LA DESCRIPCION NO PUEDE ESTAR VACIA
+                    </span>
+                  )}
                 </div>
                 <p></p>
               </>
@@ -142,8 +148,13 @@ export const ModificaActividad = () => {
                       dataActividad.nombre ? dataActividad.nombre : ""
                     }
                     placeholder="Nombre"
-                    {...register("nombre")} //crear el name del input y requerido react-hook-form
+                    {...register("nombre", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  {errors.nombre && (
+                    <span className="signup_password_coincide">
+                      EL NOMBRE NO PUEDE ESTAR VACIO
+                    </span>
+                  )}
                 </div>
                 <p></p>
                 <div>
@@ -151,8 +162,13 @@ export const ModificaActividad = () => {
                     defaultValue={
                       dataActividad.descripcion ? dataActividad.descripcion : ""
                     }
-                    {...register("descripcion")} //crear el name del input y requerido react-hook-form
+                    {...register("descripcion", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  {errors.descripcion && (
+                    <span className="signup_password_coincide">
+                      LA DESCRIPCION NO PUEDE ESTAR VACIA
+                    </span>
+                  )}
                 </div>
                 <p></p>
                 <div>
@@ -163,35 +179,38 @@ export const ModificaActividad = () => {
                       dataActividad.ciudad ? dataActividad.ciudad : ""
                     }
                     placeholder="Ciudad"
-                    {...register("ciudad")} //crear el name del input y requerido react-hook-form
+                    {...register("ciudad", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  {errors.ciudad && (
+                    <span className="signup_password_coincide">
+                      LA CIUDAD NO PUEDE ESTAR VACIA
+                    </span>
+                  )}
                 </div>
                 <p></p>
                 <div>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <ThemeProvider theme={materialTheme}>
-                  <span>Fecha</span>{" "}
-                  <DatePicker
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    format="yyyy/MM/dd"
-                    id="fecha"
-                  />
-                  <span>Hora: </span>
-                  <TimePicker
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    format="H:MM"
-                    id="hora"
-                  />
-                </ThemeProvider>
-              </MuiPickersUtilsProvider>
-            </div>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <ThemeProvider theme={materialTheme}>
+                      <span>Fecha</span>{" "}
+                      <DatePicker
+                        value={selectedDate}
+                        onChange={handleDateChange}
+                        format="yyyy/MM/dd"
+                        id="fecha"
+                      />
+                      <span>Hora: </span>
+                      <TimePicker
+                        value={selectedDate}
+                        onChange={handleDateChange}
+                        format="H:MM"
+                        id="hora"
+                      />
+                    </ThemeProvider>
+                  </MuiPickersUtilsProvider>
+                </div>
                 <p></p>
               </>
             )}
-
-           
 
             <button type="submit">Modificar</button>
           </form>
@@ -201,6 +220,5 @@ export const ModificaActividad = () => {
   }
 };
 ModificaActividad.propTypes = {
-    match: PropTypes.object,
-  };
-  
+  match: PropTypes.object,
+};
