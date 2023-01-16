@@ -113,15 +113,25 @@ export const NuevaActividad = () => {
                 id="nombre"
                 type="text"
                 placeholder="Nombre"
-                {...register("nombre")} //crear el name del input y requerido react-hook-form
-              />
+                {...register("nombre", { required: true })} //crear el name del input y requerido react-hook-form
+                  />
+                  {errors.nombre && (
+                    <span className="signup_password_coincide">
+                      EL NOMBRE NO PUEDE ESTAR VACIO
+                    </span>
+                  )}
             </div>
             <p></p>
             <div className="mb-2">
               <i className="fas fa-edit nueva_actividad_icono_descripcion"></i>
               <textarea className="ps-5" rows="6" cols="40"
-                {...register("descripcion")} //crear el name del input y requerido react-hook-form
-              />
+                {...register("descripcion", { required: true })} //crear el name del input y requerido react-hook-form
+                  />
+                  {errors.descripcion && (
+                    <span className="signup_password_coincide">
+                      LA DESCRIPCION NO PUEDE ESTAR VACIA
+                    </span>
+                  )}
             </div>
             <p></p>
             <div className="mb-2">
@@ -129,8 +139,13 @@ export const NuevaActividad = () => {
               <input className="nueva_actividad_input"
                 type="text"
                 placeholder="Precio"
-                {...register("precio")} //crear el name del input y requerido react-hook-form
-              />
+                {...register("ciudad", { required: true })} //crear el name del input y requerido react-hook-form
+                  />
+                  {errors.ciudad && (
+                    <span className="signup_password_coincide">
+                      EL PRECIO NO PUEDE ESTAR VACIO
+                    </span>
+                  )}
             </div>
             <p></p>
             <div className="mb-2">
@@ -162,8 +177,13 @@ export const NuevaActividad = () => {
               <input className="nueva_actividad_input"
                 type="text"
                 placeholder="Ciudad"
-                {...register("ciudad")} //crear el name del input y requerido react-hook-form
-              />
+                {...register("ciudad", { required: true })} //crear el name del input y requerido react-hook-form
+                  />
+                  {errors.ciudad && (
+                    <span className="signup_password_coincide">
+                      LA CIUDAD NO PUEDE ESTAR VACIA
+                    </span>
+                  )}
             </div>
             <div className="mb-3">
               <input className="nueva_actividad_foto"

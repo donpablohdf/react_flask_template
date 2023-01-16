@@ -188,6 +188,21 @@ export const ModificaActividad = () => {
                   )}
                 </div>
                 <p></p>
+                <div className="mb-2">
+                  <i className="fas fa-euro-sign nueva_actividad_icono_nombre"></i>
+                  <input
+                    className="nueva_actividad_input"
+                    type="text"
+                    placeholder="Precio"
+                    {...register("ciudad", { required: true })} //crear el name del input y requerido react-hook-form
+                  />
+                  {errors.ciudad && (
+                    <span className="signup_password_coincide">
+                      EL PRECIO NO PUEDE ESTAR VACIO
+                    </span>
+                  )}
+                </div>
+                <p></p>
                 <div>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <ThemeProvider theme={materialTheme}>
