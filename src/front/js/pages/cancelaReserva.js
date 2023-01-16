@@ -1,7 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
-import "../../styles/login.css";
+
+import "../../styles/cancelaReserva.css";
+import fondo3 from "../../img/fondo3.jpg";
 
 export const CancelaReserva = (props) => {
   const { actions } = useContext(Context);
@@ -20,8 +22,8 @@ export const CancelaReserva = (props) => {
   }, []);
 
   return (
-    <div className="login-body">
-      <h1>Reserva cancelada</h1>
+    <div className="cancela_reservas_body" style={{ backgroundImage: `url(${fondo3})`, backgroundSize: `cover` }}>
+      <h1 className="cancela_reservas_header">SU RESERVA HA SIDO CANCELADA CON ÉXITO</h1>
     </div>
   );
 };

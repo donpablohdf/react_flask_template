@@ -13,6 +13,7 @@ import { BsSearch } from "react-icons/bs";
 
 import "../../styles/navbar.css";
 import logo from "../../img/OMT1.png";
+import logo2 from "../../img/logo2.png"
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -50,7 +51,7 @@ export const Navbar = () => {
               <div className="col-5">
                 <Link to="/">
                   <span className="home nav-link">
-                    <img className="img-fluid logo" src={logo} />
+                    <img className="img-fluid logo" src={logo2} />
                   </span>
                 </Link>
               </div>

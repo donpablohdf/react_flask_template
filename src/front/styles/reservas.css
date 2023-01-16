@@ -1,0 +1,156 @@
+.reservas_body{
+    height: 100vh;
+}
+.reservas_header{
+    text-align: center;
+    font-size: 70px;
+    font-weight: 900;
+    background-image: linear-gradient(to right, #9C2C77, #CD104D);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    padding-top: 100px;
+    margin-bottom: 50px;
+}
+.reservas_boton_cancelar{
+    align-items: center;
+    appearance: none;
+    background-clip: padding-box;
+    background-color: initial;
+    background-image: none;
+    border-style: none;
+    box-sizing: border-box;
+    color: #fff !important;
+    cursor: pointer;
+    display: inline-block;
+    flex-direction: row;
+    flex-shrink: 0;
+    font-family: Eina01,sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    justify-content: center;
+    line-height: 34px;
+    margin: 0;
+    min-height: 70px;
+    outline: none;
+    overflow: visible;
+    
+    pointer-events: auto;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    width: auto;
+    word-break: keep-all;
+    z-index: 0;
+}
+    
+.reservas_boton_cancelar:before,
+.reservas_boton_cancelar:after {
+    border-radius: 4px;
+}
+    
+.reservas_boton_cancelar:before {
+    background-image: linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -2;
+}
+    
+.reservas_boton_cancelar:after {
+    background-color: initial;
+    background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
+    bottom: 4px;
+    content: "";
+    display: block;
+    left: 4px;
+    overflow: hidden;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    transition: all 100ms ease-out;
+    z-index: -1;
+}
+    
+.reservas_boton_cancelar:hover:not(:disabled):before {
+    background: linear-gradient(92.83deg, rgb(255, 116, 38) 0%, rgb(249, 58, 19) 100%);
+}
+    
+.reservas_boton_cancelar:hover:not(:disabled):after {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    transition-timing-function: ease-in;
+    opacity: 0;
+}
+    
+.reservas_boton_cancelar:active:not(:disabled) {
+    color: #ccc;
+}
+    
+.reservas_boton_cancelar:active:not(:disabled):before {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2)), linear-gradient(92.83deg, #ff7426 0, #f93a13 100%);
+}
+    
+.reservas_boton_cancelar:active:not(:disabled):after {
+    background-image: linear-gradient(#541a0f 0, #0c0d0d 100%);
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    top: 4px;
+}
+    
+.reservas_boton_cancelar:disabled {
+    cursor: default;
+    opacity: .24;
+}
+
+
+.reservas_boton_comentar {
+	width: 110px;
+	height: 70px;
+	cursor: pointer;
+    color: white;
+	font-size: 20px;
+    font-weight: 800;
+	background: #CD104D;
+	border: 2px solid red;
+	box-shadow: 0px 0px 0px rgba(0,0,0,0.4);
+	transition: 500ms;
+    border-radius: 4px;
+}
+
+.reservas_boton_comentar:after {
+	content: '';
+    position: absolute;
+	transform: translateX(-55px) translateY(-40px);
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: transparent;
+	box-shadow: 0px 0px 50px transparent;
+	transition: 500ms;
+    
+}
+
+.reservas_boton_comentar:hover {
+	transform: translateY(-5px);
+	box-shadow: 0px 10px 10px rgba(0,0,0,0.4);
+}
+
+
+
+.reservas_boton_comentar:focus {
+	outline: none;
+}

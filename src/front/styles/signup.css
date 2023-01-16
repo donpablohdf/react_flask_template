@@ -29,6 +29,13 @@
 ::placeholder{
   color:#9C2C77;
 }
+.signup_input_password{
+  height:50px;
+  text-align: center;
+  font-size: 25px;
+  border-radius: 25px;
+  border-style: none;
+}
 .signup_icono_email{
   position: absolute;
   padding-left: 32px;
@@ -36,7 +43,23 @@
   font-size: 25px;
   color: #9C2C77;
 }
+.signup_email_valido{
+  text-transform: uppercase;
+  font-size: 15px;
+  color: red;
+  font-weight: 800;
+}
+.signup_input_password{
+  margin-bottom: 5px;
+}
 .signup_icono_password{
+  position: absolute;
+  padding-left: 32px;
+  padding-top: 12px;
+  font-size: 25px;
+  color: #9C2C77;
+}
+.signup_icono_password_coincide{
   position: absolute;
   padding-left: 32px;
   padding-top: 32px;
@@ -46,5 +69,5 @@
 .signup_password_coincide{
   font-size: 20px;
   color: red;
-  font-weight: 600;
+  font-weight: 800;
 }

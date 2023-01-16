@@ -36,8 +36,8 @@ export const Login = () => {
       <div
         className="container login_espacio border border-white rounded px-0"
         style={{
-          height: "400px",
-          maxWidth: "400px",
+          height: "auto",
+          width: "400px",
           backgroundImage: `url(${fondo2})`,
         }}
       >
@@ -45,8 +45,7 @@ export const Login = () => {
           <h1 className="login_icon">
             <FaUserCircle color="white" fontSize="2.5em" />
           </h1>
-          <div className="login_email">{store.message}</div>
-          <div className="login_email">
+          <div className="login_email mb-4">
             <i className="fa fa-user login_icono_email"></i>
             <input
               className="login_input"
@@ -55,13 +54,13 @@ export const Login = () => {
               {...register("email", { required: true })} //crear el name del input y requerido react-hook-form
             />
             {/* control de errores react-hook-form */}
+            <br></br>
             {errors.email && (
-              <span className="signup_password_coincide">
+              <span className="mb-4 signup_password_coincide">
                 EL EMAIL NO PUEDE ESTAR VACIO
               </span>
             )}
           </div>
-          <p></p>
           <div>
             <i className="fa fa-solid fa-lock login_icono_password"></i>
             <input
@@ -72,21 +71,20 @@ export const Login = () => {
               {...register("password", { required: true })} //crear el name del input y requerido react-hook-form
             />
             {/* control de errores react-hook-form */}
+            <br></br>
             {errors.password && (
-              <span className="signup_password_coincide">
+              <span className="my-0 signup_password_coincide">
                 EL PASSWORD NO PUEDE ESTAR VACIO
               </span>
             )}
           </div>
-          <p></p>
-          <div className="container login_button_body px-0">
-            <button className="login_button px-0" type="submit">
+          <button className="login_button" type="submit">
               Login
-            </button>
-          </div>
+          </button>
+          
         </form>
       </div>
-      <p></p>
+      <div className="login_email">{store.message}</div>
       <div className="login_registro">
         <p>
           Si no estás registrado pincha

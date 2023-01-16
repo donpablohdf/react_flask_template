@@ -1,0 +1,13 @@
+.cancela_reservas_body{
+    height: 100vh;
+}
+.cancela_reservas_header{
+    text-align: center;
+    font-size: 70px;
+    font-weight: 900;
+    background-image: linear-gradient(to right, #9C2C77, #CD104D);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    padding-top: 100px;
+}

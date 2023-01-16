@@ -69,12 +69,6 @@
     padding-left: 5px;
     padding-top: 5px;
 }
-.login_button_body{
-    margin-top: 30px;
-    max-height: max-content;
-    height:31%;
-    width: 100%;
-}
 .modifica_usuario_boton{
     position: relative;
     width: 64%;

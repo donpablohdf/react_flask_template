@@ -43,25 +43,37 @@
     padding-top: 10px;
 }
 .login_button_body{
-    margin-top: 30px;
+    margin-top: 10px;
     max-height: max-content;
     height:31%;
     width: 100%;
 }
 .login_button{
-    height: 100%;
+    position: relative;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     width: 100%;
     background-color: #9C2C77;
     color: white;
     font-size: 30px;
-    border:none
+    border:none;
 }
 .login_registro{
-    margin-top: 40px;
+    margin-top: 20px;
     font-size: 15px;
 }
 .login_registro_link{
     font-size: 20px;
     color: #9C2C77;
     font-weight: bold;
+}
+.signup_password_coincide{
+   font-weight: 800; 
+}
+.login_email{
+    font-size: 20px;
+    color: red;
+    font-weight: 800;
+    text-transform: uppercase;
 }
