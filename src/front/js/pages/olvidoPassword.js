@@ -62,6 +62,11 @@ export const OlvidoPassword = () => {
               placeholder="Email"
               {...register("email", { required: true })} //crear el name del input y requerido react-hook-form
             />
+            {errors.email && (
+                    <span className="signup_password_coincide">
+                      EL EMAIL NO PUEDE ESTAR VACIO
+                    </span>
+                  )}
           </div>
           <p></p>
 
