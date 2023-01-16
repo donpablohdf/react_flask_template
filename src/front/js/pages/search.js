@@ -82,7 +82,7 @@ export const Search = () => {
 										
 									</div>
 									<div>{parseFecha(element.fecha)}</div>
-                    				<img src={leon} alt=""/>
+                    				<img src={process.env.BACKEND_URL + "/" + element.foto} alt=""/>
 									
 									<div className = "precio_container">
 									
