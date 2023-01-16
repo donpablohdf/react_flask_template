@@ -29,7 +29,6 @@ export const Login = () => {
     actions
       .solicitudesAPI(url, method, head, data)
       .then((el) => console.log("El resultado es;", el));
-    
   };
 
   return (
@@ -42,7 +41,6 @@ export const Login = () => {
           backgroundImage: `url(${fondo2})`,
         }}
       >
-        
         <form className="login_form" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="login_icon">
             <FaUserCircle color="white" fontSize="2.5em" />
@@ -56,6 +54,12 @@ export const Login = () => {
               placeholder="Email"
               {...register("email", { required: true })} //crear el name del input y requerido react-hook-form
             />
+            {/* control de errores react-hook-form */}
+            {errors.email && (
+              <span className="signup_password_coincide">
+                EL EMAIL NO PUEDE ESTAR VACIO
+              </span>
+            )}
           </div>
           <p></p>
           <div>
@@ -67,6 +71,12 @@ export const Login = () => {
               placeholder="Password"
               {...register("password", { required: true })} //crear el name del input y requerido react-hook-form
             />
+            {/* control de errores react-hook-form */}
+            {errors.password && (
+              <span className="signup_password_coincide">
+                EL PASSWORD NO PUEDE ESTAR VACIO
+              </span>
+            )}
           </div>
           <p></p>
           <div className="container login_button_body px-0">
