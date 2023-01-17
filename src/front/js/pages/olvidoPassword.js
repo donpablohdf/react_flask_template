@@ -37,7 +37,7 @@ export const OlvidoPassword = () => {
     }
     const url = "/api/new_pass";
     const method = "POST";
-    const head = { "Content-Type": "application/json" };
+    const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
     //console.log(email, password)
    
     await actions.solicitudesAPI(url, method, head, data);

@@ -113,6 +113,7 @@ def login_user():
     return jsonify({"error": 'no_user'}), 401
 
 @api.route('/new_pass', methods=['POST', 'GET'])
+@jwt_required()
 def handle_pass():
     data = request.get_json()
     if data["email"]:
