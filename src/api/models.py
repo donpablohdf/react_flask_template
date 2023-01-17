@@ -334,11 +334,13 @@ class Actividades(db.Model):
     @classmethod
     def desactiva_by_id(self, pid):
         act = self.query.get(pid)
-        if act:
+        if act and act.activo==1:
             fecha_act = datetime.strptime(str(act.fecha), "%Y-%m-%d %H:%M:%S")
             hoy = datetime.now()
             if fecha_act > hoy:
+                #print("si la fecha es superior a la actual") #ok
                 if act.ids_usuarios is not None and act.ids_usuarios!='':  # si la actividad está en fecha y existe algo en el campo ids_usuarios enviar mail y cancelar reservas
+                    #print("existe ids_usuarios") #ok
                     lista_ids_usuarios = act.ids_usuarios.split(sep=',')
                     #print(lista_ids_usuarios)
                     reserva = Reservas.query.filter_by(
@@ -350,8 +352,8 @@ class Actividades(db.Model):
                         #user = ''
                         #reserva_cancelada = ''
                         user = Users.query.get(x)
-                        reserva_cancelada = Reservas.query.filter_by(
-                            id_actividad=pid, id_usuario=x).first()
+                        reserva_cancelada = Reservas.query.filter_by(id_actividad=pid, id_usuario=x).first()
+                        
                         fecha_c = datetime.strptime(
                             str(reserva_cancelada.fecha_realizacion), "%Y-%m-%d %H:%M:%S")
                         fecha_str = datetime.strftime(
@@ -386,6 +388,7 @@ class Actividades(db.Model):
                     act.activo = 0
                     db.session.commit()
             else:  # si la fecha es anterior a la actual
+                print("si la fecha es anterior a la actual")
                 act.activo = 0
                 db.session.commit()
 
@@ -460,7 +463,7 @@ class Reservas(db.Model):
     @classmethod
     def desactiva_by_id(self, pid):
         res = self.query.get(pid)
-        if res:
+        if res and res.estado!=2:
             #print(str(res.fecha_realizacion))
             fecha_res = datetime.strptime(
                 str(res.fecha_realizacion), "%Y-%m-%d %H:%M:%S")
@@ -470,13 +473,20 @@ class Reservas(db.Model):
             usuario = Users.query.get(res.id_usuario)
             actividad = Actividades.query.get(res.id_actividad)
             lista_ids_usuarios = actividad.ids_usuarios.split(sep=',')
-            # print(lista_ids_usuarios)
-            lista_ids_usuarios.remove(str(res.id_usuario))
-            if len(lista_ids_usuarios) <= 1:
+            print(lista_ids_usuarios)
+            print(res.id_usuario)
+            if str(res.id_usuario) in lista_ids_usuarios:
+                lista_ids_usuarios.remove(str(res.id_usuario))
+            if len(lista_ids_usuarios) == 1:
                 actividad.ids_usuarios = "".join(map(str, lista_ids_usuarios))
-            else:
+                db.session.commit()
+            if len(lista_ids_usuarios) > 1:
                 actividad.ids_usuarios = ",".join(map(str, lista_ids_usuarios))
-            db.session.commit()
+                db.session.commit()
+            if len(lista_ids_usuarios) == 0:
+                actividad.ids_usuarios=''
+                db.session.commit()
+            
             txt_mail = "Hola, la reserva "+res.num_reserva+" de la actividad "+actividad.nombre + \
                 " con fecha "+fecha_str+" ha sido cancelada por el usuario " + usuario.nombre
             # print(txt_mail)

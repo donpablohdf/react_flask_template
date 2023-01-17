@@ -56,8 +56,8 @@ export const ModificaUsuario = () => {
       } else {
         e.preventDefault();
         const url = "/api/modifica_user/" + userid;
-        const method = "POST";
-        const head = { "Content-Type": "application/json" };
+        const method = "POST";        const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
+
         //console.log(data)
         login = await actions.solicitudesAPI(url, method, head, data);
         if (store.message) {
@@ -73,7 +73,7 @@ export const ModificaUsuario = () => {
       e.preventDefault();
       const url = "/api/modifica_user/" + userid;
       const method = "POST";
-      const head = { "Content-Type": "application/json" };
+      const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+ token };
       login = actions.solicitudesAPI(url, method, head, data);
       if (login) {
         window.location.href = "/userhome";

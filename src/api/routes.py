@@ -16,7 +16,7 @@ import uuid
 
 
 api = Blueprint('api', __name__)
-ACCESS_EXPIRES = timedelta(hours=1)
+ACCESS_EXPIRES = timedelta(hours=24)
 
 @api.route('/usuarios_index', methods=['POST', 'GET'])
 def handle_usu_index():
@@ -35,11 +35,13 @@ def handle_user(usuario_id):
 
 
 @api.route('/desactiva_user/<int:usuario_id>', methods=['POST', 'GET'])
+@jwt_required()
 def handle_del(usuario_id):
     user = Users.desactiva_by_id(usuario_id)
     actividades = Actividades.get_by_guia(usuario_id)
     if actividades:
         for x in actividades:
+            print(x.id)
             Actividades.desactiva_by_id(x.id)
 
     resevas_usr = Reservas.get_by_user(usuario_id)
@@ -47,11 +49,6 @@ def handle_del(usuario_id):
         for t in resevas_usr:
             Reservas.desactiva_by_id(t.id)
             
-    resevas_guia = Reservas.get_by_guia(usuario_id)
-    if resevas_guia:
-        for i in resevas_guia:
-            Reservas.desactiva_by_id(i.id)
-           
     comentarios = Comentarios.get_by_usr(usuario_id)
     if comentarios:
         for c in comentarios:
@@ -61,7 +58,7 @@ def handle_del(usuario_id):
 
 
 @api.route('/modifica_user/<int:usuario_id>', methods=['POST', 'GET'])
-#@jwt_required()
+@jwt_required()
 def handle_mod(usuario_id):
    
     data = request.get_json()
@@ -107,7 +104,7 @@ def login_user():
             if check_password_hash(user.password, data['password']):
                 token = jwt.encode({'id': user.id, 'exp': datetime.datetime.utcnow(
                 ) + ACCESS_EXPIRES}, SECRET)
-                access_token = create_access_token(identity=token)
+                access_token = create_access_token(token)
                 return jsonify({"token": access_token, "userid":user.id}), 200
             return jsonify({"error": 'Contraseña incorrecta'}), 401
         else:

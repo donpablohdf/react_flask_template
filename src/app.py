@@ -31,7 +31,8 @@ MIGRATE = Migrate(app, db, compare_type = True)
 db.init_app(app)
 
 # Configura la extensión Flask-JWT-Extended
-app.config["JWT_SECRET_KEY"] = "fran pablo donato"
+app.config["JWT_SECRET_KEY"] = "franpablodonato"
+#app.config["JWT_HEADER_TYPE"] = "Bearer"
 #app.config['PROPAGATE_EXCEPTIONS'] = True
 jwt = JWTManager(app)
 #jwt_m.init_app(app)

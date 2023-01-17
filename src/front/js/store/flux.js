@@ -12,13 +12,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         // para meter los datos de la API
         const store = getStore();
         if (url === "/logout") {
-          const token = localStorage.removeItem("jwt-token");
-          const userid = localStorage.removeItem("userid");
+          localStorage.removeItem("jwt-token");
+          localStorage.removeItem("userid");
           setStore({ userid: false });
           return true;
         }
         try {
-          const resp = await fetch(process.env.BACKEND_URL + url);
+          const token = localStorage.getItem("jwt-token");
+          const head = { Authorization: "Bearer " + token };
+          const resp = await fetch(process.env.BACKEND_URL + url, {
+            headers: head,
+          });
           const data = await resp.json();
           return data;
         } catch (error) {
@@ -43,9 +47,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           )
             .then((response) => response.text())
             .then((result) => {
-              setStore({ verifica:  JSON.parse(result) });
-              
-              
+              setStore({ verifica: JSON.parse(result) });
             })
             .catch((error) => console.log("error", error));
         } catch (error) {
@@ -74,16 +76,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ message: null });
                 window.location.href = "/userhome";
               }
-            } else if(data.error) {
+            } else if (data.error) {
               setStore({ message: "Error en el login" });
             }
-            if(data.error){setStore({ message: data.error });}
+            if (data.error) {
+              setStore({ message: data.error });
+            }
             return data;
           })
           .catch((error) => {
             return "Hubo un problema con la petición Fetch:" + error.message;
           });
-          
       },
       logIn: () => {
         setStore({ userid: true });
