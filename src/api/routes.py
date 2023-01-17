@@ -99,7 +99,7 @@ def login_user():
     data = request.get_json()
     SECRET = os.getenv('FLASK_APP_KEY')  # variable ENV
     if not data:
-        return jsonify({"error": 'no_data'}), 401
+        return jsonify({"error": 'Sin datos'}), 401
 
     user = Users.query.filter_by(email=data['email']).first()
     if user:
@@ -109,9 +109,9 @@ def login_user():
                 ) + ACCESS_EXPIRES}, SECRET)
                 access_token = create_access_token(identity=token)
                 return jsonify({"token": access_token, "userid":user.id}), 200
-            return jsonify({"error": 'no_pass'}), 401
+            return jsonify({"error": 'Contraseña incorrecta'}), 401
         else:
-            return jsonify({"error": 'usuario_inactivo'}), 401
+            return jsonify({"error": 'No existe el usuario'}), 401
     return jsonify({"error": 'no_user'}), 401
 
 @api.route('/new_pass', methods=['POST', 'GET'])
