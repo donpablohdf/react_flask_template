@@ -55,7 +55,8 @@ def setup_commands(app):
         usuario_guia = Users.query.filter_by(tipo=1).first()
         for i in range(8):
             now=ahora + timedelta(days=i)
-            fecha_act =  now.strftime("%d/%m/%Y %H:%M:%S")
+            fecha_act =  now.strftime("%Y-%m-%d %H:%M")
+            print(fecha_act)
             new_act_guia = Actividades(
                 nombre="Nombre actividad "+str(i),
                 descripcion="descripcion actividad "+str(i), 
@@ -86,7 +87,7 @@ def setup_commands(app):
         actividad.ids_usuarios = actividad.ids_usuarios +","+str(usuario_normal.id)
         db.session.commit()
         now = datetime.now()
-        fecha_res =  now.strftime("%d/%m/%Y %H:%M:%S")
+        fecha_res =  now.strftime("%Y-%m-%d %H:%M")
         new_res = Reservas(
             num_reserva=num_reserva_g,
             fecha_reserva=fecha_res, 
