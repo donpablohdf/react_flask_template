@@ -84,9 +84,9 @@ class Users(db.Model):
 
         if pwd != '':
             user_email = self.query.filter_by(email=usuario_email).first()
-            print(user_email)
+            #print(user_email)
             if not user_email:
-                print("error")
+                #print("error")
                 return {"error": "Email no valido"}
             user = self.query.get(user_email.id)
             new_password = generate_password_hash(pwd, method='SHA256')

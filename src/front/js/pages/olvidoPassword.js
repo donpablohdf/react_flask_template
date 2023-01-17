@@ -41,7 +41,7 @@ export const OlvidoPassword = () => {
     //console.log(email, password)
    
     await actions.solicitudesAPI(url, method, head, data);
-    console.log(store.message)
+    //console.log(store.message)
     if (store.message) {
       setIsEmail(store.message);
       store.message = null;
