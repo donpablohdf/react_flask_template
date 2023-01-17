@@ -45,9 +45,8 @@ export const Guia = () => {
 
   const desactivaActividad = (acti) => {
     const url = "/api/desactiva_act/" + acti;
-    const desactiva = actions.dataFromAPI(url);
-    
-    setDesActi(!desActi);
+    actions.dataFromAPI(url);
+    setDesActi(true);
   };
   const {
     register,
@@ -58,16 +57,22 @@ export const Guia = () => {
   } = useForm(); // declaracion para react-hook-form
   const subeFotoUsr = async (data) => {
     let peso = customFile1.files[0].size;
-    if (peso> 1065443){ setPesoImgU("La imagen no puede superar 1Mb"); return false}
+    if (peso > 1065443) {
+      setPesoImgU("La imagen no puede superar 1Mb");
+      return false;
+    }
     var formdata = new FormData();
     formdata.append("archivo", customFile1.files[0], data.archivo);
     var requestOptions = {
       method: "POST",
       body: formdata,
-      headers: {'Authorization': 'Bearer '+token },
+      headers: { Authorization: "Bearer " + token },
       redirect: "follow",
     };
-    await fetch(process.env.BACKEND_URL + "/api/foto_user/" + userid, requestOptions)
+    await fetch(
+      process.env.BACKEND_URL + "/api/foto_user/" + userid,
+      requestOptions
+    )
       .then((response) => response.text())
       .then((result) => setActAvatar(!actAvatar))
       .catch((error) => console.log("error", error));
@@ -75,14 +80,17 @@ export const Guia = () => {
   const subeFotoAct = async (data, id) => {
     let file = document.getElementById("ftActF" + id).files[0];
     let peso = document.getElementById("ftActF" + id).files[0].size;
-    if (peso> 1065443){ setPesoImg("La imagen no puede superar 1Mb"); return false}
+    if (peso > 1065443) {
+      setPesoImg("La imagen no puede superar 1Mb");
+      return false;
+    }
     let nom = document.getElementById("ftActF" + id).value;
     var formdata = new FormData();
     formdata.append("ftAct", file, nom);
     var requestOptions = {
       method: "POST",
       body: formdata,
-      headers: {'Authorization': 'Bearer '+token },
+      headers: { Authorization: "Bearer " + token },
       redirect: "follow",
     };
     await fetch(
@@ -156,8 +164,14 @@ export const Guia = () => {
                   />
                 )}
                 {userid === params.theid ? (
-                  <div className="contenedor_boton_cambiar_foto" style={{ backgroundImage: `url(${fondo})` }}>
-                    <div className="file-select boton_cambiar_foto" id="src-file1">
+                  <div
+                    className="contenedor_boton_cambiar_foto"
+                    style={{ backgroundImage: `url(${fondo})` }}
+                  >
+                    <div
+                      className="file-select boton_cambiar_foto"
+                      id="src-file1"
+                    >
                       <input
                         onChange={() => {
                           subeFotoUsr(handleSubmit);
@@ -168,7 +182,9 @@ export const Guia = () => {
                         accept=".jpg, .png"
                       />
                     </div>
-                    <div><span className="signup_email_valido">{pesoImgU}</span></div>
+                    <div>
+                      <span className="signup_email_valido">{pesoImgU}</span>
+                    </div>
                   </div>
                 ) : (
                   ""
@@ -196,8 +212,8 @@ export const Guia = () => {
                   <span></span>
                   <span></span>
                   <div className="boton_nueva_actividad_iconos">
-                        <i className="fas fa-suitcase-rolling guia_icono_default"></i>
-                        <i className="fas fa-plane-departure guia_icono_hover"></i>
+                    <i className="fas fa-suitcase-rolling guia_icono_default"></i>
+                    <i className="fas fa-plane-departure guia_icono_hover"></i>
                   </div>
                   Nueva actividad
                 </button>
@@ -214,19 +230,19 @@ export const Guia = () => {
               {/*Link a la pagina de actividades + index. Variable global en flux.js */}
               <div className="card h-100">
                 <div className="over">
-                {element.foto ? (
-                  <img
-                    src={process.env.BACKEND_URL + "/" + element.foto}
-                    className="imagen_actividad_header"
-                    alt="..."
-                  />
-                ) : (
-                  <img
-                    src={madrid}
-                    className="imagen_actividad_header"
-                    alt="..."
-                  />
-                )}
+                  {element.foto ? (
+                    <img
+                      src={process.env.BACKEND_URL + "/" + element.foto}
+                      className="imagen_actividad_header"
+                      alt="..."
+                    />
+                  ) : (
+                    <img
+                      src={madrid}
+                      className="imagen_actividad_header"
+                      alt="..."
+                    />
+                  )}
                 </div>
                 <div className="card-body tarjeta_actividad_body">
                   <Link to={"/actividades/" + element.id}>
@@ -249,10 +265,10 @@ export const Guia = () => {
                   <p className="card-text tarjeta_actividad_texto">
                     Fecha:{" "}
                     <span className="tarjeta_actividad_variable">
-                    { parseFecha(element.fecha)}
+                      {parseFecha(element.fecha)}
                     </span>
                   </p>
-                  
+
                   {guia.tipo === 1 && userid === params.theid ? (
                     <div className="row">
                       <button className="col-4 mb-3 mx-auto mt-2 guia_boton_modificar">
@@ -295,9 +311,10 @@ export const Guia = () => {
                             value={element.id}
                             id={"id_actividad" + element.id}
                           />
-                           
                         </div>
-                        <div><span className="signup_email_valido">{pesoImg}</span></div>
+                        <div>
+                          <span className="signup_email_valido">{pesoImg}</span>
+                        </div>
                       </form>
                     </div>
                   ) : (
@@ -339,12 +356,20 @@ export const Guia = () => {
                         alt="..."
                       />
                     )}
+
                     <div className="card-body tarjeta_actividad_body">
                       <h5 className="card-title tarjeta_actividad_nombre">
                         RESERVA:{" "}
-                        <span className="tarjeta_actividad_variable">
+                        
                           {element.num_reserva}
-                        </span>
+                        
+                        {element.estado == 2 ? (
+                          <p className="card-text tarjeta_actividad_texto">
+                            Esta reserva ha sido cancelada
+                          </p>
+                        ) : (
+                          ""
+                        )}
                       </h5>
                       <p className="card-text tarjeta_actividad_texto">
                         ACTIVIDAD:{" "}
