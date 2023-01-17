@@ -196,6 +196,7 @@ export const Guia = () => {
               {" "}
               {/*Link a la pagina de actividades + index. Variable global en flux.js */}
               <div className="card h-100">
+                <div className="over">
                 {element.foto ? (
                   <img
                     src={process.env.BACKEND_URL + "/" + element.foto}
@@ -209,6 +210,7 @@ export const Guia = () => {
                     alt="..."
                   />
                 )}
+                </div>
                 <div className="card-body tarjeta_actividad_body">
                   <Link to={"/actividades/" + element.id}>
                     <h5 className="card-title tarjeta_actividad_nombre">

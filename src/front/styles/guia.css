@@ -491,6 +491,11 @@ a:hover{
   #src-file1::before {
     content: 'Cambiar foto';
   }
+  .over{
+    width: 400px;
+    height: 270px;
+    overflow: hidden;
+  }
   
   
   
