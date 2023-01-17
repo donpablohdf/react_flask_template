@@ -211,6 +211,7 @@ def act_foto(act_id, guia_id):
         return jsonify("No POST"), 400
 
 @api.route('/desactiva_act/<int:act_id>', methods=['POST', 'GET'])
+@jwt_required()
 def act_del(act_id):
     user = Actividades.desactiva_by_id(act_id)
     return jsonify(user), 200
@@ -257,11 +258,13 @@ def reser_estado(estado):
     return jsonify({"message": "Error al recuperar datos"}), 400
 
 @api.route('/reserva_canc/<int:id_reserva>', methods=['POST', 'GET'])
+@jwt_required()
 def reser_canc(id_reserva):
     reser_c = Reservas.desactiva_by_id(id_reserva)
     return jsonify(reser_c), 200
 
 @api.route('/reserva_new', methods=['POST', 'GET'])
+@jwt_required()
 def res_nw():
     data = request.get_json()
     nw_res = Reservas.res_nueva(data)
@@ -284,12 +287,14 @@ def comen_act(id_actividad):
     return jsonify({"message": "Error al recuperar datos"}), 400
 
 @api.route('/comen_new/<int:id_actividad>/<int:id_usuario>', methods=['POST', 'GET'])
+@jwt_required()
 def comen_nw(id_actividad, id_usuario):
     data = request.get_json()
     nw_comen = Comentarios.com_nuevo(id_actividad, id_usuario, data)
     return jsonify(nw_comen), 200
 
 @api.route('/desactiva_com/<int:comen_id>', methods=['POST', 'GET'])
+@jwt_required()
 def comen_del(comen_id):
     com = Comentarios.desactiva_by_id(comen_id)
     return jsonify(com), 200

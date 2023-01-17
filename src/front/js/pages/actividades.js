@@ -25,7 +25,7 @@ export const Actividades = (props) => {
     const url = "/api/reserva_new/";
     const method = "POST";
 
-    const head = { "Content-Type": "application/json" };
+    const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
     const data = {
       id_usuario: usr,
       id_guia: guia,

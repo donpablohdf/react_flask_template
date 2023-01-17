@@ -37,7 +37,7 @@ export const NuevoComentario = () => {
     // console.log(data)
     const url = "/api/comen_new/" + params.theid + "/" + userid;
     const method = "POST";
-    const head = { "Content-Type": "application/json" };
+    const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
 
     const login = actions.solicitudesAPI(url, method, head, data);
     if (login) {
