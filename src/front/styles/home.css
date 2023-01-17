@@ -254,6 +254,13 @@ color: Black;
   color: #fff;
 	font-size: 14px;
 }
-
+.card-text{
+  color: #9C2C77;
+}
+.over{
+  width: 265px;
+  height: 179px;
+  overflow: hidden;
+}
 
 /*FINAL COMENTARIOS*/

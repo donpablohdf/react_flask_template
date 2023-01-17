@@ -26,6 +26,21 @@ export const Home = () => {
   const [listaUsuarios, setListaUsuarios] = useState([]);
 
   const [listaTareas, setListaTareas] = useState([]);
+  const parseFecha = (datos) => {
+    let options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    let fecha = new Date(datos);
+    fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+    let fechaF = fecha.toLocaleDateString("es", options);
+    let fechaD = fechaF.charAt(0).toUpperCase() + fechaF.slice(1);
+    return fechaD;
+  };
 
   useEffect(() => {
     if (token) {
@@ -407,7 +422,7 @@ export const Home = () => {
             <div className="col">
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col">
+                  <div className="col over">
                     {listaTareas[0].foto ? (
                       <img
                         src={
@@ -434,6 +449,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[0].nombre}</h5>
                         <h6 className="card-text">{listaTareas[0].ciudad}</h6>
                         <p className="card-text">{listaTareas[0].precio}</p>
+                        <p className="card-text">{ parseFecha(listaTareas[0].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -441,7 +457,7 @@ export const Home = () => {
               </div>
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col">
+                  <div className="col over">
 				  {listaTareas[1].foto ? (
                       <img
                         src={
@@ -467,6 +483,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[1].nombre}</h5>
                         <h6 className="card-text">{listaTareas[1].ciudad}</h6>
                         <p className="card-text">{listaTareas[1].precio}</p>
+                        <p className="card-text">{ parseFecha(listaTareas[1].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -474,7 +491,7 @@ export const Home = () => {
               </div>
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col">
+                  <div className="col over">
 				  {listaTareas[2].foto ? (
                       <img
                         src={
@@ -500,6 +517,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[2].nombre}</h5>
                         <h6 className="card-text">{listaTareas[2].ciudad}</h6>
                         <p className="card-text">{listaTareas[2].precio}</p>
+                        <p className="card-text">{ parseFecha(listaTareas[2].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -509,7 +527,7 @@ export const Home = () => {
             <div className="col">
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col">
+                  <div className="col over">
 				  {listaTareas[3].foto ? (
                       <img
                         src={
@@ -535,6 +553,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[3].nombre}</h5>
                         <h6 className="card-text">{listaTareas[3].ciudad}</h6>
                         <p className="card-text">{listaTareas[3].precio}</p>
+                        <p className="card-text">{ parseFecha(listaTareas[3].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -542,7 +561,7 @@ export const Home = () => {
               </div>
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col">
+                  <div className="col over">
 				  {listaTareas[4].foto ? (
                       <img
                         src={
@@ -568,6 +587,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[4].nombre}</h5>
                         <h6 className="card-text">{listaTareas[4].ciudad}</h6>
                         <p className="card-text">{listaTareas[4].precio}</p>
+                        <p className="card-text">{ parseFecha(listaTareas[4].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -575,7 +595,7 @@ export const Home = () => {
               </div>
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col">
+                  <div className="col over">
 				  {listaTareas[5].foto ? (
                       <img
                         src={
@@ -601,6 +621,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[5].nombre}</h5>
                         <h6 className="card-text">{listaTareas[5].ciudad}</h6>
                         <p className="card-text">{listaTareas[5].precio}</p>
+                        <p className="card-text">{ parseFecha(listaTareas[5].fecha)}</p>
                       </div>
                     </Link>
                   </div>
