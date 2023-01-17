@@ -64,7 +64,7 @@ export const OlvidoPassword = () => {
           backgroundImage: `url(${fondo2})`,
         }}
       >
-        {nwpass ? <div>Contraseña enviada</div> : ""}
+        
         <form className="login_form" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="login_icon">
             <FaUserCircle color="white" fontSize="2.5em" />
@@ -75,6 +75,7 @@ export const OlvidoPassword = () => {
           <div>
             <span className="signup_email_valido">{isEmail}</span>
           </div>
+          {nwpass ? <div><h6>Contraseña enviada</h6></div> : ""}
           <div className="login_email">
             <i className="fa fa-user login_icono_email"></i>
             <input
