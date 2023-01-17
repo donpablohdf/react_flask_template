@@ -14,6 +14,8 @@ export const UserHome = () => {
 
   const [listaUsuarios, setListaUsuarios] = useState([]);
   const [actAvatar, setActAvatar] = useState(false);
+  const [pesoImgU, setPesoImgU] = useState();
+
 
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("jwt-token");
@@ -25,6 +27,8 @@ export const UserHome = () => {
     formState: { errors },
   } = useForm(); // declaracion para react-hook-form
   const subeFotoUsr = (data) => {
+    let peso = customFile1.files[0].size;
+    if (peso> 1065443){ setPesoImgU("La imagen no puede superar 1Mb"); return false}
     var formdata = new FormData();
     formdata.append("archivo", customFile1.files[0], data.archivo);
     var requestOptions = {
@@ -118,6 +122,7 @@ export const UserHome = () => {
                   accept=".jpg, .png"
                 />
               </div>
+              <div><span className="signup_email_valido">{pesoImgU}</span></div>
             </form>
           </div>
           <div className="col-4 ps-3 text-start">

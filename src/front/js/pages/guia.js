@@ -24,6 +24,9 @@ export const Guia = () => {
   const [desActi, setDesActi] = useState(false);
   const [actAvatar, setActAvatar] = useState(false);
   const [actAct, setActAct] = useState(false);
+  const [pesoImg, setPesoImg] = useState();
+  const [pesoImgU, setPesoImgU] = useState();
+
 
   const desactivaActividad = (acti) => {
     const url = "/api/desactiva_act/" + acti;
@@ -38,7 +41,9 @@ export const Guia = () => {
     watch,
     formState: { errors },
   } = useForm(); // declaracion para react-hook-form
-  const subeFotoUsr = (data) => {
+  const subeFotoUsr = async (data) => {
+    let peso = customFile1.files[0].size;
+    if (peso> 1065443){ setPesoImgU("La imagen no puede superar 1Mb"); return false}
     var formdata = new FormData();
     formdata.append("archivo", customFile1.files[0], data.archivo);
     var requestOptions = {
@@ -46,13 +51,15 @@ export const Guia = () => {
       body: formdata,
       redirect: "follow",
     };
-    fetch(process.env.BACKEND_URL + "/api/foto_user/" + userid, requestOptions)
+    await fetch(process.env.BACKEND_URL + "/api/foto_user/" + userid, requestOptions)
       .then((response) => response.text())
       .then((result) => setActAvatar(!actAvatar))
       .catch((error) => console.log("error", error));
   };
-  const subeFotoAct = (data, id) => {
+  const subeFotoAct = async (data, id) => {
     let file = document.getElementById("ftActF" + id).files[0];
+    let peso = document.getElementById("ftActF" + id).files[0].size;
+    if (peso> 1065443){ setPesoImg("La imagen no puede superar 1Mb"); return false}
     let nom = document.getElementById("ftActF" + id).value;
     var formdata = new FormData();
     formdata.append("ftAct", file, nom);
@@ -61,7 +68,7 @@ export const Guia = () => {
       body: formdata,
       redirect: "follow",
     };
-    fetch(
+    await fetch(
       process.env.BACKEND_URL + "/api/foto_act/" + id + "/" + userid,
       requestOptions
     )
@@ -144,6 +151,7 @@ export const Guia = () => {
                         accept=".jpg, .png"
                       />
                     </div>
+                    <div><span className="signup_email_valido">{pesoImgU}</span></div>
                   </div>
                 ) : (
                   ""
@@ -261,7 +269,9 @@ export const Guia = () => {
                             value={element.id}
                             id={"id_actividad" + element.id}
                           />
+                           
                         </div>
+                        <div><span className="signup_email_valido">{pesoImg}</span></div>
                       </form>
                     </div>
                   ) : (
