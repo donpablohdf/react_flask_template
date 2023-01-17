@@ -41,16 +41,10 @@ export const ModificaActividad = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: { tipo: false } }); // declaracion para react-hook-form
+  } = useForm(); // declaracion para react-hook-form
 
   useEffect(() => {
-    if (!token) {
-      return (
-        <div className="login-body">
-          <h1 className="bg-danger">No está autorizado</h1>
-        </div>
-      );
-    } else {
+    if (token) {
       actions.logIn();
     }
     const promesa = () => {
@@ -69,14 +63,25 @@ export const ModificaActividad = () => {
 
   let login = false;
   const onSubmit = (data, e) => {
-    let fecha = document.getElementById("fecha").value;
-    let hora = document.getElementById("hora").value;
-    let cuando = fecha + " " + hora;
-    data.fecha = cuando;
+    if (document.getElementById("fecha")) {
+      let fecha = document.getElementById("fecha").value;
+      let hora = document.getElementById("hora").value;
+      let cuando = fecha + " " + hora;
+      data.fecha = cuando;
+    }else{
+      data.ciudad = dataActividad.ciudad
+      data.precio = dataActividad.precio
+      data.fecha = dataActividad.fecha
+
+    }
     e.preventDefault();
+
     const url = "/api/modifica_act/" + params.theid;
     const method = "POST";
-    const head = { "Content-Type": "application/json" };
+    const head = {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    };
     //console.log(data)
     login = actions.solicitudesAPI(url, method, head, data);
     if (login) {
@@ -193,10 +198,13 @@ export const ModificaActividad = () => {
                   <input
                     className="nueva_actividad_input"
                     type="text"
+                    defaultValue={
+                      dataActividad.precio ? dataActividad.precio : ""
+                    }
                     placeholder="Precio"
-                    {...register("ciudad", { required: true })} //crear el name del input y requerido react-hook-form
+                    {...register("precio", { required: true })} //crear el name del input y requerido react-hook-form
                   />
-                  {errors.ciudad && (
+                  {errors.precio && (
                     <span className="signup_password_coincide">
                       EL PRECIO NO PUEDE ESTAR VACIO
                     </span>

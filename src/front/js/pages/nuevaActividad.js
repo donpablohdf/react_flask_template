@@ -62,7 +62,7 @@ export const NuevaActividad = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: { tipo: false } }); // declaracion para react-hook-form
+  } = useForm(); // declaracion para react-hook-form
 
   const onSubmit = (data, e) => {
     let fecha = document.getElementById("fecha").value;
@@ -82,6 +82,7 @@ export const NuevaActividad = () => {
     var requestOptions = {
       method: "POST",
       body: formdata,
+      headers: {'Authorization': 'Bearer '+token },
       redirect: "follow",
     };
 
@@ -139,9 +140,9 @@ export const NuevaActividad = () => {
               <input className="nueva_actividad_input"
                 type="text"
                 placeholder="Precio"
-                {...register("ciudad", { required: true })} //crear el name del input y requerido react-hook-form
+                {...register("precio", { required: true })} //crear el name del input y requerido react-hook-form
                   />
-                  {errors.ciudad && (
+                  {errors.precio && (
                     <span className="signup_password_coincide">
                       EL PRECIO NO PUEDE ESTAR VACIO
                     </span>

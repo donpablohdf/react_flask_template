@@ -150,7 +150,7 @@ export const UserHome = () => {
                         <i className="fas fa-suitcase-rolling userhome_icono_default"></i>
                         <i className="fas fa-plane-departure userhome_icono_hover"></i>
                       </div>
-                      Ir a Actividades
+                      Ir a mis Actividades y mis reservadas
                     </button>
                   </Link>
                 </div>
@@ -179,7 +179,7 @@ export const UserHome = () => {
                     <i className="fas fa-archway userhome_icono_default"></i>
                     <i className="fas fa-wine-glass  userhome_icono_hover"></i>
                   </div>
-                  Ver mis reservas
+                  Ver mis reservas como usuario
                 </button>
               </Link>
             </div>

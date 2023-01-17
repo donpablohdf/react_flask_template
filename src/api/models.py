@@ -296,7 +296,9 @@ class Actividades(db.Model):
             # print(data)
             user = self.query.get(pid)
         if user:
-            if user.ids_usuarios is None:
+            lista_ids_usuarios =  user.ids_usuarios.split(sep=',')
+            if lista_ids_usuarios:
+                
                 if data["nombre"] and user.nombre != data["nombre"]:
                     user.nombre = data["nombre"]
                 else:

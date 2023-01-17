@@ -159,6 +159,7 @@ def handle_acti_index():
     return jsonify({"message": "Error al recuperar datos"}), 400
 
 @api.route('/new_act/<int:guia_id>', methods=['POST', 'GET'])
+@jwt_required()
 def new_act(guia_id):
     if request.method == 'POST':
         if request.files:
@@ -187,6 +188,7 @@ def new_act(guia_id):
         return jsonify("No POST"), 400
 
 @api.route('/modifica_act/<int:act_id>', methods=['POST', 'GET'])
+@jwt_required()
 def act_mod(act_id):
     data = request.get_json()
     mod_act = Actividades.modifica_by_id(act_id, data)

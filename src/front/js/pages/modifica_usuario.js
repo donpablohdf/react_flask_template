@@ -56,7 +56,8 @@ export const ModificaUsuario = () => {
       } else {
         e.preventDefault();
         const url = "/api/modifica_user/" + userid;
-        const method = "POST";        const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
+        const method = "POST";        
+        const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
 
         //console.log(data)
         login = await actions.solicitudesAPI(url, method, head, data);
