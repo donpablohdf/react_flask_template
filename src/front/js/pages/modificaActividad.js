@@ -16,7 +16,8 @@ import { ThemeProvider } from "@material-ui/styles";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
-import "../../styles/login.css";
+import "../../styles/modificaActividad.css";
+import fondo5 from "../../img/fondo5.jpg"
 
 export const ModificaActividad = () => {
   const params = useParams();
@@ -26,11 +27,32 @@ export const ModificaActividad = () => {
   const [dataActividad, setDataActividad] = useState([]);
   const [selectedDate, handleDateChange] = useState(new Date()); //https://material-ui-pickers.dev/
   const materialTheme = createTheme({
+    typography:{
+      fontSize:18,
+      spacing:5,
+      fontWeightBold:600,
+    },
+    palette:{
+      primary:{
+        main:'#9C2C77'
+      }
+    },
     overrides: {
       MuiPickersToolbar: {
         toolbar: {
           backgroundColor: "#FD841F",
         },
+      },
+      MuiPickersDay:{
+        day:{
+          color:"#FD841F",
+        },
+        daySelected:{
+          backgroundColor:"#FD841F",
+        },
+        current:{
+          color:"#FD841F",
+        }
       },
     },
   });
@@ -90,7 +112,7 @@ export const ModificaActividad = () => {
   };
   if (isLoading) {
     return (
-      <div className="login-body">
+      <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
         <h1>Cargando...</h1>
       </div>
     );
@@ -98,18 +120,19 @@ export const ModificaActividad = () => {
 
   if (!token) {
     return (
-      <div className="login-body">
+      <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
         <h1 className="bg-danger">No está autorizado</h1>
       </div>
     );
   } else {
     return (
       <>
-        <div className="login-body">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Modifica la actividad!!</h1>
+        <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
+          <form className="modificaActividad_formulario" onSubmit={handleSubmit(onSubmit)}>
+            <h1 className="modificaActividad_header">¡Modifica tu actividad!</h1>
             {dataActividad.ids_usuarios !== "" ? (
               <>
+              <br></br>
                 <h6>La actividad tiene reservas</h6>
                 <div>
                   <input
@@ -127,7 +150,6 @@ export const ModificaActividad = () => {
                     </span>
                   )}
                 </div>
-                <p></p>
                 <div>
                   <textarea
                     defaultValue={
@@ -141,12 +163,12 @@ export const ModificaActividad = () => {
                     </span>
                   )}
                 </div>
-                <p></p>
               </>
             ) : (
               <>
-                <div>
-                  <input
+                <div  className="modificaActividad_nombre mb-3">
+                <i className="fas fa-map modificaActividad_icono_nombre"></i>
+                  <input  className="modificaActividad_input"
                     id="nombre"
                     type="text"
                     defaultValue={
@@ -155,15 +177,16 @@ export const ModificaActividad = () => {
                     placeholder="Nombre"
                     {...register("nombre", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  <br></br>
                   {errors.nombre && (
                     <span className="signup_password_coincide">
                       EL NOMBRE NO PUEDE ESTAR VACIO
                     </span>
                   )}
                 </div>
-                <p></p>
-                <div>
-                  <textarea
+                <div className="nuevoComentario_comentario">
+                <i className="fas fa-comment modificaActividad_icono_descripcion"></i>
+                  <textarea className="ps-5" rows="10" cols="40"
                     defaultValue={
                       dataActividad.descripcion ? dataActividad.descripcion : ""
                     }
@@ -176,8 +199,9 @@ export const ModificaActividad = () => {
                   )}
                 </div>
                 <p></p>
-                <div>
-                  <input
+                <div className="modificaActividad_nombre mb-3">
+                <i className="fas fa-building modificaActividad_icono_nombre"></i>
+                  <input className="modificaActividad_input"
                     id="ciudad"
                     type="text"
                     defaultValue={

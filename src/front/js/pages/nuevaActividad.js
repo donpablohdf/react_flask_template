@@ -105,10 +105,10 @@ export const NuevaActividad = () => {
       <>
         <div className="nueva_actividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="pb-4">
+            <div className="pb-2">
               <h1 className="nueva_actividad_header">Nueva Actividad</h1>
             </div>
-            <div className="mb-2">
+            <div className="mb-1">
               <i className="fas fa-map nueva_actividad_icono_nombre"></i>
               <input className="nueva_actividad_input"
                 id="nombre"
@@ -116,6 +116,7 @@ export const NuevaActividad = () => {
                 placeholder="Nombre"
                 {...register("nombre", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  <br></br>
                   {errors.nombre && (
                     <span className="signup_password_coincide">
                       EL NOMBRE NO PUEDE ESTAR VACIO
@@ -123,18 +124,18 @@ export const NuevaActividad = () => {
                   )}
             </div>
             <p></p>
-            <div className="mb-2">
+            <div className="mb-1 nuevaActividad_descripcion">
               <i className="fas fa-edit nueva_actividad_icono_descripcion"></i>
               <textarea className="ps-5" rows="6" cols="40"
                 {...register("descripcion", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  <br></br>
                   {errors.descripcion && (
                     <span className="signup_password_coincide">
                       LA DESCRIPCION NO PUEDE ESTAR VACIA
                     </span>
                   )}
             </div>
-            <p></p>
             <div className="mb-2">
               <i className="fas fa-euro-sign nueva_actividad_icono_nombre"></i>
               <input className="nueva_actividad_input"
@@ -142,14 +143,14 @@ export const NuevaActividad = () => {
                 placeholder="Precio"
                 {...register("precio", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  <br></br>
                   {errors.precio && (
                     <span className="signup_password_coincide">
                       EL PRECIO NO PUEDE ESTAR VACIO
                     </span>
                   )}
             </div>
-            <p></p>
-            <div className="mb-2">
+            <div className="mb-0">
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <ThemeProvider theme={materialTheme}>
                   <span className="nueva_actividad_fecha">Fecha: </span>{" "}
@@ -171,15 +172,14 @@ export const NuevaActividad = () => {
                 </ThemeProvider>
               </MuiPickersUtilsProvider>
             </div>
-
-            <p></p>
-            <div className="mb-4">
+            <div className="mb-3">
               <i className="fas fa-building nueva_actividad_icono_nombre"></i>
               <input className="nueva_actividad_input"
                 type="text"
                 placeholder="Ciudad"
                 {...register("ciudad", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  <br></br>
                   {errors.ciudad && (
                     <span className="signup_password_coincide">
                       LA CIUDAD NO PUEDE ESTAR VACIA

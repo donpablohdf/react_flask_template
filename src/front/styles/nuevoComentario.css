@@ -39,4 +39,5 @@
 .nuevoComentario_areatexto{
     background-image: linear-gradient(to right, #f19721, rgba(201, 111, 9, 0.322));
     color:white;
+    width: 95%;
 }

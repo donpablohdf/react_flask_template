@@ -4,9 +4,9 @@
 .nueva_actividad_body{
     padding-top: 120px;
     text-align: center;
-    height: 100%;
+    height: auto;
     width: 100%;
-    padding-bottom: 17vh;
+    padding-bottom: 7vh;
 }
 .nueva_actividad_header{
     color: #9C2C77; 
@@ -22,6 +22,7 @@
     border-radius: 25px;
     border-style: none;
     margin-top: 10px;
+    color: #9C2C77;
 }
 .nueva_actividad_icono_nombre{
     position: absolute;
@@ -29,6 +30,9 @@
     color: #9C2C77;
     padding-left: 27px;
     padding-top: 22px;
+}
+.nuevaActividad_descripcion{
+    color: #9C2C77;
 }
 .nueva_actividad_icono_descripcion{
     position: absolute;

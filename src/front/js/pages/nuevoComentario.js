@@ -60,7 +60,7 @@ export const NuevoComentario = () => {
 
           <div id="input_username" className="nuevoComentario_comentario">
             <i className="fas fa-comment nuevoComentario_icono_comentario"></i>
-            <textarea className="ps-5 nuevoComentario_areatexto" rows="10" cols="40"
+            <textarea className="ps-5 nuevoComentario_areatexto" rows="10" cols="30"
               {...register("texto", { required: true })} //crear el name del input y requerido react-hook-form
             />
           </div>
