@@ -114,3 +114,5 @@ def setup_commands(app):
         print("Test mail conf")
         if os.getenv("MAILJET_KEY") =='': print("MAILJET_KEY no configure in .env")
         if os.getenv("MAILJET_SECRET") =='': print("MAILJET_SECRET no configure in .env")
+        if os.getenv("HUNTER_KEY") =='': print("HUNTER_KEY no configure in .env")
+        if os.getenv("HCAPTCHA") =='': print("HCAPTCHA no configure in .env")

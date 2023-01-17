@@ -65,6 +65,20 @@ It is recomended to install the backend first, make sure you have Python 3.8, Pi
 5. Run the migrations: `$ pipenv run upgrade`
 6. Run the application: `$ pipenv run start`
 
+### Include in .env
+
+Register in https://www.mailjet.com/
+Register in https://hunter.io/
+Register in https://www.hcaptcha.com/
+
+Aand insert in .env
+
+MAILJET_KEY =your_key
+MAILJET_SECRET =your_secret
+
+HUNTER_KEY=your_key
+
+HCAPTCHA=your_key
 ### Backend Populate Table Users
 
 To insert test data in the database execute the following command if pipenv run start:
