@@ -27,6 +27,21 @@ export const Guia = () => {
   const [pesoImg, setPesoImg] = useState();
   const [pesoImgU, setPesoImgU] = useState();
 
+  const parseFecha = (datos) => {
+    let options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    let fecha = new Date(datos);
+    fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+    let fechaF = fecha.toLocaleDateString("es", options);
+    let fechaD = fechaF.charAt(0).toUpperCase() + fechaF.slice(1);
+    return fechaD;
+  };
 
   const desactivaActividad = (acti) => {
     const url = "/api/desactiva_act/" + acti;
@@ -49,6 +64,7 @@ export const Guia = () => {
     var requestOptions = {
       method: "POST",
       body: formdata,
+      headers: {'Authorization': 'Bearer '+token },
       redirect: "follow",
     };
     await fetch(process.env.BACKEND_URL + "/api/foto_user/" + userid, requestOptions)
@@ -66,6 +82,7 @@ export const Guia = () => {
     var requestOptions = {
       method: "POST",
       body: formdata,
+      headers: {'Authorization': 'Bearer '+token },
       redirect: "follow",
     };
     await fetch(
@@ -229,6 +246,13 @@ export const Guia = () => {
                       {element.precio}
                     </span>
                   </p>
+                  <p className="card-text tarjeta_actividad_texto">
+                    Fecha:{" "}
+                    <span className="tarjeta_actividad_variable">
+                    { parseFecha(element.fecha)}
+                    </span>
+                  </p>
+                  
                   {guia.tipo === 1 && userid === params.theid ? (
                     <div className="row">
                       <button className="col-4 mb-3 mx-auto mt-2 guia_boton_modificar">
@@ -331,13 +355,13 @@ export const Guia = () => {
                       <p className="card-text tarjeta_actividad_texto">
                         REALIZADA:{" "}
                         <span className="tarjeta_actividad_variable">
-                          {element.fecha_realizacion}
+                          {parseFecha(element.fecha_realizacion)}
                         </span>
                       </p>
                       <p className="card-text tarjeta_actividad_texto">
                         EMITIDA:{" "}
                         <span className="tarjeta_actividad_variable">
-                          {element.fecha_reserva}
+                          {parseFecha(element.fecha_reserva)}
                         </span>
                       </p>
                     </div>

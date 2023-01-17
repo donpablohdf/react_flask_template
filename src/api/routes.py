@@ -71,6 +71,7 @@ def handle_mod(usuario_id):
 
 
 @api.route('/foto_user/<int:usuario_id>', methods=['POST', 'GET'])
+@jwt_required()
 def handle_foto(usuario_id):
     if request.method == 'POST':
         f = request.files['archivo']
@@ -196,6 +197,7 @@ def act_mod(act_id):
 
 
 @api.route('/foto_act/<int:act_id>/<int:guia_id>', methods=['POST', 'GET'])
+@jwt_required()
 def act_foto(act_id, guia_id):
     if request.method == 'POST':
         f = request.files['ftAct']

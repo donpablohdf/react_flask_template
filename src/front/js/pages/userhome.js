@@ -34,6 +34,7 @@ export const UserHome = () => {
     var requestOptions = {
       method: "POST",
       body: formdata,
+      headers: {'Authorization': 'Bearer '+token },
       redirect: "follow",
     };
     fetch(process.env.BACKEND_URL + "/api/foto_user/" + userid, requestOptions)
