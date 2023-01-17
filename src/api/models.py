@@ -84,8 +84,10 @@ class Users(db.Model):
 
         if pwd != '':
             user_email = self.query.filter_by(email=usuario_email).first()
+            print(user_email)
             if not user_email:
-                return "El email no es válido"
+                print("error")
+                return {"error": "Email no valido"}
             user = self.query.get(user_email.id)
             new_password = generate_password_hash(pwd, method='SHA256')
             user.password = new_password
@@ -117,7 +119,7 @@ class Users(db.Model):
                 return "Enviado password"
             else:
                 #print(str(result.status_code))
-                return "Password no enviado"
+                return {"error": "Password no enviado"}
 
     @classmethod
     def desactiva_by_id(self, pid):
@@ -145,10 +147,11 @@ class Users(db.Model):
         if data:
             
             user = self.query.get(pid)
-            ismail = self.query.filter_by(email=data['email']).first()
+            if user.email!=data['email']:
+                ismail = self.query.filter_by(email=data['email']).first()
         if ismail:
             return {"error": "Email no valido"}
-        if user and not ismail:
+        if user:
             if data['password']:
                 if not check_password_hash(user.password, data['password']):
                     hashed_password = generate_password_hash(
@@ -181,7 +184,7 @@ class Users(db.Model):
                 user.ciudad = user.ciudad
             db.session.commit()
             return "Usuario modificado con exito"
-        return "No se puede cambiar los datos", 401
+        return {"error": "No se pueden cambiar los datos"}
 
     @classmethod
     def new_user(self, user):

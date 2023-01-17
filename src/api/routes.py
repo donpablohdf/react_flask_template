@@ -63,11 +63,10 @@ def handle_del(usuario_id):
 @api.route('/modifica_user/<int:usuario_id>', methods=['POST', 'GET'])
 #@jwt_required()
 def handle_mod(usuario_id):
-    current_user_id = get_jwt_identity()
-    print(current_user_id)
+   
     data = request.get_json()
     mod_user = Users.modifica_by_id(usuario_id, data)
-    print(mod_user)
+    #print(mod_user)
     if (mod_user):
         return jsonify(mod_user), 200
     else:
@@ -120,7 +119,10 @@ def handle_pass():
     data = request.get_json()
     if data["email"]:
         pass_user = Users.pass_by_mail(data["email"])
-        return jsonify(pass_user), 200
+        if (pass_user):
+            return jsonify(pass_user), 200
+        else:
+            return jsonify(pass_user), 400
     else:
         return jsonify("No email"), 400
 

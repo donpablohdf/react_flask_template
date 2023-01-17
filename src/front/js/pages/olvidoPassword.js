@@ -7,12 +7,19 @@ import fondo2 from "../../img/fondo2.jpg";
 import { FaUserCircle } from "react-icons/fa";
 
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export const OlvidoPassword = () => {
-
-  const { actions } = useContext(Context);
-
+  const { actions, store } = useContext(Context);
+  const [isCaptcha, setIsCaptcha] = useState(false);
+  const [isEmail, setIsEmail] = useState();
   const [nwpass, setNwpass] = useState(false);
+  const onVerify = (token) => {
+    if (token) {
+      setIsCaptcha(true);
+    }
+  };
+  
   const {
     register,
     reset,
@@ -22,16 +29,30 @@ export const OlvidoPassword = () => {
   } = useForm(); // declaracion para react-hook-form
 
   let login = false;
-  const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
     e.preventDefault();
+    if (!isCaptcha) {
+      setIsEmail("Debe verificar si es humano");
+      return false;
+    }
     const url = "/api/new_pass";
     const method = "POST";
     const head = { "Content-Type": "application/json" };
     //console.log(email, password)
-    login = actions.solicitudesAPI(url, method, head, data);
-    setNwpass(true)
+   
+    await actions.solicitudesAPI(url, method, head, data);
+    console.log(store.message)
+    if (store.message) {
+      setIsEmail(store.message);
+      store.message = null;
+      setNwpass(false);
+    } else {
+      
+      setNwpass(true);
+      
+    }
+    
   };
-  
 
   return (
     <div className="login-body" style={{ backgroundImage: `url(${fondo2})` }}>
@@ -43,17 +64,17 @@ export const OlvidoPassword = () => {
           backgroundImage: `url(${fondo2})`,
         }}
       >
-        {nwpass ? (
-                <div>
-                  Contraseña enviada
-                </div>
-              ) : (
-                ""
-              )}
+        {nwpass ? <div>Contraseña enviada</div> : ""}
         <form className="login_form" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="login_icon">
             <FaUserCircle color="white" fontSize="2.5em" />
           </h1>
+          <div>
+            <HCaptcha sitekey={process.env.HCAPTCHA} onVerify={onVerify} />
+          </div>
+          <div>
+            <span className="signup_email_valido">{isEmail}</span>
+          </div>
           <div className="login_email">
             <i className="fa fa-user login_icono_email"></i>
             <input
@@ -63,10 +84,10 @@ export const OlvidoPassword = () => {
               {...register("email", { required: true })} //crear el name del input y requerido react-hook-form
             />
             {errors.email && (
-                    <span className="signup_password_coincide">
-                      EL EMAIL NO PUEDE ESTAR VACIO
-                    </span>
-                  )}
+              <span className="signup_password_coincide">
+                EL EMAIL NO PUEDE ESTAR VACIO
+              </span>
+            )}
           </div>
           <p></p>
 
