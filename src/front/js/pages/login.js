@@ -7,9 +7,19 @@ import fondo2 from "../../img/fondo2.jpg";
 import { FaUserCircle } from "react-icons/fa";
 
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+
 
 export const Login = () => {
   const { actions, store } = useContext(Context);
+  const [isCaptcha, setIsCaptcha] = useState(false);
+  const [isEmail, setIsEmail] = useState();
+
+  const onVerify = (token) => {
+    if (token) {
+      setIsCaptcha(true);
+    }
+  };
 
   const {
     register,
@@ -22,6 +32,10 @@ export const Login = () => {
   let login = false;
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    if (!isCaptcha) {
+      setIsEmail("Debe verificar si es humano");
+      return false;
+    }
     const url = "/api/login";
     const method = "POST";
     const head = { "Content-Type": "application/json" };
@@ -45,6 +59,13 @@ export const Login = () => {
           <h1 className="login_icon">
             <FaUserCircle color="white" fontSize="2.5em" />
           </h1>
+          <div>
+            <HCaptcha
+              sitekey={process.env.HCAPTCHA}
+              onVerify={onVerify}
+              
+            />
+          </div>
           <div className="login_email mb-4">
             <i className="fa fa-user login_icono_email"></i>
             <input
@@ -55,6 +76,7 @@ export const Login = () => {
             />
             {/* control de errores react-hook-form */}
             <br></br>
+            <span className="signup_email_valido">{isEmail}</span>
             {errors.email && (
               <span className="mb-4 signup_password_coincide">
                 EL EMAIL NO PUEDE ESTAR VACIO

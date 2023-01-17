@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 import "../../styles/signup.css";
 import fondo2 from "../../img/fondo2.jpg";
@@ -9,6 +10,12 @@ import { element } from "prop-types";
 export const FormSignup = () => {
   const { actions, store } = useContext(Context);
   const [isEmail, setIsEmail] = useState();
+  const [isCaptcha, setIsCaptcha] = useState(false);
+  const onVerify = (token) => {
+    if (token) {
+      setIsCaptcha(true);
+    }
+  };
 
   const {
     register,
@@ -20,6 +27,10 @@ export const FormSignup = () => {
 
   const [errPass, setErrPass] = useState(false);
   const onSubmit = async (data, e) => {
+    if (!isCaptcha) {
+      setIsEmail("Debe verificar si es humano");
+      return false;
+    }
     e.preventDefault();
     // console.log(data)
     const valido = await actions.verifyEmail(data.email);
@@ -28,9 +39,8 @@ export const FormSignup = () => {
     var key = "errors";
     var hasKey = key in obj;
     if (hasKey) {
-
-      setIsEmail("Email no válido")
-      store.verifica=null
+      setIsEmail("Email no válido");
+      store.verifica = null;
     } else {
       const url = "/api/new_user";
       const method = "POST";
@@ -58,9 +68,15 @@ export const FormSignup = () => {
       >
         <form className="signup_form" onSubmit={handleSubmit(onSubmit)}>
           <h2 className="sign_up_encabezado">REGISTRO</h2>
-
+          <div>
+            <HCaptcha
+              sitekey={process.env.HCAPTCHA}
+              onVerify={onVerify}
+            />
+          </div>
           <div id="input_username" className="sign_up_email">
             <i className="fas fa-envelope signup_icono_email"></i>
+
             <input
               className="signup_input"
               type="text"
@@ -119,27 +135,27 @@ export const FormSignup = () => {
         </form>
       </div>
       {errPass ? (
-            <>
-              <span className="signup_password_coincide">
-                LOS PASSWORDS NO COINCIDEN
-              </span>
-            </>
-          ) : (
-            ""
-          )}
-        <br></br>
-          {/* control de errores react-hook-form */}
-          {errors.email && (
-            <span className="signup_password_coincide">
-              EL EMAIL NO PUEDE ESTAR VACIO
-            </span>
-          )}
-          <br></br>
-          {errors.password && (
-            <span className="signup_password_coincide">
-              EL PASSWORD NO PUEDE ESTAR VACIO
-            </span>
-          )}
+        <>
+          <span className="signup_password_coincide">
+            LOS PASSWORDS NO COINCIDEN
+          </span>
+        </>
+      ) : (
+        ""
+      )}
+      <br></br>
+      {/* control de errores react-hook-form */}
+      {errors.email && (
+        <span className="signup_password_coincide">
+          EL EMAIL NO PUEDE ESTAR VACIO
+        </span>
+      )}
+      <br></br>
+      {errors.password && (
+        <span className="signup_password_coincide">
+          EL PASSWORD NO PUEDE ESTAR VACIO
+        </span>
+      )}
     </div>
   );
 };

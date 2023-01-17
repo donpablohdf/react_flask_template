@@ -11,6 +11,7 @@ from datetime import timedelta
 import jwt
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required, get_jwt_identity
 import uuid
 
 
@@ -60,7 +61,10 @@ def handle_del(usuario_id):
 
 
 @api.route('/modifica_user/<int:usuario_id>', methods=['POST', 'GET'])
+#@jwt_required()
 def handle_mod(usuario_id):
+    current_user_id = get_jwt_identity()
+    print(current_user_id)
     data = request.get_json()
     mod_user = Users.modifica_by_id(usuario_id, data)
     print(mod_user)
@@ -104,7 +108,7 @@ def login_user():
             if check_password_hash(user.password, data['password']):
                 token = jwt.encode({'id': user.id, 'exp': datetime.datetime.utcnow(
                 ) + ACCESS_EXPIRES}, SECRET)
-                access_token = create_access_token(token)
+                access_token = create_access_token(identity=token)
                 return jsonify({"token": access_token, "userid":user.id}), 200
             return jsonify({"error": 'no_pass'}), 401
         else:
