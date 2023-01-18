@@ -83,7 +83,7 @@ export const Home = () => {
           data-bs-ride="carousel"
         >
           <div className="carousel-inner">
-            <div className="carousel-item active" data-bs-interval="5000">
+            <div className="carousel-item active" data-bs-interval="3000">
               <img
                 src={montania}
                 className="imagen_carrusel_principal"
@@ -631,6 +631,8 @@ export const Home = () => {
           </div>
         </div>
       </div>
+      {/*<iframe src="https://www.google.com/maps/d/embed?mid=1TtZm77i8M5jbmBvbrnjrdmlTA9AhISg&ehbc=2E312F" width="640" height="480"></iframe>*/}
+      
       {/**FIN OPINIONES */}
 	  {/*COMIENZO OPINIONES*
       <div className="texto-opiniones">

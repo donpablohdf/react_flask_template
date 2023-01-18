@@ -134,9 +134,9 @@ color: Black;
   padding-top: 150px;
   padding-bottom: 100px;
 }
-.imagen-actividad{
+.imagen_actividad{
+  display: block;
 }
-
 .eventos-area {
   position: absolute;
   top: 0;
