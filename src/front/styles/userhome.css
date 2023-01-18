@@ -16,6 +16,20 @@
 .userhome_imagen{
     max-width: 300px;
 }
+.userhome_headers{
+    font-size: 30px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color:#E14D2A;
+    margin-bottom: 2px;
+    
+}
+.userhome_parrafos{
+    color: white;
+    font-size: 20px;
+    text-transform: capitalize;
+    margin-bottom: 2px;
+}
 .userhome_modifica_datos{
     margin-top: 30px;
 }

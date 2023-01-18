@@ -96,7 +96,6 @@ export const UserHome = () => {
           <h1 className="userhome_h1">¡Bienvenid@ de nuevo!</h1>
         </div>
         <div className="container row justify-content-center">
-          <div className="col-3"></div>
           <div className="col-4 ps-5">
             {listaUsuarios.foto ? (
               <img
@@ -127,21 +126,20 @@ export const UserHome = () => {
             </form>
           </div>
           <div className="col-4 ps-3 text-start">
-            <h3>Nombre:</h3>
-            <p>
+            <h3 className="userhome_headers">Nombre:</h3>
+            <p className="userhome_parrafos">
               {listaUsuarios.nombre} {listaUsuarios.apellidos}
             </p>
-            <h3>Email:</h3>
-            <p>{listaUsuarios.email}</p>
-            <h3>Ciudad:</h3>
-            <p>{listaUsuarios.ciudad}</p>
-            <h3>Descripcion:</h3>
-            <p>{listaUsuarios.descripcion}</p>
+            <h3 className="userhome_headers">Email:</h3>
+            <p className="userhome_parrafos">{listaUsuarios.email}</p>
+            <h3 className="userhome_headers">Ciudad:</h3>
+            <p className="userhome_parrafos">{listaUsuarios.ciudad}</p>
+            <h3 className="userhome_headers">Descripcion:</h3>
+            <p className="userhome_parrafos">{listaUsuarios.descripcion}</p>
           </div>
         </div>
         <div className="userhome_modifica_datos">
           <div className="container row justify-content-center mb-3">
-            <div className="col"></div>
             {listaUsuarios.tipo == 1 ? (
               <>
                 <div className="col">
@@ -151,7 +149,7 @@ export const UserHome = () => {
                         <i className="fas fa-suitcase-rolling userhome_icono_default"></i>
                         <i className="fas fa-plane-departure userhome_icono_hover"></i>
                       </div>
-                      Ir a mis Actividades y mis reservadas
+                      Mis Actividades como Guía
                     </button>
                   </Link>
                 </div>
@@ -172,7 +170,6 @@ export const UserHome = () => {
             </div>
           </div>
           <div className="container row justify-content-center">
-            <div className="col"></div>
             <div className="col">
               <Link to={"/reservas/" + userid}>
                 <button className="userhome_reservas">
@@ -180,7 +177,7 @@ export const UserHome = () => {
                     <i className="fas fa-archway userhome_icono_default"></i>
                     <i className="fas fa-wine-glass  userhome_icono_hover"></i>
                   </div>
-                  Ver mis reservas como usuario
+                  Mis Reservas
                 </button>
               </Link>
             </div>
