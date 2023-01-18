@@ -1,9 +1,8 @@
 .modificaActividad_body{
     padding-top: 110px;
     text-align: center;
-    height: 90vh;
+    height: auto;
     width: 100%;
-    padding-bottom: 26vh;
   }
   .modificaActividad_header{
     color: #9C2C77; 
@@ -54,4 +53,58 @@
     padding-top: 10px;
     font-size: 25px;
     color: #9C2C77;
+}
+.modificaActividad_boton_modificar_contenedor{
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    width: 300px;
+    height: 55px;
+    margin: 0 15px;
+    perspective: 1000px;
+}
+.modificaActividad_boton_modificar{
+    position: relative;
+    width: 80%;
+    background-image: linear-gradient(to bottom, #9C2C77, rgba(201, 9, 89, 0.322));
+    color: white;
+    font-size: 30px;
+    border:none;
+    border-radius: 4px;
+    padding: 5px 20px 10px 50px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.modificaActividad_boton_iconos{
+    margin: 0px 30px 0 10px;
+}
+.modificaActividad_icono_default{
+    position: absolute;
+    top: 12px;
+    left: 40px;
+    display: block;
+    transition: opacity .3s, transform .3s;
+}
+.modificaActividad_icono_hover{
+    position: absolute;
+    top: 12px;
+    left: 40px;
+    display: block;
+    transition: opacity .3s, transform .3s;
+    transform: rotate(-180deg) scale(.5);
+    opacity: 0;
+}
+.modificaActividad_boton_modificar:hover{
+    background-image: linear-gradient(to bottom, #FD841F, rgba(245, 169, 97, 0.322));
+    box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #FD841F;
+    transform: scale(1.1);
+}
+.modificaActividad_boton_modificar:hover .modificaActividad_icono_hover{
+    transform: rotate(0deg) scale(1.2);
+    opacity: 1; 
+}
+.modificaActividad_boton_modificar:hover .modificaActividad_icono_default{
+    transform: rotate(180deg) scale(1);
+	opacity: 0;
 }

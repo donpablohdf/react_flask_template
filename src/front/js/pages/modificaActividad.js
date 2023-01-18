@@ -192,13 +192,13 @@ export const ModificaActividad = () => {
                     }
                     {...register("descripcion", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  <br></br>
                   {errors.descripcion && (
                     <span className="signup_password_coincide">
                       LA DESCRIPCION NO PUEDE ESTAR VACIA
                     </span>
                   )}
                 </div>
-                <p></p>
                 <div className="modificaActividad_nombre mb-3">
                 <i className="fas fa-building modificaActividad_icono_nombre"></i>
                   <input className="modificaActividad_input"
@@ -210,14 +210,14 @@ export const ModificaActividad = () => {
                     placeholder="Ciudad"
                     {...register("ciudad", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  <br></br>
                   {errors.ciudad && (
                     <span className="signup_password_coincide">
                       LA CIUDAD NO PUEDE ESTAR VACIA
                     </span>
                   )}
                 </div>
-                <p></p>
-                <div className="mb-2">
+                <div className="mb-3">
                   <i className="fas fa-euro-sign nueva_actividad_icono_nombre"></i>
                   <input
                     className="nueva_actividad_input"
@@ -228,14 +228,14 @@ export const ModificaActividad = () => {
                     placeholder="Precio"
                     {...register("precio", { required: true })} //crear el name del input y requerido react-hook-form
                   />
+                  <br></br>
                   {errors.precio && (
                     <span className="signup_password_coincide">
                       EL PRECIO NO PUEDE ESTAR VACIO
                     </span>
                   )}
                 </div>
-                <p></p>
-                <div>
+                <div className="mb-3">
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <ThemeProvider theme={materialTheme}>
                       <span>Fecha</span>{" "}
@@ -255,11 +255,18 @@ export const ModificaActividad = () => {
                     </ThemeProvider>
                   </MuiPickersUtilsProvider>
                 </div>
-                <p></p>
               </>
             )}
-
-            <button type="submit">Modificar</button>
+            <div className="modificaActividad_boton_modificar_contenedor mb-5">
+              <button className="modificaActividad_boton_modificar" type="submit">
+                <div className="modificaActividad_boton_iconos">
+                  <i className="fas fa-square modificaActividad_icono_default"></i>
+                  <i className="fas fa-check-square modificaActividad_icono_hover"></i>
+                </div>
+                  Modificar
+              </button>
+            </div>
+            
           </form>
         </div>
       </>
