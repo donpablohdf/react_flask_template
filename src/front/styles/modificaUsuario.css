@@ -14,7 +14,7 @@
     margin: 0 0 16px;
 }
 .modifica_usuario_form{
-    height: 100%;
+    height: auto;
 }
 .modifica_usuario_input{
     height:50px;
@@ -61,6 +61,18 @@
     color: #9C2C77;
     padding-left: 30px;
     padding-top: 24px;
+}
+.modifica_usuario_texto_check{
+    font-size: 25px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color:#9C2C77;
+}
+.modifica_usuario_check{
+    margin-left: 15px;
+    height: 10px;
+    transform: scale(2);
+    margin-bottom: 15px;
 }
 .modifica_usuario_icono_descripcion{
     position: absolute;

@@ -109,9 +109,9 @@ export const ModificaUsuario = () => {
             <h1 className="modifica_usuario_header">Modifica tus datos</h1>
           </div>
           <div
-            className="container modifica_usuario_espacio border border-white rounded pt-4"
+            className="container modifica_usuario_espacio border border-white rounded py-5"
             style={{
-              height: "620px",
+              height: "auto",
               maxWidth: "600px",
               backgroundImage: `url(${fondo4})`,
               backgroundSize: `cover`,
@@ -178,11 +178,10 @@ export const ModificaUsuario = () => {
                   {...register("ciudad")} //crear el name del input y requerido react-hook-form
                 />
               </div>
-              <p></p>
               {listaUsuarios.tipo == 0 ? (
                 <div>
-                  <label>Quiero ser guía</label>
-                  <input
+                  <label className="modifica_usuario_texto_check">Quiero ser guía</label>
+                  <input className="modifica_usuario_check"
                     type="checkbox"
                     {...register("tipo")}
                     id="tipo"
@@ -198,7 +197,6 @@ export const ModificaUsuario = () => {
                   value={listaUsuarios.tipo ? listaUsuarios.tipo : "1"}
                 />
               )}
-              <p></p>
               {listaUsuarios.tipo == 1 || esGuia ? (
                 <div className="mb-2">
                   <i className="fas fa-user-edit modifica_usuario_icono_descripcion"></i>
