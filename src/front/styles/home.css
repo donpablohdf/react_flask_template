@@ -135,7 +135,6 @@ color: Black;
   padding-bottom: 100px;
 }
 .imagen-actividad{
-  object-fit: cover;
 }
 
 .eventos-area {
@@ -257,10 +256,10 @@ color: Black;
 .card-text{
   color: #9C2C77;
 }
-.over{
+/*.over{
   width: 265px;
   height: 179px;
   overflow: hidden;
-}
+}*/
 
 /*FINAL COMENTARIOS*/

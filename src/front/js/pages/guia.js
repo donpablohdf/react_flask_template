@@ -153,7 +153,7 @@ export const Guia = () => {
                 {guia.foto ? (
                   <img
                     src={process.env.BACKEND_URL + "/" + guia.foto}
-                    className="imagen_actividad_header"
+                    className="imagen_actividad_header card-img-top"
                     alt="..."
                   />
                 ) : (
@@ -229,11 +229,11 @@ export const Guia = () => {
               {" "}
               {/*Link a la pagina de actividades + index. Variable global en flux.js */}
               <div className="card h-100">
-                <div className="over">
+                <div className="guia_over">
                   {element.foto ? (
                     <img
                       src={process.env.BACKEND_URL + "/" + element.foto}
-                      className="imagen_actividad_header"
+                      className=" card-img-top imagen_actividad_header"
                       alt="..."
                     />
                   ) : (

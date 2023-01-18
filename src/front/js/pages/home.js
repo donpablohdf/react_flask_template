@@ -422,25 +422,25 @@ export const Home = () => {
             <div className="col">
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col over">
+                  <div className="col-md-4">
                     {listaTareas[0].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[0].foto
                         }
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     ) : (
                       <img
                         src={bosque}
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     )}
                     
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-8">
                     <Link to={"/actividades/" + listaTareas[0].id}>
                       <div
                         id="actividadesSugeridas"
@@ -457,24 +457,24 @@ export const Home = () => {
               </div>
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col over">
+                  <div className="col-md-4">
 				  {listaTareas[1].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[1].foto
                         }
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     ) : (
                       <img
                         src={bosque}
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     )}
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-8">
                     <Link to={"/actividades/" + listaTareas[1].id}>
                       <div
                         id="actividadesSugeridas"
@@ -491,24 +491,24 @@ export const Home = () => {
               </div>
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col over">
+                  <div className="col-md-4">
 				  {listaTareas[2].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[2].foto
                         }
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     ) : (
                       <img
                         src={bosque}
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     )}
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-8">
                     <Link to={"/actividades/" + listaTareas[2].id}>
                       <div
                         id="actividadesSugeridas"
@@ -527,24 +527,24 @@ export const Home = () => {
             <div className="col">
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col over">
+                  <div className="col-md-4">
 				  {listaTareas[3].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[3].foto
                         }
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     ) : (
                       <img
                         src={bosque}
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     )}
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-8">
                     <Link to={"/actividades/" + listaTareas[3].id}>
                       <div
                         id="actividadesSugeridas"
@@ -561,24 +561,24 @@ export const Home = () => {
               </div>
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col over">
+                  <div className="col-md-4">
 				  {listaTareas[4].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[4].foto
                         }
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     ) : (
                       <img
                         src={bosque}
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     )}
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-8">
                     <Link to={"/actividades/" + listaTareas[4].id}>
                       <div
                         id="actividadesSugeridas"
@@ -595,24 +595,24 @@ export const Home = () => {
               </div>
               <div className="card mb-5">
                 <div className="row g-0">
-                  <div className="col over">
+                  <div className="col-md-4">
 				  {listaTareas[5].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[5].foto
                         }
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     ) : (
                       <img
                         src={bosque}
-                        className="img-fluid imagen-actividad"
+                        className="imagen-actividad card-img-top"
                         alt="..."
                       />
                     )}
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-8">
                     <Link to={"/actividades/" + listaTareas[5].id}>
                       <div
                         id="actividadesSugeridas"

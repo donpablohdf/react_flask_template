@@ -30,11 +30,6 @@ a:hover{
     width: 100%;
     cursor: pointer;
 }
-
-.imagen_actividad_header{
-    max-height: 300px;
-    object-fit: cover;
-}
 .texto_actividades{
     text-align: center;
     font-size: 60px;
@@ -491,11 +486,7 @@ a:hover{
   #src-file1::before {
     content: 'Cambiar foto';
   }
-  .over{
-    width: 400px;
-    height: 270px;
-    overflow: hidden;
-  }
+  
   
   
   
