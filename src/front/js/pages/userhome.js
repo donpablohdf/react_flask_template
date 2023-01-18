@@ -75,13 +75,25 @@ export const UserHome = () => {
   if (!listaUsuarios.nombre || listaUsuarios.nombre === "") {
     return (
       <div
-        className="userhome_body"
+        className="userhome_body_rellena_perfil"
         style={{ backgroundImage: `url(${fondo3})` }}
       >
-        <h1>Para continuar debe rellenar su perfil</h1>
-        <Link to="/modifica_usuario">
-          <button>Rellenar mi perfil</button>
-        </Link>
+        <div className="container">
+          <div>
+            <h1 className="userhome_rellena_perfil_h1">Para continuar debe rellenar su perfil</h1>
+          </div>
+          <div className="userhome_rellena_perfil_boton_contenedor">
+            <Link to="/modifica_usuario">
+              <button className="userhome_modifica">
+                <div className="userhome_iconos">
+                  <i className="fas fa-home userhome_icono_default"></i>
+                  <i className="fas fa-pencil-alt userhome_icono_hover"></i>
+                </div>
+                Rellenar mi perfil
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }

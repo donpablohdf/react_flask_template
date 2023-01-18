@@ -1,3 +1,24 @@
+.userhome_body_rellena_perfil{
+    height: 90vh;
+}
+.userhome_rellena_perfil_h1{
+    padding-top: 20vh;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    color: #9C2C77; 
+     
+    font-size: 60px; 
+    font-weight: 800; 
+    line-height: 60px;
+}
+.userhome_rellena_perfil_boton_contenedor{
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+.userhome_rellena_perfil_boton{
+}
 .userhome_body{
     padding-top: 120px;
     text-align: center;
