@@ -163,8 +163,7 @@ def handle_acti_index():
 @api.route('/new_act/<int:guia_id>', methods=['POST', 'GET'])
 @jwt_required()
 def new_act(guia_id):
-    headers = request.headers
-    print(headers)
+    
     if request.method == 'POST':
         if request.files:
             f = request.files['archivo']
