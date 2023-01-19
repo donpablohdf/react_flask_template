@@ -82,7 +82,7 @@ export const NuevaActividad = () => {
     var requestOptions = {
       method: "POST",
       body: formdata,
-      headers: {'Authorization': 'Bearer '+token },
+      headers: { Authorization: "Bearer " + token },
       redirect: "follow",
     };
 

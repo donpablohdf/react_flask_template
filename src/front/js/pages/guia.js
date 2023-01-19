@@ -46,7 +46,7 @@ export const Guia = () => {
   const desactivaActividad = (acti) => {
     const url = "/api/desactiva_act/" + acti;
     actions.dataFromAPI(url);
-    setDesActi(true);
+    setDesActi(!desActi);
   };
   const {
     register,
