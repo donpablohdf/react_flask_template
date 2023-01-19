@@ -161,7 +161,7 @@ def handle_acti_index():
     return jsonify({"message": "Error al recuperar datos"}), 400
 
 @api.route('/new_act/<int:guia_id>', methods=['POST', 'GET'])
-@jwt_required()
+#@jwt_required()
 def new_act(guia_id):
     if request.method == 'POST':
         if request.files:
