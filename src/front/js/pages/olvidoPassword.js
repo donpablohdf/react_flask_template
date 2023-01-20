@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
 import { Link } from "react-router-dom";
@@ -19,7 +19,7 @@ export const OlvidoPassword = () => {
       setIsCaptcha(true);
     }
   };
-  
+
   const {
     register,
     reset,
@@ -37,9 +37,9 @@ export const OlvidoPassword = () => {
     }
     const url = "/api/new_pass";
     const method = "POST";
-    const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
+    const head = { "Content-Type": "application/json", 'Authorization': 'Bearer ' + token };
     //console.log(email, password)
-   
+
     await actions.solicitudesAPI(url, method, head, data);
     //console.log(store.message)
     if (store.message) {
@@ -47,11 +47,11 @@ export const OlvidoPassword = () => {
       store.message = null;
       setNwpass(false);
     } else {
-      
+
       setNwpass(true);
-      
+
     }
-    
+
   };
 
   return (
@@ -64,7 +64,7 @@ export const OlvidoPassword = () => {
           backgroundImage: `url(${fondo2})`,
         }}
       >
-        
+
         <form className="login_form" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="login_icon">
             <FaUserCircle color="white" fontSize="2.5em" />

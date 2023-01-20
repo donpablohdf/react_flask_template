@@ -1,11 +1,10 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 import "../../styles/signup.css";
 import fondo2 from "../../img/fondo2.jpg";
-import { element } from "prop-types";
 
 export const FormSignup = () => {
   const { actions, store } = useContext(Context);

@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Guia } from "./guia";
 import DateFnsUtils from "@date-io/date-fns"; //https://material-ui-pickers.dev/
 import {
   DatePicker,
@@ -27,14 +25,14 @@ export const ModificaActividad = () => {
   const [dataActividad, setDataActividad] = useState([]);
   const [selectedDate, handleDateChange] = useState(new Date()); //https://material-ui-pickers.dev/
   const materialTheme = createTheme({
-    typography:{
-      fontSize:18,
-      spacing:5,
-      fontWeightBold:600,
+    typography: {
+      fontSize: 18,
+      spacing: 5,
+      fontWeightBold: 600,
     },
-    palette:{
-      primary:{
-        main:'#9C2C77'
+    palette: {
+      primary: {
+        main: '#9C2C77'
       }
     },
     overrides: {
@@ -43,15 +41,15 @@ export const ModificaActividad = () => {
           backgroundColor: "#FD841F",
         },
       },
-      MuiPickersDay:{
-        day:{
-          color:"#FD841F",
+      MuiPickersDay: {
+        day: {
+          color: "#FD841F",
         },
-        daySelected:{
-          backgroundColor:"#FD841F",
+        daySelected: {
+          backgroundColor: "#FD841F",
         },
-        current:{
-          color:"#FD841F",
+        current: {
+          color: "#FD841F",
         }
       },
     },
@@ -90,7 +88,7 @@ export const ModificaActividad = () => {
       let hora = document.getElementById("hora").value;
       let cuando = fecha + " " + hora;
       data.fecha = cuando;
-    }else{
+    } else {
       data.ciudad = dataActividad.ciudad
       data.precio = dataActividad.precio
       data.fecha = dataActividad.fecha
@@ -112,7 +110,7 @@ export const ModificaActividad = () => {
   };
   if (isLoading) {
     return (
-      <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
+      <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`, backgroundSize: `cover` }}>
         <h1>Cargando...</h1>
       </div>
     );
@@ -120,19 +118,19 @@ export const ModificaActividad = () => {
 
   if (!token) {
     return (
-      <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
+      <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`, backgroundSize: `cover` }}>
         <h1 className="bg-danger">No está autorizado</h1>
       </div>
     );
   } else {
     return (
       <>
-        <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`,backgroundSize:`cover`}}>
+        <div className="modificaActividad_body" style={{ backgroundImage: `url(${fondo5})`, backgroundSize: `cover` }}>
           <form className="modificaActividad_formulario" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="modificaActividad_header">¡Modifica tu actividad!</h1>
             {dataActividad.ids_usuarios !== "" ? (
               <>
-              <br></br>
+                <br></br>
                 <h6>La actividad tiene reservas</h6>
                 <div>
                   <input
@@ -166,9 +164,9 @@ export const ModificaActividad = () => {
               </>
             ) : (
               <>
-                <div  className="modificaActividad_nombre mb-3">
-                <i className="fas fa-map modificaActividad_icono_nombre"></i>
-                  <input  className="modificaActividad_input"
+                <div className="modificaActividad_nombre mb-3">
+                  <i className="fas fa-map modificaActividad_icono_nombre"></i>
+                  <input className="modificaActividad_input"
                     id="nombre"
                     type="text"
                     defaultValue={
@@ -185,7 +183,7 @@ export const ModificaActividad = () => {
                   )}
                 </div>
                 <div className="nuevoComentario_comentario">
-                <i className="fas fa-comment modificaActividad_icono_descripcion"></i>
+                  <i className="fas fa-comment modificaActividad_icono_descripcion"></i>
                   <textarea className="ps-5" rows="10" cols="40"
                     defaultValue={
                       dataActividad.descripcion ? dataActividad.descripcion : ""
@@ -200,7 +198,7 @@ export const ModificaActividad = () => {
                   )}
                 </div>
                 <div className="modificaActividad_nombre mb-3">
-                <i className="fas fa-building modificaActividad_icono_nombre"></i>
+                  <i className="fas fa-building modificaActividad_icono_nombre"></i>
                   <input className="modificaActividad_input"
                     id="ciudad"
                     type="text"
@@ -263,10 +261,10 @@ export const ModificaActividad = () => {
                   <i className="fas fa-square modificaActividad_icono_default"></i>
                   <i className="fas fa-check-square modificaActividad_icono_hover"></i>
                 </div>
-                  Modificar
+                Modificar
               </button>
             </div>
-            
+
           </form>
         </div>
       </>

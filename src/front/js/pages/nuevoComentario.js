@@ -1,7 +1,6 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
-import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
 
 import "../../styles/nuevoComentario.css";
@@ -37,7 +36,7 @@ export const NuevoComentario = () => {
     // console.log(data)
     const url = "/api/comen_new/" + params.theid + "/" + userid;
     const method = "POST";
-    const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
+    const head = { "Content-Type": "application/json", 'Authorization': 'Bearer ' + token };
 
     const login = actions.solicitudesAPI(url, method, head, data);
     if (login) {
