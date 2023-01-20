@@ -44,8 +44,8 @@ export const Home = () => {
 
   useEffect(() => {
     if (token) {
-		  actions.logIn();
-		}
+      actions.logIn();
+    }
     const promesaGuias = () => {
       return new Promise((resolve, reject) => {
         resolve(actions.dataFromAPI("/api/usuarios_index"));
@@ -63,6 +63,7 @@ export const Home = () => {
     };
     promesaActividades().then((datos) => {
       setListaTareas(datos);
+
       setIsLoading2(false);
     });
   }, []);
@@ -78,89 +79,89 @@ export const Home = () => {
     <div className="cuerpo_home">
       {/**COMIENZO CARRUSEL PRINCIPAL */}
       <div
-          id="carouselExampleCaptions"
-          className="carousel slide carousel-fade"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-inner">
-            <div className="carousel-item active" data-bs-interval="3000">
-              <img
-                src={montania}
-                className="imagen_carrusel_principal"
-                alt="..."
-              />
-              <div className="carousel-caption d-md-block">
-                <h5>DESCUBRE TU CIUDAD</h5>
-                <h1 className="display-1">NUEVOS VIAJES</h1>
-                <p>
-                  Some representative placeholder content for the first slide.
-                </p>
-              </div>
-            </div>
-            <div className="carousel-item" data-bs-interval="3000">
-              <img
-                src={bosque}
-                className="imagen_carrusel_principal"
-                alt="..."
-              />
-              <div className="carousel-caption d-md-block">
-                <h5>DESCUBRE TU CIUDAD</h5>
-                <h1 className="display-1">NUEVAS AVENTURAS</h1>
-                <p>
-                  Some representative placeholder content for the second slide.
-                </p>
-              </div>
-            </div>
-            <div className="carousel-item" data-bs-interval="3000">
-              <img
-                src={playa}
-                className="imagen_carrusel_principal"
-                alt="..."
-              />
-              <div className="carousel-caption d-md-block">
-                <h5>DESCUBRE TU CIUDAD</h5>
-                <h1 className="display-1">NUEVAS EXPERIENCIAS</h1>
-                <p>
-                  Some representative placeholder content for the third slide.
-                </p>
-              </div>
+        id="carouselExampleCaptions"
+        className="carousel slide carousel-fade"
+        data-bs-ride="carousel"
+      >
+        <div className="carousel-inner">
+          <div className="carousel-item active" data-bs-interval="3000">
+            <img
+              src={montania}
+              className="imagen_carrusel_principal"
+              alt="..."
+            />
+            <div className="carousel-caption d-md-block">
+              <h5>DESCUBRE TU CIUDAD</h5>
+              <h1 className="display-1">NUEVOS VIAJES</h1>
+              <p>
+                Some representative placeholder content for the first slide.
+              </p>
             </div>
           </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-      </div>
-        {/**FIN CARRUSEL PRINCIPAL */}
-        {/**COMIENZO TEXTO OH MY TOWN */}
-        <div>
-          <h3 className="d-flex justify-content-center mt-3">
-            DESCUBRE TU CIUDAD CON
-          </h3>
-          <h1 className="d-flex justify-content-center display-2 mb-5">
-            NUESTROS GUIAS
-          </h1>
+          <div className="carousel-item" data-bs-interval="3000">
+            <img
+              src={bosque}
+              className="imagen_carrusel_principal"
+              alt="..."
+            />
+            <div className="carousel-caption d-md-block">
+              <h5>DESCUBRE TU CIUDAD</h5>
+              <h1 className="display-1">NUEVAS AVENTURAS</h1>
+              <p>
+                Some representative placeholder content for the second slide.
+              </p>
+            </div>
+          </div>
+          <div className="carousel-item" data-bs-interval="3000">
+            <img
+              src={playa}
+              className="imagen_carrusel_principal"
+              alt="..."
+            />
+            <div className="carousel-caption d-md-block">
+              <h5>DESCUBRE TU CIUDAD</h5>
+              <h1 className="display-1">NUEVAS EXPERIENCIAS</h1>
+              <p>
+                Some representative placeholder content for the third slide.
+              </p>
+            </div>
+          </div>
         </div>
+        <button
+          className="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev"
+        >
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button
+          className="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next"
+        >
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
+          <span className="visually-hidden">Next</span>
+        </button>
+      </div>
+      {/**FIN CARRUSEL PRINCIPAL */}
+      {/**COMIENZO TEXTO OH MY TOWN */}
+      <div>
+        <h3 className="d-flex justify-content-center mt-3">
+          DESCUBRE TU CIUDAD CON
+        </h3>
+        <h1 className="d-flex justify-content-center display-2 mb-5">
+          NUESTROS GUIAS
+        </h1>
+      </div>
       {/**FIN TEXTO OH MY TOWN */}
       {/**COMIENZO CARRUSEL GUIAS */}
       {/**{listaUsuarios.map((usuario,index) =>*/}
@@ -438,7 +439,7 @@ export const Home = () => {
                         alt="..."
                       />
                     )}
-                    
+
                   </div>
                   <div className="col-md-8">
                     <Link to={"/actividades/" + listaTareas[0].id}>
@@ -449,7 +450,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[0].nombre}</h5>
                         <h6 className="card-text">{listaTareas[0].ciudad}</h6>
                         <p className="card-text">{listaTareas[0].precio}</p>
-                        <p className="card-text">{ parseFecha(listaTareas[0].fecha)}</p>
+                        <p className="card-text">{parseFecha(listaTareas[0].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -458,7 +459,7 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col-md-4">
-				  {listaTareas[1].foto ? (
+                    {listaTareas[1].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[1].foto
@@ -483,7 +484,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[1].nombre}</h5>
                         <h6 className="card-text">{listaTareas[1].ciudad}</h6>
                         <p className="card-text">{listaTareas[1].precio}</p>
-                        <p className="card-text">{ parseFecha(listaTareas[1].fecha)}</p>
+                        <p className="card-text">{parseFecha(listaTareas[1].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -492,7 +493,7 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col-md-4">
-				  {listaTareas[2].foto ? (
+                    {listaTareas[2].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[2].foto
@@ -517,7 +518,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[2].nombre}</h5>
                         <h6 className="card-text">{listaTareas[2].ciudad}</h6>
                         <p className="card-text">{listaTareas[2].precio}</p>
-                        <p className="card-text">{ parseFecha(listaTareas[2].fecha)}</p>
+                        <p className="card-text">{parseFecha(listaTareas[2].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -528,7 +529,7 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col-md-4">
-				  {listaTareas[3].foto ? (
+                    {listaTareas[3].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[3].foto
@@ -553,7 +554,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[3].nombre}</h5>
                         <h6 className="card-text">{listaTareas[3].ciudad}</h6>
                         <p className="card-text">{listaTareas[3].precio}</p>
-                        <p className="card-text">{ parseFecha(listaTareas[3].fecha)}</p>
+                        <p className="card-text">{parseFecha(listaTareas[3].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -562,7 +563,7 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col-md-4">
-				  {listaTareas[4].foto ? (
+                    {listaTareas[4].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[4].foto
@@ -587,7 +588,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[4].nombre}</h5>
                         <h6 className="card-text">{listaTareas[4].ciudad}</h6>
                         <p className="card-text">{listaTareas[4].precio}</p>
-                        <p className="card-text">{ parseFecha(listaTareas[4].fecha)}</p>
+                        <p className="card-text">{parseFecha(listaTareas[4].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -596,7 +597,7 @@ export const Home = () => {
               <div className="card mb-5">
                 <div className="row g-0">
                   <div className="col-md-4">
-				  {listaTareas[5].foto ? (
+                    {listaTareas[5].foto ? (
                       <img
                         src={
                           process.env.BACKEND_URL + "/" + listaTareas[5].foto
@@ -621,7 +622,7 @@ export const Home = () => {
                         <h5 className="card-title">{listaTareas[5].nombre}</h5>
                         <h6 className="card-text">{listaTareas[5].ciudad}</h6>
                         <p className="card-text">{listaTareas[5].precio}</p>
-                        <p className="card-text">{ parseFecha(listaTareas[5].fecha)}</p>
+                        <p className="card-text">{parseFecha(listaTareas[5].fecha)}</p>
                       </div>
                     </Link>
                   </div>
@@ -632,9 +633,9 @@ export const Home = () => {
         </div>
       </div>
       {/*<iframe src="https://www.google.com/maps/d/embed?mid=1TtZm77i8M5jbmBvbrnjrdmlTA9AhISg&ehbc=2E312F" width="640" height="480"></iframe>*/}
-      
+
       {/**FIN OPINIONES */}
-	  {/*COMIENZO OPINIONES*
+      {/*COMIENZO OPINIONES*
       <div className="texto-opiniones">
         <h1 className="d-flex justify-content-center display-2 my-5 texto_clientes">
           NUESTROS CLIENTES OPINAN
