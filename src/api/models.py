@@ -12,13 +12,6 @@ from os import remove
 
 from datetime import datetime, timedelta
 
-
-# import base64
-# from email.mime.multipart import MIMEMultipart
-# from email.mime.text import MIMEText
-# import smtplib
-
-
 API_KEY = os.getenv("MAILJET_KEY")
 SECRET_MAIL = os.getenv("MAILJET_SECRET")
 mailjet = Client(auth=(API_KEY, SECRET_MAIL), version='v3.1')

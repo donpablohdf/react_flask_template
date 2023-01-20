@@ -16,7 +16,7 @@ import uuid
 
 
 api = Blueprint('api', __name__)
-ACCESS_EXPIRES = timedelta(hours=24)
+
 
 @api.route('/usuarios_index', methods=['POST', 'GET'])
 def handle_usu_index():
@@ -94,6 +94,7 @@ def handle_new():
 
 @api.route('/login', methods=['POST', 'GET'])
 def login_user():
+    ACCESS_EXPIRES = timedelta(hours=24)
     data = request.get_json()
     SECRET = os.getenv('FLASK_APP_KEY')  # variable ENV
     if not data:
