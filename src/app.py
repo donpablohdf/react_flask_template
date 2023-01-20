@@ -31,6 +31,7 @@ db.init_app(app)
 
 # Configura la extensión Flask-JWT-Extended
 app.config["JWT_SECRET_KEY"] = "franpablodonato"
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt = JWTManager(app)
 
 # Allow CORS requests to this API

@@ -94,18 +94,15 @@ def handle_new():
 
 @api.route('/login', methods=['POST', 'GET'])
 def login_user():
-    ACCESS_EXPIRES = timedelta(hours=24)
     data = request.get_json()
-    SECRET = os.getenv('FLASK_APP_KEY')  # variable ENV
     if not data:
         return jsonify({"error": 'Sin datos'}), 401
-
     user = Users.query.filter_by(email=data['email']).first()
     if user:
         if user.activo==1:
             if check_password_hash(user.password, data['password']):
-                token = jwt.encode({'id': user.id, 'exp': datetime.datetime.utcnow(
-                ) + ACCESS_EXPIRES}, SECRET)
+                SECRET = os.getenv('FLASK_APP_KEY')  # variable ENV
+                token = jwt.encode({'id': user.id, }, SECRET)
                 access_token = create_access_token(token)
                 return jsonify({"token": access_token, "userid":user.id}), 200
             return jsonify({"error": 'Contraseña incorrecta'}), 401
