@@ -13,13 +13,19 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
+from datetime import datetime, timedelta
+import ssl
+
+
+
+context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+context.load_cert_chain('/etc/letsencrypt/live/yogaconmuhan.es/fullchain.pem', '/etc/letsencrypt/live/yogaconmuhan.es/privkey.pem')
 
 load_dotenv()
 ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-
 # database configuration
 db_url = os.getenv("DATABASE_URL")
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
@@ -35,10 +41,10 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt = JWTManager(app)
 
 # Allow CORS requests to this API
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*", "methods": "GET,HEAD,PUT,PATCH,POST,DELETE"}})
 
 # add the admin
-setup_admin(app)
+#setup_admin(app)
 
 # add the admin
 setup_commands(app)

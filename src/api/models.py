@@ -12,6 +12,10 @@ from os import remove
 
 from datetime import datetime, timedelta
 
+app_path= os.getcwd()
+str_delete="src"
+app_path= app_path.replace(str_delete, "")
+
 API_KEY = os.getenv("MAILJET_KEY")
 SECRET_MAIL = os.getenv("MAILJET_SECRET")
 mailjet = Client(auth=(API_KEY, SECRET_MAIL), version='v3.1')
@@ -127,8 +131,8 @@ class Users(db.Model):
     def foto_by_id(self, pid, foto):
         user = self.query.get(pid)
         if user:
-            if os.path.isfile("public/"+str(user.foto)):
-                remove("public/"+user.foto)
+            if os.path.isfile(app_path+"public/"+str(user.foto)):
+                remove(app_path+"public/"+user.foto)
             user.foto = foto
             db.session.commit()
             return "Foto cambiada con exito"
@@ -276,8 +280,8 @@ class Actividades(db.Model):
     def foto_by_id(self, pid, foto):
         user = self.query.get(pid)
         if user:
-            if os.path.isfile("public/"+user.foto):
-                remove("public/"+user.foto)
+            if os.path.isfile(app_path+"public/"+user.foto):
+                remove(app_path+"public/"+user.foto)
             user.foto = foto
             db.session.commit()
             return "Foto cambiada con exito"
@@ -383,7 +387,7 @@ class Actividades(db.Model):
                     act.activo = 0
                     db.session.commit()
             else:  # si la fecha es anterior a la actual
-                print("si la fecha es anterior a la actual")
+                #print("si la fecha es anterior a la actual")
                 act.activo = 0
                 db.session.commit()
 

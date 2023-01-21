@@ -17,6 +17,9 @@ import uuid
 
 api = Blueprint('api', __name__)
 
+app_path= os.getcwd()
+str_delete="src"
+app_path= app_path.replace(str_delete, "")
 
 @api.route('/usuarios_index', methods=['POST', 'GET'])
 def handle_usu_index():
@@ -76,7 +79,8 @@ def handle_foto(usuario_id):
     if request.method == 'POST':
         f = request.files['archivo']
         renom = uuid.uuid4()
-        archivo= "public/imgs/users/"+str(usuario_id)+"_"+str(renom)
+        print(app_path)
+        archivo=  app_path+"public/imgs/users/"+str(usuario_id)+"_"+str(renom)
         f.save(os.path.join(archivo))
         img_bbdd="imgs/users/"+str(usuario_id)+"_"+str(renom)
         foto_user = Users.foto_by_id(usuario_id, img_bbdd)
@@ -166,7 +170,7 @@ def new_act(guia_id):
         if request.files:
             f = request.files['archivo']
             renom = uuid.uuid4()
-            archivo= "public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
+            archivo= app_path+"public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
             f.save(os.path.join(archivo))
             img_bbdd="imgs/actividades/"+str(guia_id)+"_"+str(renom)
         else:
@@ -202,7 +206,7 @@ def act_foto(act_id, guia_id):
     if request.method == 'POST':
         f = request.files['ftAct']
         renom = uuid.uuid4()
-        archivo= "public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
+        archivo=  app_path+"public/imgs/actividades/"+str(guia_id)+"_"+str(renom)
         f.save(os.path.join(archivo))
         img_bbdd="imgs/actividades/"+str(guia_id)+"_"+str(renom)
         foto_act = Actividades.foto_by_id(act_id, img_bbdd)
