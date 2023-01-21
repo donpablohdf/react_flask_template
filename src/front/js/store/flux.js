@@ -40,9 +40,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           await fetch(
             "https://api.hunter.io/v2/email-verifier?email=" +
-              email +
-              "&api_key=" +
-              process.env.HUNTER_KEY,
+            email +
+            "&api_key=" +
+            process.env.HUNTER_KEY,
             requestOptions
           )
             .then((response) => response.text())
@@ -68,6 +68,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         })
           .then((resp) => resp.json())
           .then((data) => {
+            //console.table(resp)
             if (data.token && url === "/api/login") {
               localStorage.setItem("jwt-token", data.token);
               localStorage.setItem("userid", data.userid);
@@ -82,6 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             if (data.error) {
               setStore({ message: data.error });
             }
+
             return data;
           })
           .catch((error) => {

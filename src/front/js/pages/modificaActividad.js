@@ -18,6 +18,7 @@ import "../../styles/modificaActividad.css";
 import fondo5 from "../../img/fondo5.jpg"
 
 export const ModificaActividad = () => {
+  // En la página web correspondiente:
   const params = useParams();
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("jwt-token");
@@ -100,13 +101,19 @@ export const ModificaActividad = () => {
     const method = "POST";
     const head = {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
+      "Authorization": "Bearer " + token,
+      'Access-Control-Allow-Origin': '*'
     };
-    //console.log(data)
-    login = actions.solicitudesAPI(url, method, head, data);
-    if (login) {
-      window.location.href = "/guia/" + userid;
+
+    try {
+      actions.solicitudesAPI(url, method, head, data).then(() => {
+        window.location.href = "/guia/" + userid;
+      })
+        .catch((error) => console.log("error", error));
+    } catch (error2) {
+      console.log("error2", error2)
     }
+
   };
   if (isLoading) {
     return (

@@ -29,20 +29,19 @@ export const Login = () => {
     formState: { errors },
   } = useForm(); // declaracion para react-hook-form
 
-  let login = false;
+
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    if (!isCaptcha) {
+    /*if (!isCaptcha) {
       setIsEmail("Debe verificar si es humano");
       return false;
-    }
+    }*/
     const url = "/api/login";
     const method = "POST";
     const head = { "Content-Type": "application/json" };
     //console.log(email, password)
     actions
-      .solicitudesAPI(url, method, head, data)
-      .then((el) => console.log("El resultado es;", el));
+      .solicitudesAPI(url, method, head, data).catch((error) => console.log("error", error));
   };
 
   return (
@@ -63,7 +62,7 @@ export const Login = () => {
             <HCaptcha
               sitekey={process.env.HCAPTCHA}
               onVerify={onVerify}
-              
+
             />
           </div>
           <div className="login_email mb-4">
@@ -101,9 +100,9 @@ export const Login = () => {
             )}
           </div>
           <button className="login_button" type="submit">
-              Login
+            Login
           </button>
-          
+
         </form>
       </div>
       <div className="login_email">{store.message}</div>

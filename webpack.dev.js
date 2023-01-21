@@ -5,7 +5,7 @@ const common = require('./webpack.common.js');
 // const ErrorOverlayPlugin = require('error-overlay-webpack-plugin');
 
 const port = 3000;
-let publicUrl = `ws://localhost:${port}/ws`;
+let publicUrl = `ws://yogaconmuhan.es:${port}/ws`;
 if (process.env.GITPOD_WORKSPACE_URL) {
   const [schema, host] = process.env.GITPOD_WORKSPACE_URL.split('://');
   publicUrl = `wss://${port}-${host}/ws`;
