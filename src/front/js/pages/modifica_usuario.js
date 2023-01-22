@@ -56,28 +56,39 @@ export const ModificaUsuario = () => {
       } else {
         e.preventDefault();
         const url = "/api/modifica_user/" + userid;
-        const method = "POST";        
-        const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+token };
+        const method = "POST";
+        const head = { "Content-Type": "application/json", 'Authorization': 'Bearer ' + token, 'Access-Control-Allow-Origin': '*' };
 
         //console.log(data)
-        login = await actions.solicitudesAPI(url, method, head, data);
+        login = actions.solicitudesAPI(url, method, head, data);
         if (store.message) {
           setIsEmail("Email no válido");
           store.message = null;
         } else {
-          
-            window.location.href = "/userhome";
-          
+          try {
+            actions.solicitudesAPI(url, method, head, data).then(() => {
+              window.location.href = "/userhome";
+            })
+              .catch((error) => console.log("error", error));
+          } catch (error2) {
+            console.log("error2", error2)
+          }
+
+
         }
       }
     } else {
       e.preventDefault();
       const url = "/api/modifica_user/" + userid;
       const method = "POST";
-      const head = { "Content-Type": "application/json", 'Authorization': 'Bearer '+ token };
-      login = actions.solicitudesAPI(url, method, head, data);
-      if (login) {
-        window.location.href = "/userhome";
+      const head = { "Content-Type": "application/json", 'Authorization': 'Bearer ' + token };
+      try {
+        actions.solicitudesAPI(url, method, head, data).then(() => {
+          window.location.href = "/userhome";
+        })
+          .catch((error) => console.log("error", error));
+      } catch (error2) {
+        console.log("error2", error2)
       }
     }
   };
