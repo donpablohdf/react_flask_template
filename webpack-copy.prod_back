@@ -1,0 +1,98 @@
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+
+module.exports = {
+    entry: {
+        main: './src/front/js/index.js'
+    },
+    output: {
+        filename: '[name].[hash].js',
+        path: path.resolve(__dirname, 'public'),
+        publicPath: '/'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
+            },
+            {
+                test: /\.(css|scss)$/, use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    'sass-loader'
+                ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif|jpeg|webp)$/, use: {
+                    loader: 'file-loader',
+                    options: { name: '[name].[hash].[ext]' }
+                }
+            },
+            {
+                test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/, use: [{
+                    loader: 'file-loader',
+                    options: { name: '[name].[hash].[ext]' }
+                }]
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['*', '.js']
+    },
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    compress: {
+                        drop_console: true,
+                    },
+                },
+            }),
+            new CssMinimizerPlugin()
+        ],
+        splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name(module) {
+                        const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+                        return `npm.${packageName.replace('@', '')}`;
+                    },
+                },
+            },
+        },
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            favicon: '4geeks.ico',
+            template: 'template.html',
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                useShortDoctype: true
+            }
+        }),
+        new Dotenv({ safe: true, systemvars: true }),
+        new MiniCssExtractPlugin({
+            filename: "[name].[hash].css",
+        }),
+        //new webpack.optimize.OccurrenceOrderPlugin(),
+    ],
+    devServer: {
+        contentBase: './public',
+        historyApiFallback: true,
+    },
+};

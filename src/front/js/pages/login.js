@@ -30,19 +30,22 @@ export const Login = () => {
   } = useForm(); // declaracion para react-hook-form
 
 
-  const onSubmit = async (data, e) => {
-    e.preventDefault();
-    /*if (!isCaptcha) {
+  const onSubmit = async (data) => {
+    if (!isCaptcha) {
       setIsEmail("Debe verificar si es humano");
       return false;
-    }*/
-    const url = "/api/login";
-    const method = "POST";
-    const head = { "Content-Type": "application/json" };
-    //console.log(email, password)
-    actions
-      .solicitudesAPI(url, method, head, data).catch((error) => console.log("error", error));
+    }
+    
+    try {
+      const url = "/api/login";
+      const method = "POST";
+      const head = { "Content-Type": "application/json" };
+      await actions.solicitudesAPI(url, method, head, data);
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
+  
 
   return (
     <div className="login-body" style={{ backgroundImage: `url(${fondo2})` }}>

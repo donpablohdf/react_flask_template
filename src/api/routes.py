@@ -3,6 +3,8 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from __future__ import print_function
 import os
+from dotenv import load_dotenv
+
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, Users, Actividades, Reservas, Comentarios
 import jwt
@@ -10,13 +12,31 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import uuid
-
+import openai
+load_dotenv()
+openai.api_key = os.getenv("CHAT_GPT")
 
 api = Blueprint("api", __name__)
 
 app_path = os.getcwd()  # find path
 str_delete = "src"
 app_path = app_path.replace(str_delete, "")
+
+
+@api.route("/chatgpt", methods=["POST", "GET"])
+def handle_chatgpt():
+
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt="Ruta del Cares en León, España",
+        temperature=0.9,
+        max_tokens=120,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0.6,
+        stop=[" AI:"]
+    )
+    return response, 200
 
 
 @api.route("/usuarios_index", methods=["POST", "GET"])
@@ -77,7 +97,8 @@ def handle_foto(usuario_id):
     if request.method == "POST":
         f = request.files["archivo"]
         renom = uuid.uuid4()
-        archivo = app_path + "public/imgs/users/" + str(usuario_id) + "_" + str(renom)
+        archivo = app_path + "public/imgs/users/" + \
+            str(usuario_id) + "_" + str(renom)
         f.save(os.path.join(archivo))
         img_bbdd = "imgs/users/" + str(usuario_id) + "_" + str(renom)
         foto_user = Users.foto_by_id(usuario_id, img_bbdd)
@@ -177,7 +198,8 @@ def new_act(guia_id):
             f = request.files["archivo"]
             renom = uuid.uuid4()
             archivo = (
-                app_path + "public/imgs/actividades/" + str(guia_id) + "_" + str(renom)
+                app_path + "public/imgs/actividades/" +
+                str(guia_id) + "_" + str(renom)
             )
             f.save(os.path.join(archivo))
             img_bbdd = "imgs/actividades/" + str(guia_id) + "_" + str(renom)
@@ -203,7 +225,7 @@ def new_act(guia_id):
 @api.route("/modifica_act/<int:act_id>", methods=["POST", "GET"])
 @jwt_required()
 def act_mod(act_id):
-    data = request.get_json()   
+    data = request.get_json()
     mod_act = Actividades.modifica_by_id(act_id, data)
     return jsonify(mod_act), 200
 
@@ -215,7 +237,8 @@ def act_foto(act_id, guia_id):
         f = request.files["ftAct"]
         renom = uuid.uuid4()
         archivo = (
-            app_path + "public/imgs/actividades/" + str(guia_id) + "_" + str(renom)
+            app_path + "public/imgs/actividades/" +
+            str(guia_id) + "_" + str(renom)
         )
         f.save(os.path.join(archivo))
         img_bbdd = "imgs/actividades/" + str(guia_id) + "_" + str(renom)

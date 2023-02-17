@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import __future__
 from mailjet_rest import Client
 import os
@@ -9,9 +10,9 @@ import secrets
 import string
 from os import remove
 from flask import flash
+from dotenv import load_dotenv
+load_dotenv()
 
-
-from datetime import datetime, timedelta
 
 app_path = os.getcwd()  # find path
 str_delete = "src"
@@ -39,7 +40,8 @@ class Users(db.Model):
     apellidos = db.Column(db.String(120), unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=True)
     foto = db.Column(db.String(120), unique=False, nullable=True)
-    activo = db.Column(db.Integer, unique=False, nullable=True)  # 0 inactivo 1 activo
+    activo = db.Column(db.Integer, unique=False,
+                       nullable=True)  # 0 inactivo 1 activo
 
     def __repr__(self):
         return f"<Users {self.email}>"
@@ -186,7 +188,8 @@ class Users(db.Model):
         comp_email = self.query.filter_by(email=user["email"]).first()
         if comp_email:
             return 1
-        hashed_password = generate_password_hash(str(user["password"]), method="SHA256")
+        hashed_password = generate_password_hash(
+            str(user["password"]), method="SHA256")
         new_user = Users(
             email=user["email"], password=hashed_password, tipo=0, activo=1
         )
@@ -216,7 +219,8 @@ class Actividades(db.Model):
     ciudad = db.Column(db.String(120), unique=False, nullable=False)
     calificacion = db.Column(db.Integer, unique=False, nullable=True)
     foto = db.Column(db.String(120), unique=False, nullable=True)
-    activo = db.Column(db.Integer, unique=False, nullable=True)  # 0 inactivo 1 activo
+    activo = db.Column(db.Integer, unique=False,
+                       nullable=True)  # 0 inactivo 1 activo
     rels = relationship(Users)
 
     def __repr__(self):
@@ -359,7 +363,8 @@ class Actividades(db.Model):
                     # print("existe ids_usuarios") #ok
                     lista_ids_usuarios = act.ids_usuarios.split(sep=",")
                     # print(lista_ids_usuarios)
-                    reserva = Reservas.query.filter_by(id_actividad=pid, estado=0)
+                    reserva = Reservas.query.filter_by(
+                        id_actividad=pid, estado=0)
                     for i in reserva:  # cancelar reservas
                         i.estado = 2
                         db.session.commit()
@@ -375,7 +380,8 @@ class Actividades(db.Model):
                             str(reserva_cancelada.fecha_realizacion),
                             "%Y-%m-%d %H:%M:%S",
                         )
-                        fecha_str = datetime.strftime(fecha_c, "%d-%m-%Y a las %H:%M")
+                        fecha_str = datetime.strftime(
+                            fecha_c, "%d-%m-%Y a las %H:%M")
                         txt_mail = (
                             "Hola, tu reserva "
                             + reserva_cancelada.num_reserva
@@ -630,7 +636,8 @@ class Comentarios(db.Model):
         db.Integer, ForeignKey("users.id"), unique=False, nullable=False
     )
     texto = db.Column(db.Text, unique=True, nullable=False)
-    activo = db.Column(db.Integer, unique=False, nullable=True)  # 0 inactivo 1 activo
+    activo = db.Column(db.Integer, unique=False,
+                       nullable=True)  # 0 inactivo 1 activo
     rels = relationship(Actividades)
     rel2 = relationship(Users)
 

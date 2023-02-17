@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 
 import { Context } from "../store/appContext";
 import { useForm } from "react-hook-form"; // permite el manejo de formularios https://www.npmjs.com/package/react-hook-form
@@ -14,7 +13,6 @@ export const ModificaUsuario = () => {
   const [listaUsuarios, setListaUsuarios] = useState([]);
   const [esGuia, setEsGuia] = useState(false);
   const [isEmail, setIsEmail] = useState();
-  const [isEmail2, setIsEmail2] = useState();
 
   const { actions, store } = useContext(Context);
   const {
@@ -29,26 +27,18 @@ export const ModificaUsuario = () => {
     if (token) {
       actions.logIn();
     }
-    const promesa = () => {
-      return new Promise((resolve, reject) => {
-        resolve(actions.dataFromAPI("/api/usuario/" + userid));
-      });
-    };
-    promesa().then((datos) => {
+    actions.dataFromAPI("/api/usuario/" + userid).then((datos) => {
       setListaUsuarios(datos);
       setIsLoading(false);
-
-      //console.log(datos)
     });
   }, []);
 
-  let login = false;
   const onSubmit = async (data, e) => {
     if (data.email !== listaUsuarios.email) {
-      const valido = await actions.verifyEmail(data.email);
-
+      const verifica = await actions.verifyEmail(data.email);
+      console.log("ver_email", store.verifica)
       var obj = store.verifica;
-      var key = "errors";
+      var key = "error";
       var hasKey = key in obj;
       if (hasKey) {
         setIsEmail("Email no válido");
@@ -58,9 +48,8 @@ export const ModificaUsuario = () => {
         const url = "/api/modifica_user/" + userid;
         const method = "POST";
         const head = { "Content-Type": "application/json", 'Authorization': 'Bearer ' + token, 'Access-Control-Allow-Origin': '*' };
+        //console.log("nuevo email", data)
 
-        //console.log(data)
-        login = actions.solicitudesAPI(url, method, head, data);
         if (store.message) {
           setIsEmail("Email no válido");
           store.message = null;
@@ -79,9 +68,11 @@ export const ModificaUsuario = () => {
       }
     } else {
       e.preventDefault();
+      //console.log("sin email", data)
+
       const url = "/api/modifica_user/" + userid;
       const method = "POST";
-      const head = { "Content-Type": "application/json", 'Authorization': 'Bearer ' + token };
+      const head = { "Content-Type": "application/json", 'Authorization': 'Bearer ' + token, 'Access-Control-Allow-Origin': '*' };
       try {
         actions.solicitudesAPI(url, method, head, data).then(() => {
           window.location.href = "/userhome";

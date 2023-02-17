@@ -47,7 +47,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           )
             .then((response) => response.text())
             .then((result) => {
-              setStore({ verifica: JSON.parse(result) });
+
+              setStore({
+                verifica: JSON.parse(result)
+              });
             })
             .catch((error) => console.log("error", error));
         } catch (error) {

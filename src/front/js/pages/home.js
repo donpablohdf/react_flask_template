@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link, useParams } from "react-router-dom";
-import reactDom from "react-dom";
+import { Link } from "react-router-dom";
+import { ThreeDots } from "react-loader-spinner";
+
 
 import montania from "../../img/slider1.jpg";
 import bosque from "../../img/slider2.jpg";
@@ -11,10 +12,10 @@ import fondoactividades from "../../img/fondociudad.jpg";
 
 import guia1 from "../../img/guia1.png";
 
+import axios from "axios";
 
 import "../../styles/home.css";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaQuoteLeft } from "react-icons/fa";
+
 
 export const Home = () => {
   const { actions } = useContext(Context);
@@ -26,6 +27,21 @@ export const Home = () => {
   const [listaUsuarios, setListaUsuarios] = useState([]);
 
   const [listaTareas, setListaTareas] = useState([]);
+
+  const generateText = async () => {
+    const API_URL_GPT = "/api/chatgpt";
+    try {
+
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      const response = await actions.dataFromAPI(API_URL_GPT);
+      console.log(response["choices"][0].text);
+    } catch (err) {
+      console.error(err);
+    }
+  }
   const parseFecha = (datos) => {
     let options = {
       weekday: "long",
@@ -43,36 +59,38 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (token) {
-      actions.logIn();
-    }
-    const promesaGuias = () => {
-      return new Promise((resolve, reject) => {
-        resolve(actions.dataFromAPI("/api/usuarios_index"));
-      });
+    const fetchData = async () => {
+      try {
+        if (token) {
+          await actions.logIn();
+        }
+        const usuarios = await actions.dataFromAPI("/api/usuarios_index");
+        setListaUsuarios(usuarios);
+        setIsLoading(false);
+  
+        const tareas = await actions.dataFromAPI("/api/actividades_index");
+        setListaTareas(tareas);
+        setIsLoading2(false);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    promesaGuias().then((datos) => {
-      setListaUsuarios(datos);
-      setIsLoading(false);
-    });
-
-    const promesaActividades = () => {
-      return new Promise((resolve, reject) => {
-        resolve(actions.dataFromAPI("/api/actividades_index"));
-      });
-    };
-    promesaActividades().then((datos) => {
-      setListaTareas(datos);
-
-      setIsLoading2(false);
-    });
+  
+    fetchData();
+    generateText();
   }, []);
 
   if (isLoading || isLoading2) {
     return (
-      <div className="tbody">
-        <h1>Cargando...</h1>
-      </div>
+      <div className="App">
+      <ThreeDots
+        type="ThreeDots"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000} //3 secs
+      />
+    </div>
     );
   }
   return (
